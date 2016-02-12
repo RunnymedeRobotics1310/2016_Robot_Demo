@@ -17,7 +17,7 @@ import robot.commands.JoystickCommand;
 
 public class ChassisSubsystem extends R_Subsystem {
 
-	Talon leftMotor = new R_Talon(RobotMap.MotorMap.LEFT_MOTOR);
+	Talon leftMotor  = new R_Talon(RobotMap.MotorMap.LEFT_MOTOR);
 	Talon rightMotor = new R_Talon(RobotMap.MotorMap.RIGHT_MOTOR);
 	DigitalInput leftProximitySensor = new DigitalInput(RobotMap.SensorMap.LEFT_PROXIMITY_SENSOR.port);
 	DigitalInput centerProximitySensor = new DigitalInput(RobotMap.SensorMap.CENTER_PROXIMITY_SENSOR.port);
@@ -32,14 +32,16 @@ public class ChassisSubsystem extends R_Subsystem {
 	R_PIDInput leftPIDInput = new R_PIDInput() {
 		@Override
 		public double pidGet() {
-			return leftEncoder.getRate() / RobotMap.EncoderMap.LEFT.maxRate;
+			return (RobotMap.EncoderMap.LEFT.inverted ? -1.0 : 1.0) *
+					leftEncoder.getRate() / RobotMap.EncoderMap.LEFT.maxRate;
 		}
 	};
 
 	R_PIDInput rightPIDInput = new R_PIDInput() {
 		@Override
 		public double pidGet() {
-			return -rightEncoder.getRate() / RobotMap.EncoderMap.RIGHT.maxRate;
+			return (RobotMap.EncoderMap.RIGHT.inverted ? -1.0 : 1.0) *
+					rightEncoder.getRate() / RobotMap.EncoderMap.RIGHT.maxRate;
 		}
 	};
 
@@ -53,6 +55,7 @@ public class ChassisSubsystem extends R_Subsystem {
 	R_Gyro gyro = new R_Gyro(RobotMap.SensorMap.GYRO.port);
 
 	public void init() {
+		
 		pidControllers.add(leftMotorPID);
 		pidControllers.add(rightMotorPID);
 
@@ -66,10 +69,8 @@ public class ChassisSubsystem extends R_Subsystem {
 	}
 
 	public void setSpeed(double leftSpeed, double rightSpeed) {
-		SmartDashboard.putNumber("LeftMotorSpeed", leftSpeed);
-		SmartDashboard.putNumber("RightMotorSpeed", rightSpeed);
-
-		leftMotorPID.setSetpoint(leftSpeed);
+		
+		leftMotorPID .setSetpoint(leftSpeed);
 		rightMotorPID.setSetpoint(rightSpeed);
 
 		if (!leftMotorPID.isEnabled()) {

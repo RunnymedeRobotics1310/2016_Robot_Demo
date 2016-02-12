@@ -34,8 +34,8 @@ public class ChassisSubsystem extends R_Subsystem {
 			new DoubleSolenoid(RobotMap.Pneumatics.BALLSHIFTER_HIGH.pcmPort, 
 					           RobotMap.Pneumatics.BALLSHIFTER_LOW .pcmPort);
 	
-	enum Gear { LOW, HIGH };
-	Gear gear = Gear.LOW;
+	public  enum Gear { LOW, HIGH };
+	private Gear gear = Gear.LOW;
 	
 	/*
 	 * Motor PID Controllers
@@ -116,8 +116,19 @@ public class ChassisSubsystem extends R_Subsystem {
 		for (R_PIDController pid : pidControllers) {
 			pid.calculate();
 		}
+		
+		periodicSetShifter();
 	}
 
+	private void periodicSetShifter() {
+
+		// Determine if the user has selected high gear and then 
+		// shift appropriately.
+		// The gear cannot shift to high unless the robot has enough
+		// speed in the selected direction.
+		// If
+
+	}
 	/**
 	 * Gets the approximate distance using encoder counts by averaging the two
 	 * encoder distances.

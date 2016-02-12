@@ -11,7 +11,6 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import robot.commands.GoStraightPID;
 import robot.oi.OI;
 import robot.subsystems.ChassisSubsystem;
-import robot.subsystems.ServoSubsystem;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -24,7 +23,6 @@ public class Robot extends IterativeRobot {
 
 	// Declare all subsystems and add them to the list of subsystems
 	public static final ChassisSubsystem chassisSubsystem = new ChassisSubsystem();
-	public static final ServoSubsystem servoSubsystem = new ServoSubsystem(); 
 	public static OI oi;
 
 	public static List<R_Subsystem> subsystemList = new ArrayList<R_Subsystem>();
@@ -73,7 +71,6 @@ public class Robot extends IterativeRobot {
 
         // Add all the subsystems to the subsystem list.
         subsystemList.add(chassisSubsystem);
-        subsystemList.add(servoSubsystem);
         
         for (R_Subsystem s: subsystemList) {
         	s.init();

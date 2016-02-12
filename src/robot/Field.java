@@ -48,11 +48,11 @@ public class Field {
 	public enum Slot { 
 		
 		//FIXME: APPROX VALUES USED, CHANGE BADLY.
-		ONE   (1, 10), 
-		TWO   (2, 60), 
-		THREE (3, 110), 
-		FOUR  (4, 160), 
-		FIVE  (5, 180); 
+		ONE   (1, 0), 
+		TWO   (2, 48), 
+		THREE (3, 96), 
+		FOUR  (4, 144), 
+		FIVE  (5, 192); 
 	
 		private final int intValue;
 		

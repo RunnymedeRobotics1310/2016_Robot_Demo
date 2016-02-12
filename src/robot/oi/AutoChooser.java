@@ -6,7 +6,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import robot.commands.auto.DriveToDistance;
 import robot.commands.auto.DriveToProximity;
 import robot.commands.auto.DriveToUltraDistance;
-import robot.commands.auto.TestAutoCommandGroup;
 
 public class AutoChooser {
 
@@ -21,34 +20,33 @@ public class AutoChooser {
 		autoModeChooser.addObject("Drive To Distance Negative", new DriveToDistance(0.5, 0.0, -180.0));
 		autoModeChooser.addObject("Drive To Ultrasound", new DriveToUltraDistance(0.5, 0.0, 90));
 		autoModeChooser.addObject("Drive To Proximity", new DriveToProximity(0.5, 0.0));
-		autoModeChooser.addObject("Test Auto", new TestAutoCommandGroup());
 
-		laneChooser.addObject("1", new Integer(1));
-		laneChooser.addObject("2", new Integer(2));
-		laneChooser.addObject("3", new Integer(3));
-		laneChooser.addObject("4", new Integer(4));
-		laneChooser.addObject("5", new Integer(5));
+		laneChooser.addObject("1", 1);
+		laneChooser.addObject("2", 2);
+		laneChooser.addObject("3", 3);
+		laneChooser.addObject("4", 4);
+		laneChooser.addObject("5", 5);
 
-		defenceChooser.addObject("Low Bar", new String("Low Bar"));
-		defenceChooser.addObject("Ramparts", new String("Ramparts"));
-		defenceChooser.addObject("Moat", new String("Moat"));
-		defenceChooser.addObject("Rock Wall", new String("Rock Wall"));
-		defenceChooser.addObject("Rough Terrain", new String("Rough Terrain"));
-		defenceChooser.addObject("Portcullis", new String("Portcullis"));
-		defenceChooser.addObject("Cheval de Frise", new String("Cheval de Frise"));
+		defenceChooser.addObject("Low Bar",         "Low Bar");
+		defenceChooser.addObject("Ramparts",        "Ramparts");
+		defenceChooser.addObject("Moat",            "Moat");
+		defenceChooser.addObject("Rock Wall",       "Rock Wall");
+		defenceChooser.addObject("Rough Terrain",   "Rough Terrain");
+		defenceChooser.addObject("Portcullis",      "Portcullis");
+		defenceChooser.addObject("Cheval de Frise", "Cheval de Frise");
 
-		distanceChooser.addObject("Close", new String("Close"));
-		distanceChooser.addObject("Far", new String("Far"));
+		distanceChooser.addObject("Close", "Close");
+		distanceChooser.addObject("Far",   "Far");
 
-		goalChooser.addObject("Left", new String("Left"));
-		goalChooser.addObject("Center", new String("Center"));
-		goalChooser.addObject("Right", new String("Right"));
+		goalChooser.addObject("Left",   "Left");
+		goalChooser.addObject("Center", "Center");
+		goalChooser.addObject("Right",  "Right");
 
-		SmartDashboard.putData("Auto mode", autoModeChooser);
+		SmartDashboard.putData("Auto mode",     autoModeChooser);
 		SmartDashboard.putData("Slot position", laneChooser);
-		SmartDashboard.putData("Defences", defenceChooser);
-		SmartDashboard.putData("Distance", distanceChooser);
-		SmartDashboard.putData("Goal", goalChooser);
+		SmartDashboard.putData("Defences",      defenceChooser);
+		SmartDashboard.putData("Distance",      distanceChooser);
+		SmartDashboard.putData("Goal",          goalChooser);
 	}
 
 	/**

@@ -9,10 +9,10 @@ public class RobotMap {
     private final static boolean inverted = true;
 
     public enum MotorMap {
-        LEFT_MOTOR (0, !RobotMap.inverted),
-        RIGHT_MOTOR(1,  RobotMap.inverted),
-        INTAKE_MOTOR(2, !RobotMap.inverted),
-        SHOOTER_MOTOR(3, !RobotMap.inverted),
+        LEFT_MOTOR      (0, !RobotMap.inverted),
+        RIGHT_MOTOR     (1,  RobotMap.inverted),
+        INTAKE_MOTOR    (2,  RobotMap.inverted),
+        SHOOTER_MOTOR   (3,  RobotMap.inverted),
         ARM_DEPLOY_MOTOR(4, !RobotMap.inverted),
         ARM_INTAKE_MOTOR(5, !RobotMap.inverted);
 
@@ -32,7 +32,7 @@ public class RobotMap {
     	ANGLE_ENCODER             (2),
     	
     	// Digital Ports
-    	SHOOTER__SPEED_ENCODER           (6),
+    	SHOOTER__SPEED_ENCODER    (6),
     	LEFT_PROXIMITY_SENSOR     (7),
     	RIGHT_PROXIMITY_SENSOR    (8),
     	UPPER_PROXIMITY_SENSOR    (9),
@@ -71,10 +71,10 @@ public class RobotMap {
     }
     
     public enum Pneumatics{
-    	BALLSHIFTER_LOW(0),
-    	BALLSHIFTER_HIGH(1),
-    	SHOOTER_RAIL_DOWN(2),
-    	SHOOTER_RAIL_UP(3);
+    	BALLSHIFTER_LOW   (0),
+    	BALLSHIFTER_HIGH  (1),
+    	SHOOTER_RAIL_DOWN (2),
+    	SHOOTER_RAIL_UP   (3);
     	
        	//Pneumatics control module port
     	public final int pcmPort;

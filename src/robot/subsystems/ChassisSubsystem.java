@@ -3,6 +3,7 @@ package robot.subsystems;
 import java.util.ArrayList;
 
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -19,13 +20,23 @@ public class ChassisSubsystem extends R_Subsystem {
 
 	Talon leftMotor  = new R_Talon(RobotMap.MotorMap.LEFT_MOTOR);
 	Talon rightMotor = new R_Talon(RobotMap.MotorMap.RIGHT_MOTOR);
-	DigitalInput leftProximitySensor = new DigitalInput(RobotMap.SensorMap.LEFT_PROXIMITY_SENSOR.port);
+	
+	DigitalInput leftProximitySensor   = new DigitalInput(RobotMap.SensorMap.LEFT_PROXIMITY_SENSOR.port);
 	DigitalInput centerProximitySensor = new DigitalInput(RobotMap.SensorMap.UPPER_PROXIMITY_SENSOR.port);
-	DigitalInput rightProximitySensor = new DigitalInput(RobotMap.SensorMap.RIGHT_PROXIMITY_SENSOR.port);
-	Encoder leftEncoder = new Encoder(RobotMap.EncoderMap.LEFT.ch1, RobotMap.EncoderMap.LEFT.ch2);
+	DigitalInput rightProximitySensor  = new DigitalInput(RobotMap.SensorMap.RIGHT_PROXIMITY_SENSOR.port);
+	
+	Encoder leftEncoder  = new Encoder(RobotMap.EncoderMap.LEFT.ch1, RobotMap.EncoderMap.LEFT.ch2);
 	Encoder rightEncoder = new Encoder(RobotMap.EncoderMap.RIGHT.ch1, RobotMap.EncoderMap.RIGHT.ch2);
+	
 	R_Ultrasonic ultrasonicSensor = new R_Ultrasonic(RobotMap.SensorMap.ULTRASONIC.port);
 
+	DoubleSolenoid ballShifter = 
+			new DoubleSolenoid(RobotMap.Pneumatics.BALLSHIFTER_HIGH.pcmPort, 
+					           RobotMap.Pneumatics.BALLSHIFTER_LOW .pcmPort);
+	
+	enum Gear { LOW, HIGH };
+	Gear gear = Gear.LOW;
+	
 	/*
 	 * Motor PID Controllers
 	 */
@@ -118,6 +129,10 @@ public class ChassisSubsystem extends R_Subsystem {
 				/ RobotMap.EncoderMap.LEFT.countsPerInch;
 	}
 
+	public void setGear(Gear gear) {
+		this.gear = gear;
+	}
+	
 	/**
 	 * Resets the encoder distance.
 	 */
@@ -149,5 +164,6 @@ public class ChassisSubsystem extends R_Subsystem {
 		SmartDashboard.putNumber("Gyro Angle", gyro.getAngle());
 		SmartDashboard.putNumber("Ultrasonic Sensor Distance", ultrasonicSensor.getDistance());
 		SmartDashboard.putNumber("Raw ultrasonic sensor voltage", ultrasonicSensor.getVoltage());
+		SmartDashboard.putString("Tranmission", gear.name());
 	}
 }

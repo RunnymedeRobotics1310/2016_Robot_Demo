@@ -3,6 +3,7 @@ package robot;
 import edu.wpi.first.wpilibj.AnalogGyro;
 
 public class R_Gyro extends AnalogGyro {
+	
 	public R_Gyro(int port) {
 		super(port);
 	}

@@ -21,9 +21,6 @@ public class R_GameControllerFactory {
 		 */
 		case "Controller (Gamepad F310)":
 			return new R_F310_GameController(newStick);
-		// Every XInput gamepad has a button layout similar to that of the Xbox
-		// 360's, including the Xbox One Controller, so by default assume that
-		// every gamepad/joystick is an Xbox gamepad
 		default:
 			return new R_F310_GameController(newStick);
 		}

@@ -47,6 +47,8 @@ public class AutoCommandGroup extends CommandGroup {
 		// Rotate to 90 degrees, because that's what we always do.
 		addSequential(new RotateToAngle(90, waitTime));
 
+		// If the ultasonic distance is not within threshold then 
+		// wait until the path is clear and then continue.
 		addSequential(new WaitUntilPathClear(waitTime, slot));
 
 		switch (goal) {
@@ -80,20 +82,19 @@ public class AutoCommandGroup extends CommandGroup {
 		switch (goal) {
 		case LEFT:
 			addSequential(new RotateToAngle(rampAngle, waitTime));
+			addSequential(new DriveToProximity(speed, rampAngle));
 			break;
 		case CENTER:
 			// do nothing.
 			break;
 		case RIGHT:
 			addSequential(new RotateToAngle(360 - rampAngle, waitTime));
+			addSequential(new DriveToProximity(speed, 360 - rampAngle));
 			break;
 		default:
-			addSequential(new DriveToUltraDistance(speed, 90, Slot.TWO.getDistanceToLeftWall()));
 			break;
 
 		}
-
-		// TODO: Add more stuff.
 
 	}
 }

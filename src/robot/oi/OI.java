@@ -1,7 +1,6 @@
 package robot.oi;
 
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import robot.Field.Defense;
 import robot.Field.Goal;
 import robot.Field.Lane;
@@ -10,6 +9,7 @@ import robot.R_GameController;
 import robot.R_GameController.Axis;
 import robot.R_GameController.Button;
 import robot.R_GameController.Stick;
+import robot.R_GameController.Trigger;
 import robot.R_GameControllerFactory;
 import robot.commands.auto.AutoCommandGroup;
 
@@ -62,6 +62,10 @@ public class OI {
 	public boolean getGyroReset() {
 		return driverStick.getButton(Button.BACK);
 	}
+	
+	public boolean getTurbo(){
+		return driverStick.getButton(Trigger.LEFT) || driverStick.getButton(Trigger.RIGHT);
+	}
 
 	public Defense getDefense() {
 		return Defense.toEnum(autoChooser.getSelectedDefence());
@@ -95,6 +99,6 @@ public class OI {
 	 * Put any items on the dashboard
 	 */
 	public void updateDashboard() {
-		SmartDashboard.putString("Driver Controller", driverStick.toString());
+		
 	}
 }

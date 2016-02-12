@@ -20,7 +20,7 @@ public class ChassisSubsystem extends R_Subsystem {
 	Talon leftMotor  = new R_Talon(RobotMap.MotorMap.LEFT_MOTOR);
 	Talon rightMotor = new R_Talon(RobotMap.MotorMap.RIGHT_MOTOR);
 	DigitalInput leftProximitySensor = new DigitalInput(RobotMap.SensorMap.LEFT_PROXIMITY_SENSOR.port);
-	DigitalInput centerProximitySensor = new DigitalInput(RobotMap.SensorMap.CENTER_PROXIMITY_SENSOR.port);
+	DigitalInput centerProximitySensor = new DigitalInput(RobotMap.SensorMap.UPPER_PROXIMITY_SENSOR.port);
 	DigitalInput rightProximitySensor = new DigitalInput(RobotMap.SensorMap.RIGHT_PROXIMITY_SENSOR.port);
 	Encoder leftEncoder = new Encoder(RobotMap.EncoderMap.LEFT.ch1, RobotMap.EncoderMap.LEFT.ch2);
 	Encoder rightEncoder = new Encoder(RobotMap.EncoderMap.RIGHT.ch1, RobotMap.EncoderMap.RIGHT.ch2);

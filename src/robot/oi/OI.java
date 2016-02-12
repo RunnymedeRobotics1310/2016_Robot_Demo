@@ -1,7 +1,6 @@
 package robot.oi;
 
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import robot.Field.Defense;
 import robot.Field.Goal;
 import robot.Field.Lane;
@@ -95,6 +94,6 @@ public class OI {
 	 * Put any items on the dashboard
 	 */
 	public void updateDashboard() {
-		SmartDashboard.putString("Driver Controller", driverStick.toString());
+		
 	}
 }

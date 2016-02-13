@@ -7,7 +7,6 @@ import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
-import robot.commands.drive.GoStraightPID;
 import robot.oi.OI;
 import robot.subsystems.ChassisSubsystem;
 import robot.subsystems.ShooterSubsystem;

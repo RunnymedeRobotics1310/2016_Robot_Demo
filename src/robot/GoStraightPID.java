@@ -1,10 +1,7 @@
-package robot.commands.drive;
+package robot;
 
 import edu.wpi.first.wpilibj.PIDOutput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import robot.R_PIDController;
-import robot.R_PIDInput;
-import robot.Robot;
 
 public class GoStraightPID {
 

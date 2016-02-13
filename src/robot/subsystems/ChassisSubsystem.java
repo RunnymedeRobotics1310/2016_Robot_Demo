@@ -15,7 +15,7 @@ import robot.R_Subsystem;
 import robot.R_Talon;
 import robot.R_Ultrasonic;
 import robot.RobotMap;
-import robot.commands.drive.JoystickCommand;
+import robot.commands.drive.JoystickDriveCommand;
 
 public class ChassisSubsystem extends R_Subsystem {
 
@@ -77,7 +77,7 @@ public class ChassisSubsystem extends R_Subsystem {
 	}
 
 	public void initDefaultCommand() {
-		setDefaultCommand(new JoystickCommand());
+		setDefaultCommand(new JoystickDriveCommand());
 	}
 
 	public void setSpeed(double leftSpeed, double rightSpeed) {

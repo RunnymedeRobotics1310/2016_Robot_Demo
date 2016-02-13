@@ -9,9 +9,9 @@ import robot.subsystems.ChassisSubsystem.Gear;
 /**
  *
  */
-public class JoystickCommand extends Command {
+public class JoystickDriveCommand extends Command {
 
-	public JoystickCommand() {
+	public JoystickDriveCommand() {
 		requires(Robot.chassisSubsystem);
 	}
 

@@ -5,6 +5,10 @@ import robot.Field.Defense;
 import robot.Field.Goal;
 import robot.Field.Lane;
 import robot.Field.Slot;
+import robot.commands.auto.base.DriveToDistance;
+import robot.commands.auto.base.DriveToProximity;
+import robot.commands.auto.base.DriveToUltraDistance;
+import robot.commands.auto.base.WaitUntilPathClear;
 import robot.commands.drive.RotateToAngle;
 
 public class AutoCommandGroup extends CommandGroup {

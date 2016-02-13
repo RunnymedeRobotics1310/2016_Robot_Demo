@@ -47,7 +47,7 @@ public class ShooterSubsystem extends R_Subsystem {
 		this.ballRetracted = ballRetracted;
 	}
 	
-	public boolean isBallRetracted() {
+	public boolean isBoulderRetracted() {
 		return ballRetracted;
 	}
 	

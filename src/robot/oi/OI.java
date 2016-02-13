@@ -75,6 +75,22 @@ public class OI {
 		return Slot.toEnum(autoChooser.getSelectedSlot());
 	}
 
+	public boolean getIntakeStart() {
+		return driverStick.getButton(Button.RIGHT_BUMPER);
+	}
+
+	public boolean getShootHighGoal() {
+		return driverStick.getButton(Button.B);
+	}
+
+	public boolean cancelCommand() {
+		return driverStick.getButton(Button.X);
+	}
+
+	public boolean getShootLowGoal() {
+		return driverStick.getButton(Button.A);
+	}
+
 	public Lane getLane() {
 		return Lane.toEnum(autoChooser.getSelectedDistance());
 	}
@@ -87,14 +103,6 @@ public class OI {
 		return new AutoCommandGroup(getSlot(), getDefense(), getLane(), getGoal());
 	}
 	
-	public boolean getButton(Button button){
-		return driverStick.getButton(button);
-	}
-	
-	public double getTrigger(Trigger trigger){
-		return driverStick.getTrigger(trigger);
-	}
-
 	/**
 	 * Update the periodic running elements of the dashboard
 	 * <p>

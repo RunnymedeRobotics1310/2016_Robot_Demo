@@ -3,9 +3,9 @@ import edu.wpi.first.wpilibj.command.Command;
 import robot.Robot;
 import robot.subsystems.ShooterSubsystem.IntakeReverseSpeed;
 
-public class LowShotCommand extends Command {
+public class ShootLowGoalCommand extends Command {
 
-	public LowShotCommand() {
+	public ShootLowGoalCommand() {
 		this.setTimeout(2.0);
 	}
 

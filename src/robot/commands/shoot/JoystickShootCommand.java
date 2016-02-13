@@ -22,33 +22,50 @@ public class JoystickShootCommand extends Command {
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
+		
 		// Look for a button and start the intake. (do nothing if we already
 		// have a ball)
-		if (Robot.oi.getButton(Button.RIGHT_BUMPER)) {
+		if (Robot.oi.getIntakeStart()) {
 			// TODO Replace with command group
 			if (!Robot.shooterSubsystem.isBoulderLoaded()) {
 				Scheduler.getInstance().add(new PickupBoulderCommand());
+				return;
 				//and actuate arms
 			} else {
 				//just actuate arms
 			}
 		}
 		
-		// Look for a button for high shot (needs to have a ball loaded)
-		if (Robot.oi.getButton(Button.B) && Robot.shooterSubsystem.isBoulderLoaded()) {
-			if (Robot.shooterSubsystem.isBallRetracted()) {
-				//and if the motors are up to speed, then shoot
+		// Look for a button for high shot (needs to have a ball retracted and 
+		// the shooter must be up to speed.
+		if (Robot.oi.getShootHighGoal()) {
+			
+			if ( Robot.shooterSubsystem.isBoulderRetracted() ) {
 				
-				Robot.shooterSubsystem.setBallRetracted(false);
+				if ( Robot.shooterSubsystem.getShooterSpeed() > 100) {
+					
+					Scheduler.getInstance().add(new ShootHighGoalCommand());
+					Robot.shooterSubsystem.setBallRetracted(false);
+					return;
+
+				}
+			
 			} else {
+			
 				Scheduler.getInstance().add(new SetupHighShotCommand());
 				Robot.shooterSubsystem.setBallRetracted(true);
+				return;
+				
 			}
 		}
+		
 		// Look for a button for low shot (needs to have a ball loaded)
 
-		if (Robot.oi.getButton(Button.A) && Robot.shooterSubsystem.isBoulderLoaded()) {
-			Scheduler.getInstance().add(new LowShotCommand());
+		if (   Robot.oi.getShootLowGoal() 
+			&& (   Robot.shooterSubsystem.isBoulderLoaded()
+				|| Robot.shooterSubsystem.isBoulderRetracted()) ) {
+			Scheduler.getInstance().add(new ShootLowGoalCommand());
+			return;
 		}
 
 		// Look for a button to lower the arm
@@ -60,7 +77,7 @@ public class JoystickShootCommand extends Command {
 		// if (Robot.oi.getTrigger(Trigger.LEFT))
 
 		// TODO Figure out how to cancel a command
-		if (Robot.oi.getButton(Button.X)) {
+		if (Robot.oi.cancelCommand()) {
 
 		}
 	}

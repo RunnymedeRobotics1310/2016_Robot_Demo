@@ -3,6 +3,7 @@ package robot.subsystems;
 import edu.wpi.first.wpilibj.Counter;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Talon;
 import robot.R_Subsystem;
 import robot.R_Talon;
@@ -17,10 +18,13 @@ public class ShooterSubsystem extends R_Subsystem {
 	DigitalInput boulderProximitySensor = new DigitalInput(RobotMap.SensorMap.BOULDER_PROXIMITY_SENSOR.port);
 	
 	Counter shooterSpeedEncoder  = new Counter(RobotMap.SensorMap.SHOOTER_SPEED_ENCODER.port);
-	
+	Encoder intakeEncoder        = 
+			new Encoder(RobotMap.EncoderMap.INTAKE_ENCODER.ch1,
+			            RobotMap.EncoderMap.INTAKE_ENCODER.ch2);
 	DoubleSolenoid shooterRail = 
 			new DoubleSolenoid(RobotMap.Pneumatics.SHOOTER_RAIL_UP.pcmPort, 
 					           RobotMap.Pneumatics.SHOOTER_RAIL_DOWN.pcmPort);
+	
 	
 	public enum IntakeReverseSpeed {LOW, HIGH};
 	
@@ -69,5 +73,13 @@ public class ShooterSubsystem extends R_Subsystem {
 
 	@Override
 	public void updateDashboard() {
+	}
+	
+	public void intakeEncoderReset() {
+		intakeEncoder.reset();
+	}
+
+	public void intakeEncoderGetDistance() {
+		intakeEncoder.getDistance();
 	}
 }

@@ -1,12 +1,12 @@
 package robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
-import robot.RobotMap;
+import robot.Robot;
 
 public class PickupBoulderCommand extends Command {
 
     public PickupBoulderCommand() {
-       requires(ShooterSubsystem);
+       requires(Robot.shooterSubsystem);
     }
 
     protected void initialize() {
@@ -14,15 +14,15 @@ public class PickupBoulderCommand extends Command {
     }
 
     protected void execute() {
-    	ShooterSubsystem.startIntakeMotor();
+    	Robot.shooterSubsystem.startIntakeMotor();
     }
 
     protected boolean isFinished() {
-        return ShooterSubsystem.isBoulderLoaded();
+        return Robot.shooterSubsystem.isBoulderLoaded();
     }
 
     protected void end() {
-    	ShooterSubsystem.stopIntakeMotor();
+    	Robot.shooterSubsystem.stopIntakeMotor();
     }
 
     protected void interrupted() {

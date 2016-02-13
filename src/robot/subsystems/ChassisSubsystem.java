@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -122,13 +123,60 @@ public class ChassisSubsystem extends R_Subsystem {
 
 	private void periodicSetShifter() {
 
+		// If the user is not pushing the turbo, then set to 
+		// low gear - reverse mode.
+		if (gear == Gear.LOW) {
+			ballShifter.set(Value.kReverse);
+			return;
+		}
+		
+		// Otherwise the user has selected high gear.
+		
 		// Determine if the user has selected high gear and then 
 		// shift appropriately.
 		// The gear cannot shift to high unless the robot has enough
 		// speed in the selected direction.
-		// If
+		
+		double leftSpeed  = getLeftEncoderSpeed();
+		double rightSpeed = getRightEncoderSpeed();
+		
+		// If the robot is turning then put the shifter in low gear
+		if (   leftSpeed < 0 && rightSpeed > 0
+			|| leftSpeed > 0 && rightSpeed < 0) {
+			ballShifter.set(Value.kReverse);
+			return;
+		}
+		
+		// Check that the set speeds are in the same direction
+		double leftSetpoint  = leftMotorPID.getSetpoint();
+		double rightSetpoint = rightMotorPID.getSetpoint();
+		
+		// If the robot trying to turn then put the shifter in low gear
+		if (   leftSetpoint < 0 && rightSetpoint > 0
+			|| leftSetpoint > 0 && rightSetpoint < 0) {
+			ballShifter.set(Value.kReverse);
+			return;
+		}
+		
+		// Check that the setpoint is in the same direction as the motor.
+		// Since we know that the left and right are synched, then we
+		// only need to check the left side is consistent (ie. that we
+		// are not being pushed backwards by another robot).
+		if (   leftSetpoint < 0 && leftSpeed > 0
+			|| leftSetpoint > 0 && leftSpeed < 0) {
+			ballShifter.set(Value.kReverse);
+			return;
+		}
+		
+		// Check that the speed is greater than the limit for the 
+		// low gear.
+		if (Math.abs(getEncoderSpeed()) > 25.0) {
+			ballShifter.set(Value.kForward);
+			System.out.println("High Gear");
+		}
 
 	}
+	
 	/**
 	 * Gets the approximate distance using encoder counts by averaging the two
 	 * encoder distances.
@@ -136,8 +184,36 @@ public class ChassisSubsystem extends R_Subsystem {
 	 * @return the approximate distance.
 	 */
 	public double getEncoderDistance() {
-		return (this.leftEncoder.getDistance() - this.rightEncoder.getDistance()) / 2.0
+
+		double leftDistance = this.leftEncoder.getDistance() * 
+				(RobotMap.EncoderMap.LEFT.inverted ? - 1.0 : 1.0);
+		
+		double rightDistance = this.rightEncoder.getDistance() * 
+				(RobotMap.EncoderMap.RIGHT.inverted ? - 1.0 : 1.0);
+		
+		return (leftDistance + rightDistance) / 2.0
 				/ RobotMap.EncoderMap.LEFT.countsPerInch;
+	}
+
+	/**
+	 * Gets the approximate speed using encoder speed by averaging the two
+	 * encoder speeds.
+	 * 
+	 * @return the approximate distance.
+	 */
+	public double getEncoderSpeed() {
+		return (getLeftEncoderSpeed() + getRightEncoderSpeed()) / 2.0
+				/ RobotMap.EncoderMap.LEFT.countsPerInch;
+	}
+	
+	private double getLeftEncoderSpeed() {
+		return this.leftEncoder.getRate() * 
+				(RobotMap.EncoderMap.LEFT.inverted ? - 1.0 : 1.0);
+	}
+
+	private double getRightEncoderSpeed() {
+		return this.rightEncoder.getRate() * 
+				(RobotMap.EncoderMap.RIGHT.inverted ? - 1.0 : 1.0);
 	}
 
 	public void setGear(Gear gear) {

@@ -41,21 +41,25 @@ public class JoystickCommand extends Command {
 		 */
 		if (Robot.oi.getTurbo()) {
 			Robot.chassisSubsystem.setGear(Gear.HIGH);
-		} else
+		} else {
 			Robot.chassisSubsystem.setGear(Gear.LOW);
-
+		}
+		
 		/**
 		 * If the user is not turning, then follow the gyro using the GoStraight
-		 * command. if (Math.abs(turn) < 0.03) { Scheduler.getInstance().add(new
-		 * GoStraightCommand(Robot.chassisSubsystem.getCurrentAngle())); return;
-		 * }
-		 */
+		 * command.
+		 */ 
+		if (Math.abs(turn) < 0.03) { 
+			Scheduler.getInstance().add(new GoStraightCommand(Robot.chassisSubsystem.getCurrentAngle())); 
+			return;
+		}
+		 
 		if (Math.abs(speed) < 0.03) {
-			leftSpeed = turn;
-			rightSpeed = -turn;
+			leftSpeed  =   turn;
+			rightSpeed = - turn;
 		} else {
-			leftSpeed = (turn < 0) ? speed * (1 + turn) : speed;
-			rightSpeed = (turn > 0) ? speed * (1 - turn) : speed;
+			leftSpeed  = (turn < 0) ? speed * (1 + turn) : speed;
+			rightSpeed = (turn < 0) ? speed              : speed * (1 - turn) ;
 		}
 
 		Robot.chassisSubsystem.setSpeed(leftSpeed, rightSpeed);

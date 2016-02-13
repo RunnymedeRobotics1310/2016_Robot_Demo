@@ -79,7 +79,7 @@ public class ShooterSubsystem extends R_Subsystem {
 		intakeEncoder.reset();
 	}
 
-	public void intakeEncoderGetDistance() {
-		intakeEncoder.getDistance();
+	public double intakeEncoderGetDistance() {
+		return intakeEncoder.getDistance();
 	}
 }

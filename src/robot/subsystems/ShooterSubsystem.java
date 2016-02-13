@@ -29,6 +29,9 @@ public class ShooterSubsystem extends R_Subsystem {
 	public enum IntakeReverseSpeed {LOW, HIGH};
 	
 	public void init() {
+		// Initialize the shooter speed controller to count
+		// rpms.  One count = 1 rpm.
+		shooterSpeedEncoder.setDistancePerPulse(1.0);
 	}
 
 	public void initDefaultCommand() {
@@ -49,7 +52,7 @@ public class ShooterSubsystem extends R_Subsystem {
 	
 	public void intakeMotorReverse(IntakeReverseSpeed intakeReverseSpeed) {
 		if (intakeReverseSpeed == IntakeReverseSpeed.LOW) {
-			intakeMotor.set(0.1);
+			intakeMotor.set(-0.1);
 		} else {
 			intakeMotor.set(-1.0);
 		}

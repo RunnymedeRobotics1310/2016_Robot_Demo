@@ -22,7 +22,7 @@ public class ShooterSubsystem extends R_Subsystem {
 			new DoubleSolenoid(RobotMap.Pneumatics.SHOOTER_RAIL_UP.pcmPort, 
 					           RobotMap.Pneumatics.SHOOTER_RAIL_DOWN.pcmPort);
 	
-	enum IntakeReverseSpeed {LOW, HIGH};
+	public enum IntakeReverseSpeed {LOW, HIGH};
 	
 	public void init() {
 	}
@@ -33,6 +33,10 @@ public class ShooterSubsystem extends R_Subsystem {
 
 	public void startShooterMotor() {
 		shooterMotor.set(1.0);
+	}
+	
+	public void stopShooterMotor(){
+		shooterMotor.set(0.0);
 	}
 
 	public void startIntakeMotor() {

@@ -11,15 +11,15 @@ public class HighShotSetupCommand extends Command {
 	}
 
 	protected void initialize() {
-		Robot.shooterSubsystem.intakeEncoderReset();
+		Robot.shooterSubsystem.resetIntakeEncoder();
 	}
 
 	protected void execute() {
-		Robot.shooterSubsystem.intakeMotorReverse(IntakeReverseSpeed.LOW);
+		Robot.shooterSubsystem.setIntakeMotorReverse(IntakeReverseSpeed.LOW);
 	}
 
 	protected boolean isFinished() {
-		return (Math.abs(Robot.shooterSubsystem.intakeEncoderGetDistance()) > 90.0);
+		return (Math.abs(Robot.shooterSubsystem.getIntakeDistance()) > 90.0);
 	}
 
 	protected void end() {

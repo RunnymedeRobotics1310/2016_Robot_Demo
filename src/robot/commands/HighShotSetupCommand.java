@@ -4,19 +4,18 @@ import edu.wpi.first.wpilibj.command.Command;
 import robot.Robot;
 import robot.subsystems.ShooterSubsystem.IntakeReverseSpeed;
 
-public class HighShotSetup extends Command {
+public class HighShotSetupCommand extends Command {
 
-	public HighShotSetup() {
+	public HighShotSetupCommand() {
 		requires(Robot.shooterSubsystem);
 	}
 
 	protected void initialize() {
 		Robot.shooterSubsystem.intakeEncoderReset();
-		Robot.shooterSubsystem.intakeMotorReverse(IntakeReverseSpeed.LOW);
 	}
 
 	protected void execute() {
-		Robot.shooterSubsystem.startShooterMotor();
+		Robot.shooterSubsystem.intakeMotorReverse(IntakeReverseSpeed.LOW);
 	}
 
 	protected boolean isFinished() {

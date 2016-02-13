@@ -251,6 +251,10 @@ public class ChassisSubsystem extends R_Subsystem {
 		SmartDashboard.putNumber("Gyro Angle", gyro.getAngle());
 		SmartDashboard.putNumber("Ultrasonic Sensor Distance", ultrasonicSensor.getDistance());
 		SmartDashboard.putNumber("Raw ultrasonic sensor voltage", ultrasonicSensor.getVoltage());
-		SmartDashboard.putString("Tranmission", gear.name());
+		SmartDashboard.putString("Transmission", gear.name());
+		SmartDashboard.putNumber("Encoder Speed", getEncoderSpeed());
+		SmartDashboard.putNumber("Left Encoder Speed", getLeftEncoderSpeed());
+		SmartDashboard.putNumber("Right Encoder Speed", getRightEncoderSpeed());
+		SmartDashboard.putData("Ball shifter", ballShifter);
 	}
 }

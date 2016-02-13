@@ -1,4 +1,4 @@
-package robot.commands;
+package robot.commands.drive;
 
 import edu.wpi.first.wpilibj.PIDOutput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;

@@ -4,7 +4,7 @@ package robot.commands.auto;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import robot.Robot;
-import robot.commands.GoStraightPID;
+import robot.commands.drive.GoStraightPID;
 
 public abstract class AutoGoStraightCommand extends Command {
 

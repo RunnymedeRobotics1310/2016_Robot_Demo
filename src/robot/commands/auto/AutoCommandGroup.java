@@ -5,7 +5,7 @@ import robot.Field.Defense;
 import robot.Field.Goal;
 import robot.Field.Lane;
 import robot.Field.Slot;
-import robot.commands.RotateToAngle;
+import robot.commands.drive.RotateToAngle;
 
 public class AutoCommandGroup extends CommandGroup {
 

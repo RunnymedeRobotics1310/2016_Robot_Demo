@@ -1,4 +1,4 @@
-package robot.commands;
+package robot.commands.shooter;
 
 import edu.wpi.first.wpilibj.command.Command;
 import robot.Robot;

@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import robot.R_Subsystem;
 import robot.R_Talon;
 import robot.RobotMap;
-import robot.commands.ShooterDefaultCommand;
+import robot.commands.shooter.ShooterJoystickCommand;
 
 public class ShooterSubsystem extends R_Subsystem {
 
@@ -48,7 +48,7 @@ public class ShooterSubsystem extends R_Subsystem {
 	}
 
 	public void initDefaultCommand() {
-		setDefaultCommand(new ShooterDefaultCommand());
+		setDefaultCommand(new ShooterJoystickCommand());
 	}
 	
 	public boolean isBoulderLoaded() {

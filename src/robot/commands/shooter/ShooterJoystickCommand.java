@@ -1,5 +1,5 @@
 
-package robot.commands;
+package robot.commands.shooter;
 
 import edu.wpi.first.wpilibj.command.Command;
 import robot.Robot;
@@ -7,9 +7,9 @@ import robot.Robot;
 /**
  *
  */
-public class ShooterDefaultCommand extends Command {
+public class ShooterJoystickCommand extends Command {
 
-	public ShooterDefaultCommand() {
+	public ShooterJoystickCommand() {
 		requires(Robot.shooterSubsystem);
 	}
 

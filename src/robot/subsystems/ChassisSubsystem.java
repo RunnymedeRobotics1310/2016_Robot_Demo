@@ -15,7 +15,7 @@ import robot.R_Subsystem;
 import robot.R_Talon;
 import robot.R_Ultrasonic;
 import robot.RobotMap;
-import robot.commands.JoystickCommand;
+import robot.commands.drive.JoystickCommand;
 
 public class ChassisSubsystem extends R_Subsystem {
 

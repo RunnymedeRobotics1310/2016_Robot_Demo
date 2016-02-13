@@ -25,6 +25,7 @@ public class GoStraightCommand extends Command {
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
+		
 		double speed = Robot.oi.getSpeed();
 		double leftSpeed;
 		double rightSpeed;

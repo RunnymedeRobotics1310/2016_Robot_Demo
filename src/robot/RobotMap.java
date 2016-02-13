@@ -32,11 +32,11 @@ public class RobotMap {
     	ANGLE_ENCODER             (2),
     	
     	// Digital Ports
-    	SHOOTER__SPEED_ENCODER    (6),
+    	SHOOTER_SPEED_ENCODER    (6),
     	LEFT_PROXIMITY_SENSOR     (7),
     	RIGHT_PROXIMITY_SENSOR    (8),
     	UPPER_PROXIMITY_SENSOR    (9),
-    	BALL_PROXIMITY_SENSOR     (10),
+    	BOULDER_PROXIMITY_SENSOR     (10),
     	ARM_LOWER_LIMIT           (11),
     	ARM_UPPER_LIMIT           (12);
     	

@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import robot.R_Subsystem;
 import robot.R_Talon;
 import robot.RobotMap;
-import robot.commands.shoot.JoystickShooterCommand;
+import robot.commands.shoot.JoystickShootCommand;
 
 public class ShooterSubsystem extends R_Subsystem {
 
@@ -29,6 +29,8 @@ public class ShooterSubsystem extends R_Subsystem {
 			new DoubleSolenoid(RobotMap.Pneumatics.SHOOTER_RAIL_UP.pcmPort, 
 					           RobotMap.Pneumatics.SHOOTER_RAIL_DOWN.pcmPort);;
 	
+	private boolean ballRetracted = false;
+	
 	public double getIntakeDistance() {
 		return intakeEncoder.getDistance();
 	}
@@ -41,6 +43,14 @@ public class ShooterSubsystem extends R_Subsystem {
 		return shooterSpeedEncoder.getRate();
 	}
 	
+	public void setBallRetracted(boolean ballRetracted) {
+		this.ballRetracted = ballRetracted;
+	}
+	
+	public boolean isBallRetracted() {
+		return ballRetracted;
+	}
+	
 	public void init() {
 		// Initialize the shooter speed controller to count
 		// rpms.  One count = 1 rpm.
@@ -48,7 +58,7 @@ public class ShooterSubsystem extends R_Subsystem {
 	}
 
 	public void initDefaultCommand() {
-		setDefaultCommand(new JoystickShooterCommand());
+		setDefaultCommand(new JoystickShootCommand());
 	}
 	
 	public boolean isBoulderLoaded() {

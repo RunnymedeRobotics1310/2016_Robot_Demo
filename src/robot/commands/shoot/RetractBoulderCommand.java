@@ -4,9 +4,9 @@ import edu.wpi.first.wpilibj.command.Command;
 import robot.Robot;
 import robot.subsystems.ShooterSubsystem.IntakeReverseSpeed;
 
-public class HighShotSetupCommand extends Command {
+public class RetractBoulderCommand extends Command {
 
-	public HighShotSetupCommand() {
+	public RetractBoulderCommand() {
 		requires(Robot.shooterSubsystem);
 	}
 

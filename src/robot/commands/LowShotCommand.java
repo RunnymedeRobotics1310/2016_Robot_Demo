@@ -11,12 +11,12 @@ public class LowShotCommand extends Command {
 
 	@Override
 	protected void execute() {
-		Robot.shooterSubsystem.intakeMotorReverse(IntakeReverseSpeed.HIGH);
+		Robot.shooterSubsystem.setIntakeMotorReverse(IntakeReverseSpeed.HIGH);
 	}
 
 	@Override
 	protected void initialize() {
-		Robot.shooterSubsystem.intakeEncoderReset();
+		Robot.shooterSubsystem.resetIntakeEncoder();
 	}
 	
 	@Override

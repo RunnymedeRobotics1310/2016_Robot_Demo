@@ -90,6 +90,10 @@ public class OI {
 	public boolean getButton(Button button){
 		return driverStick.getButton(button);
 	}
+	
+	public double getTrigger(Trigger trigger){
+		return driverStick.getTrigger(trigger);
+	}
 
 	/**
 	 * Update the periodic running elements of the dashboard

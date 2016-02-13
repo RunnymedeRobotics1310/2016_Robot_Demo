@@ -22,7 +22,6 @@ public class LowShotCommand extends Command {
 	@Override
 	protected void end() {
 		Robot.shooterSubsystem.stopIntakeMotor();
-
 	}
 	
 	@Override
@@ -32,7 +31,6 @@ public class LowShotCommand extends Command {
 
 	@Override
 	protected void interrupted() {
-		// TODO Auto-generated method stub
 		
 	}
 

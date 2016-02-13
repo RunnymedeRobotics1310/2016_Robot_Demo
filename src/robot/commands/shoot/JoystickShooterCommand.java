@@ -22,7 +22,7 @@ public class JoystickShooterCommand extends Command {
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
 		// Look for a button and start the intake. (do nothing if we already have a ball)
-		if (Robot.oi.getButton(Button.LEFT_BUMPER) && !Robot.shooterSubsystem.isBoulderLoaded()){
+		if (Robot.oi.getTurbo() && !Robot.shooterSubsystem.isBoulderLoaded()){
 			Scheduler.getInstance().add(new PickupBoulderCommand());
 		}
 		// Look for a button for high shot (needs to have a ball loaded)

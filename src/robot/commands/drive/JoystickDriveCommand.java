@@ -2,7 +2,6 @@
 package robot.commands.drive;
 
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.command.Scheduler;
 import robot.Robot;
 import robot.subsystems.ChassisSubsystem.Gear;
 
@@ -28,11 +27,6 @@ public class JoystickDriveCommand extends Command {
 
 		if (Robot.oi.getGyroReset()) {
 			Robot.chassisSubsystem.resetGyroHeading();
-		}
-
-		if (Robot.oi.getPOVAngle() != -1) {
-			Scheduler.getInstance().add(new RotateToAngle(Robot.oi.getPOVAngle(), 3.0));
-			return;
 		}
 
 		/**

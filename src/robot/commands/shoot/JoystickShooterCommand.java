@@ -7,9 +7,9 @@ import robot.Robot;
 /**
  *
  */
-public class JoystickShootCommand extends Command {
+public class JoystickShooterCommand extends Command {
 
-	public JoystickShootCommand() {
+	public JoystickShooterCommand() {
 		requires(Robot.shooterSubsystem);
 	}
 
@@ -19,7 +19,6 @@ public class JoystickShootCommand extends Command {
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		
 		// Look for a button and start the intake.
 		
 		// Look for a button for high shot (needs to have a ball loaded)

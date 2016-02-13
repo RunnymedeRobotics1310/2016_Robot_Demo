@@ -86,6 +86,10 @@ public class OI {
 	public Command getAutoCommand() {
 		return new AutoCommandGroup(getSlot(), getDefense(), getLane(), getGoal());
 	}
+	
+	public boolean getButton(Button button){
+		return driverStick.getButton(button);
+	}
 
 	/**
 	 * Update the periodic running elements of the dashboard

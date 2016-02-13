@@ -10,17 +10,17 @@ public class EjectBoulderCommand extends Command {
         requires(Robot.shooterSubsystem);
     }
     protected void initialize() {
+    	setTimeout(2.0);
+    }
+
+    protected void execute() {
     	if (Robot.shooterSubsystem.isBoulderLoaded() || Robot.shooterSubsystem.isBoulderRetracted()){
     		Robot.shooterSubsystem.setIntakeMotorReverse(IntakeReverseSpeed.LOW);
     	}
     }
 
-    protected void execute() {
-
-    }
-
     protected boolean isFinished() {
-        return !Robot.shooterSubsystem.isBoulderLoaded() && !Robot.shooterSubsystem.isBoulderRetracted();
+        return isTimedOut() || !Robot.shooterSubsystem.isBoulderLoaded() && !Robot.shooterSubsystem.isBoulderRetracted();
     }
 
     protected void end() {

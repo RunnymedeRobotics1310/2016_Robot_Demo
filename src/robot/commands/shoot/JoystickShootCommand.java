@@ -68,17 +68,9 @@ public class JoystickShootCommand extends Command {
 			return;
 		}
 
-		// Look for a button to lower the arm
-		if (Robot.oi.getTrigger(Trigger.RIGHT) > 0.5) {
-			// TODO Schedule a command to lower the arm.
-		}
-
-		// TODO This "if" should control how far up/down the arm is
-		// if (Robot.oi.getTrigger(Trigger.LEFT))
-
 		// TODO Figure out how to cancel a command
-		if (Robot.oi.cancelCommand()) {
-
+		if (Robot.oi.getCancel()) {
+			Scheduler.getInstance().add(new WindupStopCommand());
 		}
 	}
 

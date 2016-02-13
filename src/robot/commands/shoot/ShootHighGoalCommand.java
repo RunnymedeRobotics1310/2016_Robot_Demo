@@ -1,22 +1,22 @@
 package robot.commands.shoot;
+
 import edu.wpi.first.wpilibj.command.Command;
 import robot.Robot;
-import robot.subsystems.ShooterSubsystem.IntakeReverseSpeed;
 
-public class ShootLowGoalCommand extends Command {
+public class ShootHighGoalCommand extends Command {
 
-	public ShootLowGoalCommand() {
+	public ShootHighGoalCommand() {
 		this.setTimeout(3.0);
 	}
 
 	@Override
 	protected void execute() {
-		Robot.shooterSubsystem.setIntakeMotorReverse(IntakeReverseSpeed.HIGH);
+		Robot.shooterSubsystem.startIntakeMotor();
 	}
 
 	@Override
 	protected void initialize() {
-		Robot.shooterSubsystem.resetIntakeEncoder();
+		Robot.shooterSubsystem.startIntakeMotor();
 	}
 	
 	@Override
@@ -33,5 +33,5 @@ public class ShootLowGoalCommand extends Command {
 	protected void interrupted() {
 		
 	}
-
+	
 }

@@ -20,7 +20,7 @@ public class EjectBoulderCommand extends Command {
     }
 
     protected boolean isFinished() {
-        return isTimedOut() || !Robot.shooterSubsystem.isBoulderLoaded() && !Robot.shooterSubsystem.isBoulderRetracted();
+        return isTimedOut() || (!Robot.shooterSubsystem.isBoulderLoaded() && !Robot.shooterSubsystem.isBoulderRetracted());
     }
 
     protected void end() {

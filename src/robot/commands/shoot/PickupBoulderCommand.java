@@ -19,7 +19,7 @@ public class PickupBoulderCommand extends Command {
     }
 
     protected boolean isFinished() {
-        return Robot.shooterSubsystem.isBoulderLoaded() || Robot.oi.getButton(Button.X);
+        return Robot.shooterSubsystem.isBoulderLoaded() || Robot.oi.getCancel();
     }
 
     protected void end() {

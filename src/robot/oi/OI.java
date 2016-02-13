@@ -83,7 +83,7 @@ public class OI {
 		return driverStick.getButton(Button.B);
 	}
 
-	public boolean cancelCommand() {
+	public boolean getCancel() {
 		return driverStick.getButton(Button.X);
 	}
 

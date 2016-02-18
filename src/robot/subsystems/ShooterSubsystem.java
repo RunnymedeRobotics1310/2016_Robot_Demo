@@ -3,6 +3,7 @@ package robot.subsystems;
 import edu.wpi.first.wpilibj.Counter;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -27,7 +28,9 @@ public class ShooterSubsystem extends R_Subsystem {
 	
 	DoubleSolenoid shooterRail = 
 			new DoubleSolenoid(RobotMap.Pneumatics.SHOOTER_RAIL_UP.pcmPort, 
-					           RobotMap.Pneumatics.SHOOTER_RAIL_DOWN.pcmPort);;
+					           RobotMap.Pneumatics.SHOOTER_RAIL_DOWN.pcmPort);
+	
+
 	
 	private boolean ballRetracted = false;
 	
@@ -82,7 +85,7 @@ public class ShooterSubsystem extends R_Subsystem {
 	}
 	
 	public void startIntakeMotor() {
-		intakeMotor.set(0.2); // Speed of intake when taking in a boulder
+		intakeMotor.set(1.0); // Speed of intake when taking in a boulder	
 	}
 	
 	public void startShooterMotor() {
@@ -95,6 +98,14 @@ public class ShooterSubsystem extends R_Subsystem {
 	
 	public void stopShooterMotor(){
 		shooterMotor.set(0.0);
+	}
+	
+	public Value getRailPosition() {
+		return shooterRail.get();
+	}
+	
+	public void setRailPosition(Value v) {
+		shooterRail.set(v);
 	}
 
 	@Override

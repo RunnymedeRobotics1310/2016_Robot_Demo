@@ -6,12 +6,14 @@ import robot.Robot;
 
 public class PickupBoulderCommand extends Command {
 
+	boolean timerSet = false;
+	
     public PickupBoulderCommand() {
        requires(Robot.shooterSubsystem);
     }
 
     protected void initialize() {
-    	
+    	timerSet = false;
     }
 
     protected void execute() {
@@ -19,7 +21,11 @@ public class PickupBoulderCommand extends Command {
     }
 
     protected boolean isFinished() {
-        return Robot.shooterSubsystem.isBoulderLoaded() || Robot.oi.getCancel();
+    	if (Robot.shooterSubsystem.isBoulderLoaded() && !timerSet) {
+    		this.setTimeout(this.timeSinceInitialized() + 0.25);
+    		timerSet = true;
+    	}
+        return this.isTimedOut() || Robot.oi.getCancel();
     }
 
     protected void end() {

@@ -1,5 +1,6 @@
 package robot.commands.shoot;
 
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Command;
 import robot.Robot;
 import robot.subsystems.ShooterSubsystem.IntakeReverseSpeed;
@@ -16,6 +17,9 @@ public class RetractBoulderCommand extends Command {
 
 	protected void execute() {
 		Robot.shooterSubsystem.setIntakeMotorReverse(IntakeReverseSpeed.LOW);
+		if (Robot.shooterSubsystem.getRailPosition() != Value.kForward) {
+			Robot.shooterSubsystem.setRailPosition(Value.kForward);
+		}
 	}
 
 	protected boolean isFinished() {

@@ -1,12 +1,13 @@
 package robot.commands.shoot;
 
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Command;
 import robot.Robot;
 
 public class ShootHighGoalCommand extends Command {
 
 	public ShootHighGoalCommand() {
-		this.setTimeout(3.0);
+		
 	}
 
 	@Override
@@ -16,12 +17,17 @@ public class ShootHighGoalCommand extends Command {
 
 	@Override
 	protected void initialize() {
+		this.setTimeout(3.0);
 		Robot.shooterSubsystem.startIntakeMotor();
 	}
 	
 	@Override
 	protected void end() {
 		Robot.shooterSubsystem.stopIntakeMotor();
+		Robot.shooterSubsystem.stopShooterMotor();
+		if (Robot.shooterSubsystem.getRailPosition() != Value.kReverse) {
+			Robot.shooterSubsystem.setRailPosition(Value.kReverse);
+		}
 	}
 	
 	@Override

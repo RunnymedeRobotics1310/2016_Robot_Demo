@@ -8,7 +8,6 @@ public class R_GameControllerFactory {
 	public static R_GameController getGameController(int port) {
 
 		Joystick newStick = new Joystick(port);
-		SmartDashboard.putString("Current Joystick", newStick.getName());
 
 		switch (newStick.getName()) {
 		case "Controller (XBOX 360 For Windows)":

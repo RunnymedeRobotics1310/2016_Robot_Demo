@@ -1,6 +1,7 @@
 package robot.oi;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import robot.Field.Defense;
 import robot.Field.Goal;
 import robot.Field.Lane;
@@ -18,7 +19,27 @@ import robot.commands.auto.AutoCommandGroup;
  * interface to the commands and command groups that allow control of the robot.
  */
 public class OI {
-
+	
+	private enum ButtonMap {
+	
+		SHOOT_LOW_GOAL_BUTTON(Button.A),
+		SHOOT_HIGH_GOAL_BUTTON(Button.B),
+		TURBO_BUTTON(Button.LEFT_BUMPER),
+		CANCEL_COMMAND_BUTTON(Button.X),
+		ROLL_INTAKE_BUTTON(Button.RIGHT_BUMPER);
+		
+		private Button button;
+		
+		ButtonMap(Button button) {
+			this.button = button;
+		}
+		
+		public Button getButton() {
+			return this.button;
+		}
+		
+	}
+	
 	private R_GameController driverStick = R_GameControllerFactory.getGameController(0);
 	private AutoChooser autoChooser = new AutoChooser();
 
@@ -63,8 +84,12 @@ public class OI {
 		return driverStick.getButton(Button.BACK);
 	}
 	
+	public boolean getGyroCalibrate() {
+		return driverStick.getButton(Button.START);
+	}
+	
 	public boolean getTurbo(){
-		return driverStick.getButton(Trigger.LEFT) || driverStick.getButton(Trigger.RIGHT);
+		return driverStick.getButton(Trigger.LEFT);
 	}
 
 	public Defense getDefense() {
@@ -76,19 +101,19 @@ public class OI {
 	}
 
 	public boolean getIntakeStart() {
-		return driverStick.getButton(Button.RIGHT_BUMPER);
+		return driverStick.getButton(ButtonMap.ROLL_INTAKE_BUTTON.getButton());
 	}
 
 	public boolean getShootHighGoal() {
-		return driverStick.getButton(Button.B);
+		return driverStick.getButton(ButtonMap.SHOOT_HIGH_GOAL_BUTTON.getButton());
 	}
 
 	public boolean getCancel() {
-		return driverStick.getButton(Button.X);
+		return driverStick.getButton(ButtonMap.CANCEL_COMMAND_BUTTON.getButton());
 	}
 
 	public boolean getShootLowGoal() {
-		return driverStick.getButton(Button.A);
+		return driverStick.getButton(ButtonMap.SHOOT_LOW_GOAL_BUTTON.getButton());
 	}
 
 	public Lane getLane() {
@@ -115,6 +140,6 @@ public class OI {
 	 * Put any items on the dashboard
 	 */
 	public void updateDashboard() {
-		
+		SmartDashboard.putString("Driver Controllers", driverStick.toString());
 	}
 }

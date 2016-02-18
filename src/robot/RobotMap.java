@@ -9,8 +9,8 @@ public class RobotMap {
     private final static boolean inverted = true;
 
     public enum MotorMap {
-        LEFT_MOTOR      (0, !RobotMap.inverted),
-        RIGHT_MOTOR     (1,  RobotMap.inverted),
+        LEFT_MOTOR      (0,  RobotMap.inverted),
+        RIGHT_MOTOR     (1, !RobotMap.inverted),
         INTAKE_MOTOR    (2,  RobotMap.inverted),
         SHOOTER_MOTOR   (3,  RobotMap.inverted),
         ARM_DEPLOY_MOTOR(4, !RobotMap.inverted),
@@ -48,23 +48,25 @@ public class RobotMap {
     }
     
     public enum EncoderMap {
-    	LEFT (0, 1, 1800.0, 29.75, !RobotMap.inverted),
-    	RIGHT(2, 3, 1800.0, 29.75,  RobotMap.inverted),
-    	//FIXME: Filler values only ports are correct
-    	INTAKE_ENCODER(4, 5, 1800.0, 29.75, RobotMap.inverted);
+    	LEFT (0, 1, 9000.0, 22000.0, 96.84, !RobotMap.inverted),
+    	RIGHT(2, 3, 9000.0, 22000.0, 96.84,  RobotMap.inverted),
+    	//FIXME: FIX THE LOW AND HIGH GEAR SPEED.
+    	INTAKE_ENCODER(4, 5, 1800.0, 1800.0, 29.75, RobotMap.inverted);
     	//Counts per inch not accurate
     	
     	public final int ch1;
     	public final int ch2;
     	public final double maxRate;
+    	public final double maxRateHigh;
     	public final double countsPerInch;
     	public final boolean inverted;
     	
-    	EncoderMap(int ch1, int ch2, double maxRate, double countsPerInch,
+    	EncoderMap(int ch1, int ch2, double maxRate, double maxRateHigh, double countsPerInch,
     			boolean inverted) {
     		this.ch1 = ch1;
     		this.ch2 = ch2;
     		this.maxRate = maxRate;
+    		this.maxRateHigh = maxRateHigh;
     		this.countsPerInch = countsPerInch;
     		this.inverted = inverted;
     	}

@@ -9,6 +9,7 @@ public class EjectBoulderCommand extends Command {
     public EjectBoulderCommand() {
         requires(Robot.shooterSubsystem);
     }
+    
     protected void initialize() {
     	setTimeout(2.0);
     }

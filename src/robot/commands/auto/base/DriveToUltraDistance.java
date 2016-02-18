@@ -31,7 +31,7 @@ public class DriveToUltraDistance extends AutoGoStraightCommand {
 		super.initialize();
 		Robot.chassisSubsystem.resetUltrasonicSensorFilter();
 		if (distanceSetpoint - Robot.chassisSubsystem.getUltrasonicDistance() < 0) {
-			setSpeed(-speedSetpoint, Direction.BACKWARD);
+			setSpeed(speedSetpoint, Direction.BACKWARD);
 		} else {
 			setSpeed(speedSetpoint, Direction.FORWARD);
 		}
@@ -48,7 +48,7 @@ public class DriveToUltraDistance extends AutoGoStraightCommand {
 
 	// Called once after isFinished returns true
 	protected boolean isFinished() {
-		// Stop 4in early because it takes the robot 4 inches to stop.
+		// Stop 4" early because it takes the robot 4 inches to stop.
 		return (Math.abs(distanceSetpoint - Robot.chassisSubsystem.getUltrasonicDistance()) <= 4);
 
 	}

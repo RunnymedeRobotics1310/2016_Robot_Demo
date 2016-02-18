@@ -40,6 +40,7 @@ public class JoystickShootCommand extends Command {
 		// the shooter must be up to speed.
 		if (Robot.oi.getShootHighGoal()) {
 			
+			System.out.println(Robot.shooterSubsystem.isBoulderRetracted());
 			if ( Robot.shooterSubsystem.isBoulderRetracted() ) {
 				
 				if ( Robot.shooterSubsystem.getShooterSpeed() > 100) {

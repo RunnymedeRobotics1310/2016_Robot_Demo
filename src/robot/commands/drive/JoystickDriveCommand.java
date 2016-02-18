@@ -28,6 +28,10 @@ public class JoystickDriveCommand extends Command {
 		if (Robot.oi.getGyroReset()) {
 			Robot.chassisSubsystem.resetGyroHeading();
 		}
+		
+		if (Robot.oi.getGyroCalibrate()) {
+			Robot.chassisSubsystem.calibrateGyro();
+		}
 
 		/**
 		 * If the chassisSubsystem says that we should be in high gear, switch

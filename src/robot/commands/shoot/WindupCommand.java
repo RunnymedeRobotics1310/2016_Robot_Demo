@@ -10,7 +10,9 @@ public class WindupCommand extends Command {
     }
 
     protected void initialize() {
-    	Robot.shooterSubsystem.startShooterMotor();
+    	if (Robot.shooterSubsystem.isBoulderRetracted()) {
+    		Robot.shooterSubsystem.startShooterMotor();
+    	}
     }
 
     protected void execute() {

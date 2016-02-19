@@ -1,7 +1,6 @@
 package robot.commands.shoot;
 
 import edu.wpi.first.wpilibj.command.Command;
-import robot.R_GameController.Button;
 import robot.Robot;
 
 public class PickupBoulderCommand extends Command {

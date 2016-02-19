@@ -1,15 +1,9 @@
-
 package robot.commands.shoot;
 
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
-import robot.R_GameController.Button;
-import robot.R_GameController.Trigger;
 import robot.Robot;
 
-/**
- *
- */
 public class JoystickShootCommand extends Command {
 
 	public JoystickShootCommand() {
@@ -22,12 +16,11 @@ public class JoystickShootCommand extends Command {
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		
 		// Look for a button and start the intake. (do nothing if we already
 		// have a ball)
 		if (Robot.oi.getIntakeStart()) {
-			// TODO Replace with command group
 			if (!Robot.shooterSubsystem.isBoulderLoaded()) {
+				Robot.shooterSubsystem.setBallRetracted(false);
 				Scheduler.getInstance().add(new PickupBoulderCommand());
 				return;
 				//and actuate arms
@@ -38,25 +31,24 @@ public class JoystickShootCommand extends Command {
 		
 		// Look for a button for high shot (needs to have a ball retracted and 
 		// the shooter must be up to speed.
-		if (Robot.oi.getShootHighGoal()) {
-			
-			System.out.println(Robot.shooterSubsystem.isBoulderRetracted());
+		if (Robot.oi.getShootHighGoal()) {			
+			System.out.println("Ball rectracted; " + Robot.shooterSubsystem.isBoulderRetracted());
 			if ( Robot.shooterSubsystem.isBoulderRetracted() ) {
 				
 				if ( Robot.shooterSubsystem.getShooterSpeed() > 100) {
 					
-					Scheduler.getInstance().add(new ShootHighGoalCommand());
 					Robot.shooterSubsystem.setBallRetracted(false);
+					Scheduler.getInstance().add(new ShootHighGoalCommand());
+					
 					return;
 
 				}
 			
 			} else {
-			
-				Scheduler.getInstance().add(new SetupHighShotCommand());
 				Robot.shooterSubsystem.setBallRetracted(true);
-				return;
+				Scheduler.getInstance().add(new SetupHighShotCommand());
 				
+				return;
 			}
 		}
 		
@@ -69,9 +61,9 @@ public class JoystickShootCommand extends Command {
 			return;
 		}
 
-		// TODO Figure out how to cancel a command
 		if (Robot.oi.getCancel()) {
 			Scheduler.getInstance().add(new WindupStopCommand());
+			Robot.shooterSubsystem.setBallRetracted(false);
 		}
 	}
 

@@ -7,12 +7,16 @@ import robot.subsystems.ShooterSubsystem.IntakeReverseSpeed;
 
 public class RetractBoulderCommand extends Command {
 
+	boolean hasBoulder = false;
+	boolean cancelButton = false;
+	
 	public RetractBoulderCommand() {
 		requires(Robot.shooterSubsystem);
 	}
 
 	protected void initialize() {
 		Robot.shooterSubsystem.resetIntakeEncoder();
+		hasBoulder = Robot.shooterSubsystem.isBoulderLoaded();
 	}
 
 	protected void execute() {
@@ -20,14 +24,28 @@ public class RetractBoulderCommand extends Command {
 		if (Robot.shooterSubsystem.getRailPosition() != Value.kForward) {
 			Robot.shooterSubsystem.setRailPosition(Value.kForward);
 		}
+		Robot.shooterSubsystem.startShooterMotorReverse();
 	}
 
 	protected boolean isFinished() {
-		return (Math.abs(Robot.shooterSubsystem.getIntakeDistance()) > 90.0);
+		if (!hasBoulder) {
+			if (!Robot.shooterSubsystem.isBoulderLoaded()) {
+				cancelButton = Robot.oi.getCancel();
+				if (cancelButton) { return true; }
+				return false;
+			} else {
+				hasBoulder = true;
+			}
+		}
+		return !Robot.shooterSubsystem.isBoulderLoaded();
 	}
 
 	protected void end() {
 		Robot.shooterSubsystem.stopIntakeMotor();
+		Robot.shooterSubsystem.stopShooterMotor();
+		if (cancelButton) {
+			Robot.shooterSubsystem.setBallRetracted(false);
+		}
 	}
 
 	protected void interrupted() {

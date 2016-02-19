@@ -78,7 +78,7 @@ public class ShooterSubsystem extends R_Subsystem {
 	
 	public void setIntakeMotorReverse(IntakeReverseSpeed intakeReverseSpeed) {
 		if (intakeReverseSpeed == IntakeReverseSpeed.LOW) {
-			intakeMotor.set(-0.1);
+			intakeMotor.set(-0.3);
 		} else {
 			intakeMotor.set(-1.0);
 		}
@@ -90,6 +90,10 @@ public class ShooterSubsystem extends R_Subsystem {
 	
 	public void startShooterMotor() {
 		shooterMotor.set(1.0);
+	}
+	
+	public void startShooterMotorReverse(){
+		shooterMotor.set(-0.5);
 	}
 
 	public void stopIntakeMotor() {

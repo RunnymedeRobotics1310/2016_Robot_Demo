@@ -7,7 +7,7 @@ import robot.Robot;
 public class ShootHighGoalCommand extends Command {
 
 	public ShootHighGoalCommand() {
-		
+		requires(Robot.shooterSubsystem);
 	}
 
 	@Override
@@ -17,8 +17,14 @@ public class ShootHighGoalCommand extends Command {
 
 	@Override
 	protected void initialize() {
-		this.setTimeout(3.0);
+		this.setTimeout(1.5);
 		Robot.shooterSubsystem.startIntakeMotor();
+	}
+	
+	
+	@Override
+	protected boolean isFinished() {
+		return isTimedOut();
 	}
 	
 	@Override
@@ -28,11 +34,6 @@ public class ShootHighGoalCommand extends Command {
 		if (Robot.shooterSubsystem.getRailPosition() != Value.kReverse) {
 			Robot.shooterSubsystem.setRailPosition(Value.kReverse);
 		}
-	}
-	
-	@Override
-	protected boolean isFinished() {
-		return isTimedOut();
 	}
 
 	@Override

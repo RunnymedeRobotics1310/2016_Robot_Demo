@@ -44,7 +44,7 @@ public class ShooterSubsystem extends R_Subsystem {
 	R_PIDController intakeLockPID = new R_PIDController(0.0, 0.1, 0.0, 0.0, intakeLockPIDInput, intakeMotor);
 
 	// Initialize the subsystem to Disable the intake PID.
-	ShooterSubsystem() {
+	public ShooterSubsystem() {
 		intakeLockPID.setSetpoint(0.0);
 		intakeLockPID.disable();
 	}

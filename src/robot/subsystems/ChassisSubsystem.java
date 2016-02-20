@@ -61,9 +61,9 @@ public class ChassisSubsystem extends R_Subsystem {
 		}
 	};
 
-	R_PIDController leftMotorPID = new R_PIDController(0.1, 0.0, 0.0, 1.0, leftPIDInput, leftMotor);
+	R_PIDController leftMotorPID = new R_PIDController(1.7, 0.0, 0.0, 1.0, leftPIDInput, leftMotor);
 
-	R_PIDController rightMotorPID = new R_PIDController(0.1, 0.0, 0.0, 1.0, rightPIDInput, rightMotor);
+	R_PIDController rightMotorPID = new R_PIDController(1.7, 0.0, 0.0, 1.0, rightPIDInput, rightMotor);
 
 	ArrayList<R_PIDController> pidControllers = new ArrayList<>();
 

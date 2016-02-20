@@ -53,8 +53,8 @@ public abstract class AutoGoStraightCommand extends Command {
 		// If the speed is zero, then just pivot in place
 		// The speed of the turn is set to 1/4 of the full value for all pivots.
 		if (Math.abs(speed) < 0.03) {
-			leftSpeed = turn * 0.25;
-			rightSpeed = -turn * 0.25;
+			leftSpeed = turn / 4.0;
+			rightSpeed = -turn / 4.0;
 		} else {
 
 			// If the speed is more than zero, then slow down one side of the

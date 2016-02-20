@@ -28,6 +28,9 @@ public class RetractBoulderCommand extends Command {
 	}
 
 	protected boolean isFinished() {
+		
+		if (Robot.shooterSubsystem.getIntakeDistance() < -180) { return true; }
+		
 		if (!hasBoulder) {
 			if (!Robot.shooterSubsystem.isBoulderLoaded()) {
 				cancelButton = Robot.oi.getCancel();

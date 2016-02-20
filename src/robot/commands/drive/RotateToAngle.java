@@ -44,11 +44,11 @@ public class RotateToAngle extends Command {
 		double speed = initSpeed;
 
 		if (Math.abs(angleDifference) < 20) {
-			speed *= .8;
-		} else if (Math.abs(angleDifference) < 10) {
 			speed *= .5;
-		} else if (Math.abs(angleDifference) < 5) {
+		} else if (Math.abs(angleDifference) < 10) {
 			speed *= .3;
+		} else if (Math.abs(angleDifference) < 5) {
+			speed *= .1;
 		}
 
 		leftSpeed = (angleDifference > 0) ? speed : -speed;

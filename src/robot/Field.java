@@ -3,14 +3,16 @@ package robot;
 public class Field {
 	
 	public enum Goal {
-		LEFT ("Left"),
-		CENTER ("Center"),
-		RIGHT ("Right");
+		LEFT ("Left", 100),
+		CENTER ("Center", 160),
+		RIGHT ("Right", 220);
 		
 		private final String stringValue;
+		private final int requiredDistance;
 		
-		Goal (String stringValue) {
+		Goal (String stringValue, int requiredDistance) {
 			this.stringValue = stringValue;
+			this.requiredDistance = requiredDistance;
 		}
 		
 		public static Goal toEnum(String stringValue) {
@@ -21,6 +23,10 @@ public class Field {
 			}
 			System.out.println("Goal value (" + stringValue + ") is not a valid goal string");
 			return null;
+		}
+		
+		public int getRequiredDistance() {
+			return this.requiredDistance;
 		}
 	}
 	

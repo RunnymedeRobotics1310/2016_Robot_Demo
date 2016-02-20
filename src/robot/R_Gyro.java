@@ -10,7 +10,7 @@ public class R_Gyro extends AnalogGyro {
 
 	@Override
 	public double getAngle() {
-		double angle = -super.getAngle() % 360;
+		double angle = super.getAngle() % 360;
 		return (angle < 0) ? angle + 360 : angle;
 	}
 	

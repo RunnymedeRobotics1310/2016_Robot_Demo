@@ -53,8 +53,8 @@ public class JoystickDriveCommand extends Command {
 		}*/
 		 
 		if (Math.abs(speed) < 0.03) {
-			leftSpeed  =   turn;
-			rightSpeed = - turn;
+			leftSpeed  =   turn / 2.0;
+			rightSpeed = - turn / 2.0;
 		} else {
 			leftSpeed  = (turn < 0) ? speed * (1 + turn) : speed;
 			rightSpeed = (turn < 0) ? speed              : speed * (1 - turn) ;

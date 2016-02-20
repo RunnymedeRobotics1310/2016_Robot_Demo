@@ -27,6 +27,7 @@ public class GoStraightPID {
 	private static double angleSetpoint = 0.0;
 	private static double pidOutputValue = 0.0;
 
+	//TODO Verify this values are correct
 	private static R_PIDController anglePIDController = 
 			new R_PIDController(20.0, 2.0, 0.0, 1.0, anglePIDInput, anglePIDOutput);
 	

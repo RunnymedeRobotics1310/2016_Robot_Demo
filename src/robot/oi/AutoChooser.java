@@ -1,14 +1,13 @@
 package robot.oi;
 
-import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import robot.commands.auto.base.DriveToDistance;
-import robot.commands.auto.base.DriveToProximity;
-import robot.commands.auto.base.DriveToUltraDistance;
 
 public class AutoChooser {
 
+	public enum AutoMode {
+		DO_NOTHING, DRIVE_AND_SHOOT;
+	}
 	SendableChooser autoModeChooser = new SendableChooser();
 	SendableChooser laneChooser = new SendableChooser();
 	SendableChooser defenceChooser = new SendableChooser();
@@ -16,10 +15,8 @@ public class AutoChooser {
 	SendableChooser goalChooser = new SendableChooser();
 
 	public AutoChooser() {
-		autoModeChooser.addDefault("Drive To Distance Positive", new DriveToDistance(0.5, 0.0, 180.0));
-		autoModeChooser.addObject("Drive To Distance Negative", new DriveToDistance(0.5, 0.0, -180.0));
-		autoModeChooser.addObject("Drive To Ultrasound", new DriveToUltraDistance(0.5, 0.0, 90));
-		autoModeChooser.addObject("Drive To Proximity", new DriveToProximity(0.5, 0.0));
+		autoModeChooser.addDefault("Drive and Shoot", AutoMode.DO_NOTHING);
+		autoModeChooser.addObject("Do nothing", AutoMode.DRIVE_AND_SHOOT);
 
 		laneChooser.addObject("1", 1);
 		laneChooser.addObject("2", 2);
@@ -48,13 +45,9 @@ public class AutoChooser {
 		SmartDashboard.putData("Distance",      distanceChooser);
 		SmartDashboard.putData("Goal",          goalChooser);
 	}
-
-	/**
-	 * 
-	 * @return The selected command, as a ready-to-use command
-	 */
-	public Command getSelectedCommand() {
-		return (Command) autoModeChooser.getSelected();
+	
+	public AutoMode getAutoMode() {
+		return (AutoMode) autoModeChooser.getSelected();
 	}
 
 	/**

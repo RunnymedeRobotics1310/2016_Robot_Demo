@@ -10,10 +10,12 @@ import robot.commands.auto.base.DriveToProximity;
 import robot.commands.auto.base.DriveToUltraDistance;
 import robot.commands.auto.base.WaitUntilPathClear;
 import robot.commands.drive.RotateToAngle;
+import robot.commands.shoot.SetupHighShotCommand;
+import robot.commands.shoot.ShootHighGoalCommand;
 
-public class AutoCommandGroup extends CommandGroup {
+public class AutoDriveAndShootCommand extends CommandGroup {
 
-	public AutoCommandGroup(Slot slot, Defense defense, Lane lane, Goal goal) {
+	public AutoDriveAndShootCommand(Slot slot, Defense defense, Lane lane, Goal goal) {
 		double speed = 0.5;
 		double waitTime = 4.0;
 
@@ -36,9 +38,6 @@ public class AutoCommandGroup extends CommandGroup {
 		case PORTCULLIS:
 			break;
 		case CHEVAL_DE_FRISE:
-			break;
-		default:
-			addSequential(new DriveToDistance(speed, 0, 192));
 			break;
 
 		}
@@ -65,10 +64,6 @@ public class AutoCommandGroup extends CommandGroup {
 		case RIGHT:
 			addSequential(new DriveToUltraDistance(speed, 90, Goal.RIGHT.getRequiredDistance()));
 			break;
-		default:
-			addSequential(new DriveToUltraDistance(speed, 90, Slot.TWO.getDistanceToLeftWall()));
-			break;
-
 		}
 
 		// Rotate to 0 degrees, because that's what we always do.
@@ -94,10 +89,11 @@ public class AutoCommandGroup extends CommandGroup {
 			addSequential(new RotateToAngle(360 - rampAngle, waitTime));
 			addSequential(new DriveToProximity(speed, 360 - rampAngle));
 			break;
-		default:
-			break;
-
 		}
+
+		// shoot
+		addParallel(new SetupHighShotCommand());
+		addSequential(new ShootHighGoalCommand());
 
 	}
 }

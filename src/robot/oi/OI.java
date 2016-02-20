@@ -12,34 +12,31 @@ import robot.R_GameController.Button;
 import robot.R_GameController.Stick;
 import robot.R_GameController.Trigger;
 import robot.R_GameControllerFactory;
-import robot.commands.auto.AutoCommandGroup;
+import robot.commands.auto.AutoDriveAndShootCommand;
 
 /**
  * This class is the glue that binds the controls on the physical operator
  * interface to the commands and command groups that allow control of the robot.
  */
 public class OI {
-	
+
 	private enum ButtonMap {
-	
-		SHOOT_LOW_GOAL_BUTTON(Button.A),
-		SHOOT_HIGH_GOAL_BUTTON(Button.B),
-		TURBO_BUTTON(Button.LEFT_BUMPER),
-		CANCEL_COMMAND_BUTTON(Button.X),
-		ROLL_INTAKE_BUTTON(Button.RIGHT_BUMPER);
-		
+
+		SHOOT_LOW_GOAL_BUTTON(Button.A), SHOOT_HIGH_GOAL_BUTTON(Button.B), TURBO_BUTTON(
+				Button.LEFT_BUMPER), CANCEL_COMMAND_BUTTON(Button.X), ROLL_INTAKE_BUTTON(Button.RIGHT_BUMPER);
+
 		private Button button;
-		
+
 		ButtonMap(Button button) {
 			this.button = button;
 		}
-		
+
 		public Button getButton() {
 			return this.button;
 		}
-		
+
 	}
-	
+
 	private R_GameController driverStick = R_GameControllerFactory.getGameController(0);
 	private AutoChooser autoChooser = new AutoChooser();
 
@@ -83,16 +80,16 @@ public class OI {
 	public boolean getGyroReset() {
 		return driverStick.getButton(Button.BACK);
 	}
-	
-	public double getArmDeploy(){
+
+	public double getArmDeploy() {
 		return driverStick.getTrigger(Trigger.RIGHT);
 	}
-	
+
 	public boolean getGyroCalibrate() {
 		return driverStick.getButton(Button.START);
 	}
-	
-	public boolean getTurbo(){
+
+	public boolean getTurbo() {
 		return driverStick.getButton(Trigger.LEFT);
 	}
 
@@ -129,9 +126,17 @@ public class OI {
 	}
 
 	public Command getAutoCommand() {
-		return new AutoCommandGroup(getSlot(), getDefense(), getLane(), getGoal());
+
+		switch (autoChooser.getAutoMode()) {
+		case DO_NOTHING:
+			return null;
+		case DRIVE_AND_SHOOT:
+			return new AutoDriveAndShootCommand(getSlot(), getDefense(), getLane(), getGoal());
+		default:
+			return null;
+		}
 	}
-	
+
 	/**
 	 * Update the periodic running elements of the dashboard
 	 * <p>

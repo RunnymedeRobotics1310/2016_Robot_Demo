@@ -104,11 +104,11 @@ public class OI {
 		return Slot.toEnum(autoChooser.getSelectedSlot());
 	}
 
-	public boolean getIntakeStart() {
+	public boolean getIntakeStartButton() {
 		return driverStick.getButton(ButtonMap.ROLL_INTAKE_BUTTON.getButton());
 	}
 
-	public boolean getShootHighGoal() {
+	public boolean getShootHighGoalButton() {
 		return driverStick.getButton(ButtonMap.SHOOT_HIGH_GOAL_BUTTON.getButton());
 	}
 
@@ -116,7 +116,7 @@ public class OI {
 		return driverStick.getButton(ButtonMap.CANCEL_COMMAND_BUTTON.getButton());
 	}
 
-	public boolean getShootLowGoal() {
+	public boolean getShootLowGoalButton() {
 		return driverStick.getButton(ButtonMap.SHOOT_LOW_GOAL_BUTTON.getButton());
 	}
 

@@ -1,54 +1,69 @@
 package robot.commands.shoot;
 
-import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Command;
 import robot.Robot;
+import robot.oi.OI;
+import robot.subsystems.ShooterSubsystem;
 import robot.subsystems.ShooterSubsystem.IntakeReverseSpeed;
 
+/**
+ * Retract boulder.
+ * <p>
+ * The retract boulder command has a complex set of movements to ensure the boulder is sitting
+ * away from the shooter wheel before the wheel starts spinning.
+ * <p> 
+ * Step 1: spin the shooter motor in reverse so that the boulder is touching the intake motors.
+ * Step 2: retract the boulder using the intake motors.
+ * Step 3: lock the intake rollers in place and stop the shooter motor from spinning in reverse.
+ *
+ */
 public class RetractBoulderCommand extends Command {
 
-	boolean hasBoulder = false;
+	ShooterSubsystem shooterSubsystem = Robot.shooterSubsystem;
+	OI               oi               = Robot.oi;
+	
 	boolean cancelButton = false;
 	
 	public RetractBoulderCommand() {
-		requires(Robot.shooterSubsystem);
+		requires(shooterSubsystem);
 	}
 
 	protected void initialize() {
-		Robot.shooterSubsystem.resetIntakeEncoder();
-		hasBoulder = Robot.shooterSubsystem.isBoulderLoaded();
+		shooterSubsystem.startShooterMotorReverse();
 	}
 
 	protected void execute() {
-		Robot.shooterSubsystem.setIntakeMotorReverse(IntakeReverseSpeed.LOW);
-		if (Robot.shooterSubsystem.getRailPosition() != Value.kForward) {
-			Robot.shooterSubsystem.setRailPosition(Value.kForward);
+
+		// Start reversing the intake some time after the shooter starts
+		// reversing
+		if (timeSinceInitialized() > 0.5) {
+			shooterSubsystem.setIntakeMotorReverse(IntakeReverseSpeed.LOW);
 		}
-		Robot.shooterSubsystem.startShooterMotorReverse();
 	}
 
 	protected boolean isFinished() {
-		
-		if (Robot.shooterSubsystem.getIntakeDistance() < -180) { return true; }
-		
-		if (!hasBoulder) {
-			if (!Robot.shooterSubsystem.isBoulderLoaded()) {
-				cancelButton = Robot.oi.getCancel();
-				if (cancelButton) { return true; }
-				return false;
-			} else {
-				hasBoulder = true;
-			}
+
+		// If the cancel button is pressed, then end
+		if (oi.getCancel()) {
+			cancelButton = true;
+			return true;
 		}
-		return !Robot.shooterSubsystem.isBoulderLoaded();
+		
+		if (Robot.shooterSubsystem.getIntakeDistance() < -270) { return true; }
+		
+		return false;
 	}
 
 	protected void end() {
-		Robot.shooterSubsystem.stopIntakeMotor();
-		Robot.shooterSubsystem.stopShooterMotor();
+		
+		shooterSubsystem.stopShooterMotor();
+
 		if (cancelButton) {
-			Robot.shooterSubsystem.setBallRetracted(false);
+			shooterSubsystem.stopIntakeMotor();
+		} else {
+			shooterSubsystem.lockIntakeMotor();
 		}
+		
 	}
 
 	protected void interrupted() {

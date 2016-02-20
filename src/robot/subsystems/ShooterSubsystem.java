@@ -15,22 +15,23 @@ import robot.commands.shoot.JoystickShootCommand;
 public class ShooterSubsystem extends R_Subsystem {
 
 	public enum IntakeReverseSpeed {LOW, HIGH}
+
 	Talon intakeMotor  = new R_Talon(RobotMap.MotorMap.INTAKE_MOTOR);
-	
 	Talon shooterMotor = new R_Talon(RobotMap.MotorMap.SHOOTER_MOTOR);
 	
 	DigitalInput boulderProximitySensor = new DigitalInput(RobotMap.SensorMap.BOULDER_PROXIMITY_SENSOR.port);
+
 	Counter shooterSpeedEncoder  = new Counter(RobotMap.SensorMap.SHOOTER_SPEED_ENCODER.port);
+	
 	Encoder intakeEncoder        = 
 			new Encoder(RobotMap.EncoderMap.INTAKE_ENCODER.ch1,
 			            RobotMap.EncoderMap.INTAKE_ENCODER.ch2);
-	
 	
 	DoubleSolenoid shooterRail = 
 			new DoubleSolenoid(RobotMap.Pneumatics.SHOOTER_RAIL_UP.pcmPort, 
 					           RobotMap.Pneumatics.SHOOTER_RAIL_DOWN.pcmPort);
 	
-	private boolean ballRetracted = false;
+	private boolean boulderRetracted = false;
 	
 	public double getIntakeDistance() {
 		return intakeEncoder.getDistance();
@@ -40,16 +41,12 @@ public class ShooterSubsystem extends R_Subsystem {
 		return intakeEncoder.getRate();
 	}
 
+	public Value getRailPosition() {
+		return shooterRail.get();
+	}
+	
 	public double getShooterSpeed() {
 		return shooterSpeedEncoder.getRate();
-	}
-	
-	public void setBallRetracted(boolean ballRetracted) {
-		this.ballRetracted = ballRetracted;
-	}
-	
-	public boolean isBoulderRetracted() {
-		return ballRetracted;
 	}
 	
 	public void init() {
@@ -57,13 +54,21 @@ public class ShooterSubsystem extends R_Subsystem {
 		// rpms.  One count = 1 rpm.
 		shooterSpeedEncoder.setDistancePerPulse(1.0);
 	}
-
+	
 	public void initDefaultCommand() {
 		setDefaultCommand(new JoystickShootCommand());
 	}
-	
+
 	public boolean isBoulderLoaded() {
 		return !boulderProximitySensor.get();
+	}
+	
+	public boolean isBoulderRetracted() {
+		return boulderRetracted;
+	}
+	
+	public void lockIntakeMotor() {
+		intakeMotor.set(0.0);
 	}
 	
 	@Override
@@ -74,6 +79,10 @@ public class ShooterSubsystem extends R_Subsystem {
 		intakeEncoder.reset();
 	}
 	
+	public void setBoulderRetracted(boolean ballRetracted) {
+		this.boulderRetracted = ballRetracted;
+	}
+	
 	public void setIntakeMotorReverse(IntakeReverseSpeed intakeReverseSpeed) {
 		if (intakeReverseSpeed == IntakeReverseSpeed.LOW) {
 			intakeMotor.set(-0.3);
@@ -82,6 +91,10 @@ public class ShooterSubsystem extends R_Subsystem {
 		}
 	}
 	
+	public void setRailPosition(Value v) {
+		shooterRail.set(v);
+	}
+
 	public void startIntakeMotor() {
 		intakeMotor.set(1.0); // Speed of intake when taking in a boulder	
 	}
@@ -93,21 +106,13 @@ public class ShooterSubsystem extends R_Subsystem {
 	public void startShooterMotorReverse(){
 		shooterMotor.set(-0.5);
 	}
-
+	
 	public void stopIntakeMotor() {
 		intakeMotor.set(0.0);
 	}
 	
 	public void stopShooterMotor(){
 		shooterMotor.set(0.0);
-	}
-	
-	public Value getRailPosition() {
-		return shooterRail.get();
-	}
-	
-	public void setRailPosition(Value v) {
-		shooterRail.set(v);
 	}
 
 	@Override

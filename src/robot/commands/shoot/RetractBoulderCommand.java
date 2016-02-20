@@ -84,8 +84,10 @@ public class RetractBoulderCommand extends Command {
 
 		if (cancelButton) {
 			shooterSubsystem.stopIntakeMotor();
+			shooterSubsystem.setBoulderRetracted(false);
 		} else {
 			shooterSubsystem.lockIntakeMotor();
+			shooterSubsystem.setBoulderRetracted(true);
 		}
 
 	}

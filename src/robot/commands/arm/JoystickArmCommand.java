@@ -16,7 +16,7 @@ public class JoystickArmCommand extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	if (Robot.oi.getArmDeploy() > 0.5){
+    	if (Robot.oi.getArmDeploy()){
     		Scheduler.getInstance().add(new ArmDeployCommand());
     	}
     }

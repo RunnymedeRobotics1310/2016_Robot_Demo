@@ -23,7 +23,8 @@ public class OI {
 	private enum ButtonMap {
 
 		SHOOT_LOW_GOAL_BUTTON(Button.A), SHOOT_HIGH_GOAL_BUTTON(Button.B), TURBO_BUTTON(
-				Button.LEFT_BUMPER), CANCEL_COMMAND_BUTTON(Button.X), ROLL_INTAKE_BUTTON(Button.RIGHT_BUMPER);
+				Button.LEFT_BUMPER), CANCEL_COMMAND_BUTTON(Button.X), ROLL_INTAKE_BUTTON(
+						Button.RIGHT_BUMPER), TOGGLE_ARM_BUTTON(Button.Y);
 
 		private Button button;
 
@@ -81,10 +82,6 @@ public class OI {
 		return driverStick.getButton(Button.BACK);
 	}
 
-	public double getArmDeploy() {
-		return driverStick.getTrigger(Trigger.RIGHT);
-	}
-
 	public boolean getGyroCalibrate() {
 		return driverStick.getButton(Button.START);
 	}
@@ -117,6 +114,10 @@ public class OI {
 		return driverStick.getButton(ButtonMap.SHOOT_LOW_GOAL_BUTTON.getButton());
 	}
 
+	public boolean getArmDeploy() {
+		return driverStick.getButton(ButtonMap.TOGGLE_ARM_BUTTON.getButton());
+	}
+
 	public Lane getLane() {
 		return Lane.toEnum(autoChooser.getSelectedDistance());
 	}
@@ -128,9 +129,9 @@ public class OI {
 	public Command getAutoCommand() {
 
 		switch (autoChooser.getAutoMode()) {
-		case DO_NOTHING:
+		case "Do Nothing":
 			return null;
-		case DRIVE_AND_SHOOT:
+		case "Drive and Shoot":
 			return new AutoDriveAndShootCommand(getSlot(), getDefense(), getLane(), getGoal());
 		default:
 			return null;

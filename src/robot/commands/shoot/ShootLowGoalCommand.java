@@ -12,6 +12,7 @@ public class ShootLowGoalCommand extends Command {
 	@Override
 	protected void execute() {
 		Robot.shooterSubsystem.setIntakeMotorReverse(IntakeReverseSpeed.HIGH);
+		Robot.shooterSubsystem.startShooterMotorReverse();
 	}
 
 	@Override
@@ -22,6 +23,7 @@ public class ShootLowGoalCommand extends Command {
 	@Override
 	protected void end() {
 		Robot.shooterSubsystem.stopIntakeMotor();
+		Robot.shooterSubsystem.stopShooterMotor();
 	}
 	
 	@Override

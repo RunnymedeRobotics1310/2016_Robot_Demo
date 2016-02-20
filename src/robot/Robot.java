@@ -38,6 +38,8 @@ public class Robot extends IterativeRobot {
     	
         autonomousCommand = oi.getAutoCommand();
         
+        chassisSubsystem.resetGyroHeading();
+        
         // schedule the autonomous command
         Scheduler.getInstance().add(autonomousCommand);
         

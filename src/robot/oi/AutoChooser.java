@@ -15,8 +15,8 @@ public class AutoChooser {
 	SendableChooser goalChooser = new SendableChooser();
 
 	public AutoChooser() {
-		autoModeChooser.addDefault("Drive and Shoot", AutoMode.DO_NOTHING);
-		autoModeChooser.addObject("Do nothing", AutoMode.DRIVE_AND_SHOOT);
+		autoModeChooser.addDefault("Drive and Shoot", "Drive and Shoot");
+		autoModeChooser.addObject("Do nothing", "Do Nothing");
 
 		laneChooser.addObject("1", 1);
 		laneChooser.addObject("2", 2);
@@ -46,8 +46,8 @@ public class AutoChooser {
 		SmartDashboard.putData("Goal",          goalChooser);
 	}
 	
-	public AutoMode getAutoMode() {
-		return (AutoMode) autoModeChooser.getSelected();
+	public String getAutoMode() {
+		return (String) autoModeChooser.getSelected();
 	}
 
 	/**

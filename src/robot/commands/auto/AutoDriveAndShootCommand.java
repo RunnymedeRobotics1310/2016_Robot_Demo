@@ -92,7 +92,7 @@ public class AutoDriveAndShootCommand extends CommandGroup {
 		}
 
 		// shoot
-		addParallel(new SetupHighShotCommand());
+		addSequential(new SetupHighShotCommand());
 		addSequential(new ShootHighGoalCommand());
 
 	}

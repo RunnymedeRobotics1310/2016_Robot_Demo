@@ -30,8 +30,6 @@ public class ShooterSubsystem extends R_Subsystem {
 			new DoubleSolenoid(RobotMap.Pneumatics.SHOOTER_RAIL_UP.pcmPort, 
 					           RobotMap.Pneumatics.SHOOTER_RAIL_DOWN.pcmPort);
 	
-
-	
 	private boolean ballRetracted = false;
 	
 	public double getIntakeDistance() {

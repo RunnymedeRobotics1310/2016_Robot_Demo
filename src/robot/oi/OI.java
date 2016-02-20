@@ -84,6 +84,10 @@ public class OI {
 		return driverStick.getButton(Button.BACK);
 	}
 	
+	public double getArmDeploy(){
+		return driverStick.getTrigger(Trigger.RIGHT);
+	}
+	
 	public boolean getGyroCalibrate() {
 		return driverStick.getButton(Button.START);
 	}

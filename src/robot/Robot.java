@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import robot.oi.OI;
+import robot.subsystems.ArmSubsystem;
 import robot.subsystems.ChassisSubsystem;
 import robot.subsystems.ShooterSubsystem;
 
@@ -23,6 +24,7 @@ public class Robot extends IterativeRobot {
 	// Declare all subsystems and add them to the list of subsystems
 	public static final ChassisSubsystem chassisSubsystem = new ChassisSubsystem();
 	public static final ShooterSubsystem shooterSubsystem = new ShooterSubsystem();
+	public static final ArmSubsystem armSubsystem = new ArmSubsystem();
 
 	public static OI oi;
 

@@ -22,7 +22,8 @@ public class RetractBoulderCommand extends Command {
 	ShooterSubsystem shooterSubsystem = Robot.shooterSubsystem;
 	OI               oi               = Robot.oi;
 	
-	boolean cancelButton = false;
+	boolean cancelButton      = false;
+	boolean lockDelayStarted  = false;
 	
 	public RetractBoulderCommand() {
 		requires(shooterSubsystem);
@@ -49,7 +50,20 @@ public class RetractBoulderCommand extends Command {
 			return true;
 		}
 		
-		if (Robot.shooterSubsystem.getIntakeDistance() < -270) { return true; }
+		if (lockDelayStarted) {
+			
+			if (isTimedOut()) { return true; }
+
+		} else {
+			// Start the lock delay after shutting off the intake motor. 
+			// Give the motor a chance to stop before trying to lock it.
+			if (Robot.shooterSubsystem.getIntakeDistance() < -270) { 
+				shooterSubsystem.stopIntakeMotor();
+				setTimeout(timeSinceInitialized() + 0.25);
+				lockDelayStarted = true;
+			}
+			
+		} 
 		
 		return false;
 	}

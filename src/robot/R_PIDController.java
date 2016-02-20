@@ -294,12 +294,10 @@ public class R_PIDController implements PIDInterface, LiveWindowSendable {
 	}
 
 	/**
-	 * Stop running the PIDController, this sets the output to zero before
-	 * stopping.
+	 * Stop running the PIDController
 	 */
 	@Override
 	public synchronized void disable() {
-		m_pidOutput.pidWrite(0);
 		m_enabled = false;
 
 		if (table != null) {

@@ -7,6 +7,8 @@ import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import robot.R_PIDController;
+import robot.R_PIDInput;
 import robot.R_Subsystem;
 import robot.R_Talon;
 import robot.RobotMap;
@@ -31,6 +33,22 @@ public class ShooterSubsystem extends R_Subsystem {
 			new DoubleSolenoid(RobotMap.Pneumatics.SHOOTER_RAIL_UP.pcmPort, 
 					           RobotMap.Pneumatics.SHOOTER_RAIL_DOWN.pcmPort);
 	
+	
+	R_PIDInput intakeLockPIDInput = new R_PIDInput() {
+		@Override
+		public double pidGet() {
+			return (RobotMap.EncoderMap.INTAKE_ENCODER.inverted ? -1.0 : 1.0) * intakeEncoder.getDistance();
+		}
+	};
+
+	R_PIDController intakeLockPID = new R_PIDController(0.0, 0.1, 0.0, 0.0, intakeLockPIDInput, intakeMotor);
+
+	// Initialize the subsystem to Disable the intake PID.
+	ShooterSubsystem() {
+		intakeLockPID.setSetpoint(0.0);
+		intakeLockPID.disable();
+	}
+
 	private boolean boulderRetracted = false;
 	
 	public double getIntakeDistance() {
@@ -68,7 +86,10 @@ public class ShooterSubsystem extends R_Subsystem {
 	}
 	
 	public void lockIntakeMotor() {
+		intakeEncoder.reset();
+		intakeLockPID.reset();
 		intakeMotor.set(0.0);
+		intakeLockPID.enable();
 	}
 	
 	@Override
@@ -84,6 +105,11 @@ public class ShooterSubsystem extends R_Subsystem {
 	}
 	
 	public void setIntakeMotorReverse(IntakeReverseSpeed intakeReverseSpeed) {
+
+		if (intakeLockPID.isEnabled()) {
+			intakeLockPID.disable();
+		}
+		
 		if (intakeReverseSpeed == IntakeReverseSpeed.LOW) {
 			intakeMotor.set(-0.3);
 		} else {
@@ -96,6 +122,11 @@ public class ShooterSubsystem extends R_Subsystem {
 	}
 
 	public void startIntakeMotor() {
+
+		if (intakeLockPID.isEnabled()) {
+			intakeLockPID.disable();
+		}
+		
 		intakeMotor.set(1.0); // Speed of intake when taking in a boulder	
 	}
 	
@@ -108,6 +139,11 @@ public class ShooterSubsystem extends R_Subsystem {
 	}
 	
 	public void stopIntakeMotor() {
+
+		if (intakeLockPID.isEnabled()) {
+			intakeLockPID.disable();
+		}
+		
 		intakeMotor.set(0.0);
 	}
 	

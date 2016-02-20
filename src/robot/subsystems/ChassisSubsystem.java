@@ -248,6 +248,8 @@ public class ChassisSubsystem extends R_Subsystem {
 		SmartDashboard.putData("Right Motor PID", rightMotorPID);
 		SmartDashboard.putData("Gyro", gyro);
 		SmartDashboard.putNumber("Gyro Angle", gyro.getAngle());
+		SmartDashboard.putNumber("Gyro Center" , gyro.getCenter());
+		SmartDashboard.putNumber("Gyro Offset" , gyro.getOffset());
 		SmartDashboard.putNumber("Ultrasonic Sensor Distance", ultrasonicSensor.getDistance());
 		SmartDashboard.putNumber("Raw ultrasonic sensor voltage", ultrasonicSensor.getVoltage());
 		SmartDashboard.putString("Transmission", gear.name());

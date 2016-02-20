@@ -67,10 +67,14 @@ public class JoystickShootCommand extends Command {
 			
 			} else {
 				
-				shooterSubsystem.setBoulderRetracted(true);
-				Scheduler.getInstance().add(new SetupHighShotCommand());
-				
-				return;
+				// Only start retracting if you have a ball
+				if (shooterSubsystem.isBoulderLoaded()) {
+					
+					shooterSubsystem.setBoulderRetracted(true);
+					Scheduler.getInstance().add(new SetupHighShotCommand());
+					
+					return;
+				}
 			}
 			
 			// Don't look for other buttons when the shooter button is pressed

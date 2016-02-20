@@ -26,6 +26,7 @@ public class RetractBoulderCommand extends Command {
 
 	boolean cancelButton = false;
 	boolean lockDelayStarted = false;
+	boolean retractStarted = false;
 
 	public RetractBoulderCommand() {
 		requires(shooterSubsystem);
@@ -39,12 +40,12 @@ public class RetractBoulderCommand extends Command {
 
 		// Start reversing the intake some time after the shooter starts
 		// reversing
-		if (!lockDelayStarted) {
-			System.out.println("Lock delay started");
+		if (!retractStarted) {
 			if (timeSinceInitialized() > 0.5) {
 				System.out.println("Time since initialized is more than 0.5");
 				shooterSubsystem.resetIntakeEncoder();
 				shooterSubsystem.setIntakeMotorReverse(IntakeReverseSpeed.LOW);
+				retractStarted = true;
 			}
 		}
 	}
@@ -66,7 +67,7 @@ public class RetractBoulderCommand extends Command {
 		} else {
 			// Start the lock delay after shutting off the intake motor.
 			// Give the motor a chance to stop before trying to lock it.
-			if (Robot.shooterSubsystem.getIntakeDistance() < -270) {
+			if (Robot.shooterSubsystem.getIntakeDistance() < -180) {
 				shooterSubsystem.stopIntakeMotor();
 				setTimeout(timeSinceInitialized() + 0.25);
 				lockDelayStarted = true;

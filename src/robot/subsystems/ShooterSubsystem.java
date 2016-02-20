@@ -37,11 +37,11 @@ public class ShooterSubsystem extends R_Subsystem {
 	R_PIDInput intakeLockPIDInput = new R_PIDInput() {
 		@Override
 		public double pidGet() {
-			return (RobotMap.EncoderMap.INTAKE_ENCODER.inverted ? -1.0 : 1.0) * intakeEncoder.getDistance();
+			return -(RobotMap.EncoderMap.INTAKE_ENCODER.inverted ? -1.0 : 1.0) * intakeEncoder.getDistance();
 		}
 	};
 
-	R_PIDController intakeLockPID = new R_PIDController(0.0, 0.1, 0.0, 0.0, intakeLockPIDInput, intakeMotor);
+	R_PIDController intakeLockPID = new R_PIDController(0.02, 0.0, 0.0, 0.0, intakeLockPIDInput, intakeMotor);
 
 	// Initialize the subsystem to Disable the intake PID.
 	public ShooterSubsystem() {
@@ -94,6 +94,7 @@ public class ShooterSubsystem extends R_Subsystem {
 	
 	@Override
 	public void periodic() {
+		intakeLockPID.calculate();
 	}
 	
 	public void resetIntakeEncoder() {
@@ -153,6 +154,9 @@ public class ShooterSubsystem extends R_Subsystem {
 
 	@Override
 	public void updateDashboard() {
+		SmartDashboard.putData("Intake Lock PID" , intakeLockPID);
+		SmartDashboard.putNumber("Intake Lock PID Output", intakeMotor.get());
+		SmartDashboard.putData("Intake motor", intakeMotor);
 		SmartDashboard.putNumber("Shooter Speed" , getShooterSpeed());
 		SmartDashboard.putNumber("Intake Speed" , getIntakeSpeed());
 		SmartDashboard.putNumber("Intake Distance" , getIntakeDistance());

@@ -1,7 +1,6 @@
 package robot;
 
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class R_GameControllerFactory {
 

@@ -8,7 +8,6 @@ public class CameraSubsystem extends R_Subsystem {
     CameraServer server;
 
 	public void init() {
-
 	    server = CameraServer.getInstance();
 	    server.setQuality(20);
 	    server.startAutomaticCapture("cam0");

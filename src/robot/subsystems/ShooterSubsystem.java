@@ -5,12 +5,12 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.Talon;
+import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import robot.R_PIDController;
 import robot.R_PIDInput;
 import robot.R_Subsystem;
-import robot.R_Talon;
+import robot.R_Victor;
 import robot.RobotMap;
 import robot.commands.shoot.JoystickShootCommand;
 
@@ -18,8 +18,8 @@ public class ShooterSubsystem extends R_Subsystem {
 
 	public enum IntakeReverseSpeed {LOW, HIGH}
 
-	Talon intakeMotor  = new R_Talon(RobotMap.MotorMap.INTAKE_MOTOR);
-	Talon shooterMotor = new R_Talon(RobotMap.MotorMap.SHOOTER_MOTOR);
+	Victor intakeMotor  = new R_Victor(RobotMap.MotorMap.INTAKE_MOTOR);
+	Victor shooterMotor = new R_Victor(RobotMap.MotorMap.SHOOTER_MOTOR);
 	
 	DigitalInput boulderProximitySensor = new DigitalInput(RobotMap.SensorMap.BOULDER_PROXIMITY_SENSOR.port);
 

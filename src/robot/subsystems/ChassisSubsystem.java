@@ -6,21 +6,21 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.Talon;
+import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import robot.R_Gyro;
 import robot.R_PIDController;
 import robot.R_PIDInput;
 import robot.R_Subsystem;
-import robot.R_Talon;
+import robot.R_Victor;
 import robot.R_Ultrasonic;
 import robot.RobotMap;
 import robot.commands.drive.JoystickDriveCommand;
 
 public class ChassisSubsystem extends R_Subsystem {
 
-	Talon leftMotor = new R_Talon(RobotMap.MotorMap.LEFT_MOTOR);
-	Talon rightMotor = new R_Talon(RobotMap.MotorMap.RIGHT_MOTOR);
+	Victor leftMotor = new R_Victor(RobotMap.MotorMap.LEFT_MOTOR);
+	Victor rightMotor = new R_Victor(RobotMap.MotorMap.RIGHT_MOTOR);
 
 	DigitalInput leftProximitySensor = new DigitalInput(RobotMap.SensorMap.LEFT_PROXIMITY_SENSOR.port);
 	DigitalInput centerProximitySensor = new DigitalInput(RobotMap.SensorMap.UPPER_PROXIMITY_SENSOR.port);
@@ -35,8 +35,8 @@ public class ChassisSubsystem extends R_Subsystem {
 			RobotMap.Pneumatics.BALLSHIFTER_LOW.pcmPort);
 
 	public enum Gear {
-		LOW, HIGH
-	};
+		LOW, HIGH;
+	}
 
 	private Gear gear = Gear.LOW;
 
@@ -68,7 +68,7 @@ public class ChassisSubsystem extends R_Subsystem {
 	ArrayList<R_PIDController> pidControllers = new ArrayList<>();
 
 	// Gyro
-	R_Gyro gyro = new R_Gyro(RobotMap.SensorMap.GYRO.port, 1918500);
+	R_Gyro gyro = new R_Gyro(RobotMap.SensorMap.GYRO.port, 1916000);
 
 	public void init() {
 
@@ -85,6 +85,7 @@ public class ChassisSubsystem extends R_Subsystem {
 
 	public void setSpeed(double leftSpeed, double rightSpeed) {
 
+		
 		leftMotorPID.setSetpoint(leftSpeed);
 		rightMotorPID.setSetpoint(rightSpeed);
 
@@ -94,6 +95,9 @@ public class ChassisSubsystem extends R_Subsystem {
 		if (!rightMotorPID.isEnabled()) {
 			rightMotorPID.enable();
 		}
+		
+		//leftMotor.set(leftSpeed);
+		//rightMotor.set(rightSpeed);
 	}
 
 	public double getCurrentAngle() {

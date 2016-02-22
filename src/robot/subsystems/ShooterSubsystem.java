@@ -33,6 +33,7 @@ public class ShooterSubsystem extends R_Subsystem {
 			new DoubleSolenoid(RobotMap.Pneumatics.SHOOTER_RAIL_UP.pcmPort, 
 					           RobotMap.Pneumatics.SHOOTER_RAIL_DOWN.pcmPort);
 	
+	
 	R_PIDInput intakeLockPIDInput = new R_PIDInput() {
 		@Override
 		public double pidGet() {
@@ -58,18 +59,10 @@ public class ShooterSubsystem extends R_Subsystem {
 		return intakeEncoder.getRate();
 	}
 
-	/**
-	 * Gets the rail position (Raised, Lowered)
-	 * @return kForward, kReverse or kOff, depending on the status of the pneumatic
-	 */
 	public Value getRailPosition() {
 		return shooterRail.get();
 	}
 	
-	/**
-	 * Gets the speed of the shooter.
-	 * @return
-	 */
 	public double getShooterSpeed() {
 		return shooterSpeedEncoder.getRate();
 	}

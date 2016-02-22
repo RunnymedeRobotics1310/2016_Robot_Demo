@@ -22,7 +22,6 @@ public class ArmDeployCommand extends Command {
 	}
 
 	protected void end() {
-		Robot.oi.setRumble(0.5);
 		Robot.armSubsystem.setArmDeploy(!Robot.armSubsystem.getArmDeploy());
 	}
 

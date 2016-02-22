@@ -1,6 +1,7 @@
 package robot;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -29,7 +30,7 @@ public class Robot extends IterativeRobot {
 
 	public static OI oi;
 
-	public static ArrayList<R_Subsystem> subsystemList = new ArrayList<>();
+	public static List<R_Subsystem> subsystemList = new ArrayList<R_Subsystem>();
 	
 	Command autonomousCommand;
 	

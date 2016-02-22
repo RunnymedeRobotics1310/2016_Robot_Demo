@@ -6,7 +6,7 @@ public class R_Extreme3DPro_Joystick {
 	private final Joystick joystick;
 
 	public enum Axis {
-		X, Y, Z;
+		X, Y, Z, SLIDER;
 	}
 
 	public enum JoystickButton {
@@ -44,6 +44,9 @@ public class R_Extreme3DPro_Joystick {
 			break;
 		case Z:
 			axisValue = joystick.getRawAxis(2);
+		case SLIDER:
+			axisValue = joystick.getRawAxis(3);
+			break;
 		}
 
 		// Round the axis value to 2 decimal places
@@ -74,6 +77,8 @@ public class R_Extreme3DPro_Joystick {
 			return joystick.getRawButton(10);
 		case BUTTON11:
 			return joystick.getRawButton(11);
+		case BUTTON12:
+			return joystick.getRawButton(12);
 		default:
 			return false;
 		}

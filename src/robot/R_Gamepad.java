@@ -4,29 +4,29 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Joystick.RumbleType;
 
 /**
- * This interface is the interface for all GameControllers. A GameController
- * typically has two joysticks, and a POV on the top, and two bumpers and
+ * This interface is the interface for all Gamepads. A Gamepad
+ * typically has two axis, and a POV on the top, and two bumpers and
  * triggers on the front side.
  * 
- * Each type of GameController has different button mappings. The
- * GameControllerFactory will return a GameController of the correct type.
+ * Each type of Gamepad has different button mappings. The
+ * GamepadFactory will return a Gamepad of the correct type.
  * 
  */
-public abstract class R_GameController {
+public abstract class R_Gamepad {
 
-	public enum Axis {
+	public enum GamepadAxis {
 		X, Y;
 	};
 
-	public enum Stick {
+	public enum GamepadStick {
 		LEFT, RIGHT;
 	}
 
-	public enum Trigger {
+	public enum GamepadTrigger {
 		LEFT, RIGHT;
 	}
 
-	public enum Button {
+	public enum GamepadButton {
 		A, B, X, Y, LEFT_STICK, RIGHT_STICK, LEFT_BUMPER, RIGHT_BUMPER, START, BACK;
 	}
 
@@ -47,7 +47,7 @@ public abstract class R_GameController {
 	 *         joystick will not center at 0.0 and a deadband may need to be
 	 *         introduced.
 	 */
-	public abstract double getAxis(Stick stick, Axis axis);
+	public abstract double getAxis(GamepadStick stick, GamepadAxis axis);
 
 	/**
 	 * Get the value of the given trigger.
@@ -57,9 +57,9 @@ public abstract class R_GameController {
 	 * @return - a double from 0.0 to 1.0 indicating the value of the trigger. A
 	 *         value of 0 indicates the trigger was not pressed. To return the
 	 *         value of the trigger as a button (boolean) use the
-	 *         {@link #getButton(Trigger)} method.
+	 *         {@link #getButton(GamepadTrigger)} method.
 	 */
-	public abstract double getTrigger(Trigger trigger);
+	public abstract double getTrigger(GamepadTrigger trigger);
 
 	/**
 	 * Get the value of the given button.
@@ -73,7 +73,7 @@ public abstract class R_GameController {
 	 * @return - boolean - {@code true} if the button was pressed,
 	 *         {@false otherwise}
 	 */
-	public abstract boolean getButton(Button button);
+	public abstract boolean getButton(GamepadButton button);
 
 	/**
 	 * Get the value of the given trigger as a button.
@@ -85,7 +85,7 @@ public abstract class R_GameController {
 	 *         pressed. This prevents accidentally detecting a pressed value
 	 *         when the operator's finger is resting on the trigger.
 	 */
-	public boolean getButton(Trigger trigger) {
+	public boolean getButton(GamepadTrigger trigger) {
 
 		if (getTrigger(trigger) > 0.5) {
 			return true;
@@ -144,7 +144,7 @@ public abstract class R_GameController {
 
 		String buttonString = "";
 		boolean first = true;
-		for (Button button : Button.values()) {
+		for (GamepadButton button : GamepadButton.values()) {
 			if (getButton(button)) {
 				if (!first) {
 					buttonString += ",";
@@ -163,9 +163,9 @@ public abstract class R_GameController {
 			rumbleString += "R(" + curLeftRumble + "," + curRightRumble + ") ";
 		}
 
-		return getRawJoystick().getName() + " " + getRawJoystick().getButtonCount() + " (" + getAxis(Stick.LEFT, Axis.X) + ","
-				+ getAxis(Stick.LEFT, Axis.Y) + ")" + " (" + getAxis(Stick.RIGHT, Axis.X) + ","
-				+ getAxis(Stick.RIGHT, Axis.Y) + ")" + " (" + getTrigger(Trigger.LEFT) + "," + getTrigger(Trigger.RIGHT)
+		return getRawJoystick().getName() + " " + getRawJoystick().getButtonCount() + " (" + getAxis(GamepadStick.LEFT, GamepadAxis.X) + ","
+				+ getAxis(GamepadStick.LEFT, GamepadAxis.Y) + ")" + " (" + getAxis(GamepadStick.RIGHT, GamepadAxis.X) + ","
+				+ getAxis(GamepadStick.RIGHT, GamepadAxis.Y) + ")" + " (" + getTrigger(GamepadTrigger.LEFT) + "," + getTrigger(GamepadTrigger.RIGHT)
 				+ ") " + povString + buttonString + rumbleString;
 	}
 

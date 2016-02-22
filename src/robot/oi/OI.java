@@ -6,12 +6,14 @@ import robot.Field.Defense;
 import robot.Field.Goal;
 import robot.Field.Lane;
 import robot.Field.Slot;
-import robot.R_GameController;
-import robot.R_GameController.Axis;
-import robot.R_GameController.Button;
-import robot.R_GameController.Stick;
-import robot.R_GameController.Trigger;
-import robot.R_GameControllerFactory;
+import robot.R_Extreme3DPro_Joystick;
+import robot.R_Extreme3DPro_Joystick.JoystickButton;
+import robot.R_Gamepad;
+import robot.R_Gamepad.GamepadAxis;
+import robot.R_Gamepad.GamepadButton;
+import robot.R_Gamepad.GamepadStick;
+import robot.R_Gamepad.GamepadTrigger;
+import robot.R_GamepadFactory;
 import robot.commands.auto.AutoDriveAndShootCommand;
 
 /**
@@ -20,34 +22,17 @@ import robot.commands.auto.AutoDriveAndShootCommand;
  */
 public class OI {
 
-	private enum ButtonMap {
-
-		SHOOT_LOW_GOAL_BUTTON(Button.A), SHOOT_HIGH_GOAL_BUTTON(Button.B), TURBO_BUTTON(
-				Button.LEFT_BUMPER), CANCEL_COMMAND_BUTTON(Button.X), ROLL_INTAKE_BUTTON(
-						Button.RIGHT_BUMPER), TOGGLE_ARM_BUTTON(Button.Y);
-
-		private Button button;
-
-		ButtonMap(Button button) {
-			this.button = button;
-		}
-
-		public Button getButton() {
-			return this.button;
-		}
-
-	}
-
-	private R_GameController driverStick = R_GameControllerFactory.getGameController(0);
+	private R_Gamepad driverStick = R_GamepadFactory.getGameController(0);
+	private R_Extreme3DPro_Joystick operatorStick = new R_Extreme3DPro_Joystick(1);
 	private AutoChooser autoChooser = new AutoChooser();
 
 	public double getSpeed() {
-		double joystickValue = driverStick.getAxis(Stick.LEFT, Axis.Y);
+		double joystickValue = driverStick.getAxis(GamepadStick.LEFT, GamepadAxis.Y);
 		return -Math.round(joystickValue * Math.abs(joystickValue) * 100) / 100.0;
 	}
 
 	public double getTurn() {
-		double joystickValue = driverStick.getAxis(Stick.RIGHT, Axis.X);
+		double joystickValue = driverStick.getAxis(GamepadStick.RIGHT, GamepadAxis.X);
 		return Math.round(joystickValue * Math.abs(joystickValue) * 100) / 100.0;
 	}
 
@@ -79,15 +64,15 @@ public class OI {
 	}
 
 	public boolean getGyroReset() {
-		return driverStick.getButton(Button.BACK);
+		return driverStick.getButton(GamepadButton.BACK);
 	}
 
 	public boolean getGyroCalibrate() {
-		return driverStick.getButton(Button.START);
+		return driverStick.getButton(GamepadButton.START);
 	}
 
 	public boolean getTurbo() {
-		return driverStick.getButton(Trigger.LEFT);
+		return driverStick.getButton(GamepadTrigger.LEFT);
 	}
 
 	public Defense getDefense() {
@@ -99,23 +84,23 @@ public class OI {
 	}
 
 	public boolean getIntakeStartButton() {
-		return driverStick.getButton(ButtonMap.ROLL_INTAKE_BUTTON.getButton());
+		return driverStick.getButton(GamepadButton.RIGHT_BUMPER);
 	}
 
 	public boolean getShootHighGoalButton() {
-		return driverStick.getButton(ButtonMap.SHOOT_HIGH_GOAL_BUTTON.getButton());
+		return driverStick.getButton(GamepadButton.B);
 	}
 
 	public boolean getCancel() {
-		return driverStick.getButton(ButtonMap.CANCEL_COMMAND_BUTTON.getButton());
+		return driverStick.getButton(GamepadButton.X);
 	}
 
 	public boolean getShootLowGoalButton() {
-		return driverStick.getButton(ButtonMap.SHOOT_LOW_GOAL_BUTTON.getButton());
+		return driverStick.getButton(GamepadButton.A);
 	}
 
 	public boolean getArmDeploy() {
-		return driverStick.getButton(ButtonMap.TOGGLE_ARM_BUTTON.getButton());
+		return driverStick.getButton(GamepadTrigger.RIGHT);
 	}
 
 	public Lane getLane() {
@@ -126,8 +111,26 @@ public class OI {
 		return Goal.toEnum(autoChooser.getSelectedGoal());
 	}
 
-	public Command getAutoCommand() {
+	public boolean portCullisLowBarButton() {
+		return operatorStick.getButton(JoystickButton.BUTTON12);
+	}
 
+	public boolean chavelDeFriseButton() {
+		return operatorStick.getButton(JoystickButton.BUTTON11);
+	}
+
+	// TODO: Make a seperate reverse rollers function - Slower than low goal
+	// button?
+	public boolean getReverseRollers() {
+		return driverStick.getButton(GamepadButton.Y);
+	}
+
+	// TODO: Press once to raise the hanger, press again to winch?
+	public boolean getHangButton() {
+		return operatorStick.getButton(JoystickButton.BUTTON3);
+	}
+
+	public Command getAutoCommand() {
 		switch (autoChooser.getAutoMode()) {
 		case "Do Nothing":
 			return null;
@@ -150,6 +153,7 @@ public class OI {
 	 * Put any items on the dashboard
 	 */
 	public void updateDashboard() {
-		SmartDashboard.putString("Driver Controllers", driverStick.toString());
+		SmartDashboard.putString("Driver Controller", driverStick.toString());
+		SmartDashboard.putString("Operator controller", operatorStick.toString());
 	}
 }

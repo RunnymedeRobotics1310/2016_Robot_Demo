@@ -2,20 +2,20 @@ package robot;
 
 import edu.wpi.first.wpilibj.Joystick;
 
-public class R_Xbox_GameController extends R_GameController {
+public class R_Xbox_Gamepad extends R_Gamepad {
 
 	private final Joystick joystick;
 
-	public R_Xbox_GameController(int port) {
+	public R_Xbox_Gamepad(int port) {
 		joystick = new Joystick(port);
 	}
 
-	public R_Xbox_GameController(Joystick j) {
+	public R_Xbox_Gamepad(Joystick j) {
 		joystick = j;
 	}
 
 	@Override
-	public double getAxis(Stick stick, Axis axis) {
+	public double getAxis(GamepadStick stick, GamepadAxis axis) {
 
 		double axisValue = 0.0;
 
@@ -40,7 +40,7 @@ public class R_Xbox_GameController extends R_GameController {
 	}
 
 	@Override
-	public boolean getButton(Button button) {
+	public boolean getButton(GamepadButton button) {
 
 		switch (button) {
 		case A:             return joystick.getRawButton(1);
@@ -65,7 +65,7 @@ public class R_Xbox_GameController extends R_GameController {
 	public Joystick getRawJoystick() { return joystick; }
 
 	@Override
-	public double getTrigger(Trigger trigger) {
+	public double getTrigger(GamepadTrigger trigger) {
 
 		double triggerValue = 0.0;
 

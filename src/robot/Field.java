@@ -86,7 +86,6 @@ public class Field {
 	}
 	
 	public enum Defense {
-
 		LOW_BAR         ("Low Bar"),
 		RAMPARTS        ("Ramparts"),
 		MOAT            ("Moat"),

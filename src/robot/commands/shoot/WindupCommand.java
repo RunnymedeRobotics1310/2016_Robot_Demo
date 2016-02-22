@@ -12,6 +12,7 @@ public class WindupCommand extends Command {
 
     protected void initialize() {
     	if (Robot.shooterSubsystem.isBoulderRetracted()) {
+    		Robot.oi.setRumble(0.2);
     		Robot.shooterSubsystem.startShooterMotor();
     	}
     	Robot.shooterSubsystem.setRailPosition(Value.kForward);

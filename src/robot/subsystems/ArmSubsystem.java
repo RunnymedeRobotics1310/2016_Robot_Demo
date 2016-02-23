@@ -1,17 +1,23 @@
 package robot.subsystems;
 
+import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.Talon;
+import edu.wpi.first.wpilibj.Victor;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import robot.R_AbsoluteEncoder;
 import robot.R_Subsystem;
+import robot.R_Victor;
 import robot.RobotMap;
 import robot.commands.arm.JoystickArmCommand;
 
 public class ArmSubsystem extends R_Subsystem {
 
-	Talon armDeployMotor = new Talon(RobotMap.MotorMap.ARM_DEPLOY_MOTOR.port);
-	Talon armIntakeMotor = new Talon(RobotMap.MotorMap.ARM_INTAKE_MOTOR.port);
+	Victor armDeployMotor = new R_Victor(RobotMap.MotorMap.ARM_DEPLOY_MOTOR);
+	Victor armIntakeMotor = new R_Victor(RobotMap.MotorMap.ARM_INTAKE_MOTOR);
 	DigitalInput armMaxHeight = new DigitalInput(RobotMap.SensorMap.ARM_UPPER_LIMIT.port);
 	DigitalInput armMinHeight = new DigitalInput(RobotMap.SensorMap.ARM_LOWER_LIMIT.port);
+	
+	R_AbsoluteEncoder armEncoder = new R_AbsoluteEncoder(2);
 
 	private boolean armDeployed = false;
 
@@ -30,7 +36,9 @@ public class ArmSubsystem extends R_Subsystem {
 
 	@Override
 	public void updateDashboard() {
-
+		SmartDashboard.putData("Deploy Motor", armDeployMotor);
+		SmartDashboard.putNumber("Arm Encoder Voltage", armEncoder.getVoltage());
+		SmartDashboard.putNumber("Arm Encoder Angle", armEncoder.getAngle());
 	}
 
 	/**
@@ -72,5 +80,19 @@ public class ArmSubsystem extends R_Subsystem {
 	 */
 	public void setArmDeploy(boolean armDeployed) {
 		this.armDeployed = armDeployed;
+	}
+	
+	public void resetArmEncoder() {
+		armEncoder.reset();
+	}
+	
+	/**
+	 * 
+	 * @param armDeployed
+	 *            The arm is considered up when this value is true.
+	 */
+	public void setArmSpeed(double armSpeed) {
+		
+		armDeployMotor.set(armSpeed);
 	}
 }

@@ -80,6 +80,7 @@ public class Robot extends IterativeRobot {
         subsystemList.add(chassisSubsystem);
         subsystemList.add(shooterSubsystem);
         subsystemList.add(cameraSubsystem);
+        subsystemList.add(armSubsystem);
         
         for (R_Subsystem s: subsystemList) {
         	s.init();

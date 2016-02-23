@@ -1,7 +1,6 @@
 package robot.commands.arm;
 
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.command.Scheduler;
 import robot.Robot;
 
 public class JoystickArmCommand extends Command {
@@ -16,9 +15,15 @@ public class JoystickArmCommand extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	if (Robot.oi.getArmDeploy()){
-    		Scheduler.getInstance().add(new ArmDeployCommand());
+    	
+    	if (Robot.oi.getArmEncoderReset()) {
+    		Robot.armSubsystem.resetArmEncoder();
     	}
+    	Robot.armSubsystem.setArmSpeed(Robot.oi.getArmSpeed());
+    	
+/*    	if (Robot.oi.getArmDeploy()){
+    		Scheduler.getInstance().add(new ArmDeployCommand());
+    	} */
     }
 
     // Make this return true when this Command no longer needs to run execute()

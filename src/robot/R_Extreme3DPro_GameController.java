@@ -1,6 +1,10 @@
 package robot;
 
 import edu.wpi.first.wpilibj.Joystick;
+import robot.R_GameController.Axis;
+import robot.R_GameController.Button;
+import robot.R_GameController.Stick;
+import robot.R_GameController.Trigger;
 
 public class R_Extreme3DPro_GameController {
 	
@@ -44,5 +48,24 @@ public class R_Extreme3DPro_GameController {
 	}
 	
 	public Joystick getRawJoystick() { return joystick; }
+
+	@Override
+	public String toString() {
+
+		String buttonString = "";
+		boolean first = true;
+		for (int i=0; i< joystick.getButtonCount(); i++) {
+			if (getRawButton(i)) {
+				if (!first) {
+					buttonString += ",";
+				}
+				buttonString += i;
+			}
+		}
+
+		return getRawJoystick().getName() + " " + getRawJoystick().getButtonCount() + " (" + 
+		        + getRawAxis(1) + ")" + buttonString;
+	}
+
 
 }

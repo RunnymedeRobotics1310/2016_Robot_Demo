@@ -6,6 +6,7 @@ import robot.Field.Defense;
 import robot.Field.Goal;
 import robot.Field.Lane;
 import robot.Field.Slot;
+import robot.R_Extreme3DPro_GameController;
 import robot.R_GameController;
 import robot.R_GameController.Axis;
 import robot.R_GameController.Button;
@@ -40,6 +41,8 @@ public class OI {
 
 	private R_GameController driverStick = R_GameControllerFactory.getGameController(0);
 	private AutoChooser autoChooser = new AutoChooser();
+
+	private R_Extreme3DPro_GameController operatorStick = new R_Extreme3DPro_GameController(1);
 
 	public double getSpeed() {
 		double joystickValue = driverStick.getAxis(Stick.LEFT, Axis.Y);
@@ -118,6 +121,15 @@ public class OI {
 		return driverStick.getButton(ButtonMap.TOGGLE_ARM_BUTTON.getButton());
 	}
 
+	public double getArmSpeed() {
+		return operatorStick.getRawAxis(1) * operatorStick.getRawAxis(1)
+				* operatorStick.getRawAxis(1); //Y-axis
+	}
+
+	public boolean getArmEncoderReset() {
+		return operatorStick.getRawButton(8);
+	}
+
 	public Lane getLane() {
 		return Lane.toEnum(autoChooser.getSelectedDistance());
 	}
@@ -151,5 +163,6 @@ public class OI {
 	 */
 	public void updateDashboard() {
 		SmartDashboard.putString("Driver Controllers", driverStick.toString());
+		SmartDashboard.putString("Operator Controllers", operatorStick.toString());
 	}
 }

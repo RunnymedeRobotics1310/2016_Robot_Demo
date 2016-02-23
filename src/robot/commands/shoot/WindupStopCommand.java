@@ -1,6 +1,5 @@
 package robot.commands.shoot;
 
-import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Command;
 import robot.Robot;
 
@@ -22,7 +21,7 @@ public class WindupStopCommand extends Command {
     }
 
     protected void end() {
-    	Robot.shooterSubsystem.setRailPosition(Value.kReverse);
+    	Robot.shooterSubsystem.setRailPosition(false);
     }
 
     protected void interrupted() {

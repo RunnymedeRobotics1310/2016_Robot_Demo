@@ -3,17 +3,16 @@ package robot.subsystems;
 import java.util.ArrayList;
 
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import robot.R_Gyro;
 import robot.R_PIDController;
 import robot.R_PIDInput;
 import robot.R_Subsystem;
-import robot.R_Victor;
 import robot.R_Ultrasonic;
+import robot.R_Victor;
 import robot.RobotMap;
 import robot.commands.drive.JoystickDriveCommand;
 
@@ -31,8 +30,7 @@ public class ChassisSubsystem extends R_Subsystem {
 
 	R_Ultrasonic ultrasonicSensor = new R_Ultrasonic(RobotMap.SensorMap.ULTRASONIC.port);
 
-	DoubleSolenoid ballShifter = new DoubleSolenoid(RobotMap.Pneumatics.BALLSHIFTER_HIGH.pcmPort,
-			RobotMap.Pneumatics.BALLSHIFTER_LOW.pcmPort);
+	Solenoid ballShifter = new Solenoid(RobotMap.Pneumatics.BALLSHIFTER_LOW.pcmPort);
 
 	public enum Gear {
 		LOW, HIGH;
@@ -47,7 +45,7 @@ public class ChassisSubsystem extends R_Subsystem {
 		@Override
 		public double pidGet() {
 			return (RobotMap.EncoderMap.LEFT.inverted ? -1.0 : 1.0) * leftEncoder.getRate()
-					/ ((ballShifter.get() == Value.kForward) ? RobotMap.EncoderMap.LEFT.maxRate
+					/ ((ballShifter.get()) ? RobotMap.EncoderMap.LEFT.maxRate
 							: RobotMap.EncoderMap.LEFT.maxRateHigh);
 		}
 	};
@@ -56,7 +54,7 @@ public class ChassisSubsystem extends R_Subsystem {
 		@Override
 		public double pidGet() {
 			return (RobotMap.EncoderMap.RIGHT.inverted ? -1.0 : 1.0) * rightEncoder.getRate()
-					/ ((ballShifter.get() == Value.kForward) ? RobotMap.EncoderMap.RIGHT.maxRate
+					/ ((ballShifter.get()) ? RobotMap.EncoderMap.RIGHT.maxRate
 							: RobotMap.EncoderMap.RIGHT.maxRateHigh);
 		}
 	};
@@ -85,7 +83,6 @@ public class ChassisSubsystem extends R_Subsystem {
 
 	public void setSpeed(double leftSpeed, double rightSpeed) {
 
-		
 		leftMotorPID.setSetpoint(leftSpeed);
 		rightMotorPID.setSetpoint(rightSpeed);
 
@@ -95,9 +92,9 @@ public class ChassisSubsystem extends R_Subsystem {
 		if (!rightMotorPID.isEnabled()) {
 			rightMotorPID.enable();
 		}
-		
-		//leftMotor.set(leftSpeed);
-		//rightMotor.set(rightSpeed);
+
+		// leftMotor.set(leftSpeed);
+		// rightMotor.set(rightSpeed);
 	}
 
 	public double getCurrentAngle() {
@@ -133,7 +130,7 @@ public class ChassisSubsystem extends R_Subsystem {
 		// If the user is not pushing the turbo, then set to
 		// low gear - reverse mode.
 		if (gear == Gear.LOW) {
-			ballShifter.set(Value.kForward);
+			ballShifter.set(true);
 			return;
 		}
 
@@ -149,7 +146,7 @@ public class ChassisSubsystem extends R_Subsystem {
 
 		// If the robot is turning then put the shifter in low gear
 		if (leftSpeed < 0 && rightSpeed > 0 || leftSpeed > 0 && rightSpeed < 0) {
-			ballShifter.set(Value.kForward);
+			ballShifter.set(true);
 			return;
 		}
 
@@ -159,7 +156,7 @@ public class ChassisSubsystem extends R_Subsystem {
 
 		// If the robot trying to turn then put the shifter in low gear
 		if (leftSetpoint < 0 && rightSetpoint > 0 || leftSetpoint > 0 && rightSetpoint < 0) {
-			ballShifter.set(Value.kForward);
+			ballShifter.set(true);
 			return;
 		}
 
@@ -168,14 +165,14 @@ public class ChassisSubsystem extends R_Subsystem {
 		// only need to check the left side is consistent (ie. that we
 		// are not being pushed backwards by another robot).
 		if (leftSetpoint < 0 && leftSpeed > 0 || leftSetpoint > 0 && leftSpeed < 0) {
-			ballShifter.set(Value.kForward);
+			ballShifter.set(true);
 			return;
 		}
 
 		// Check that the speed is greater than the limit for the
 		// low gear.
 		if (Math.abs(getEncoderSpeed()) > 25.0) {
-			ballShifter.set(Value.kReverse);
+			ballShifter.set(false);
 			System.out.println("High Gear");
 		}
 
@@ -233,7 +230,7 @@ public class ChassisSubsystem extends R_Subsystem {
 	public void resetGyroHeading() {
 		gyro.reset();
 	}
-	
+
 	public void calibrateGyro() {
 		gyro.calibrate();
 	}
@@ -251,8 +248,8 @@ public class ChassisSubsystem extends R_Subsystem {
 		SmartDashboard.putData("Right Motor PID", rightMotorPID);
 		SmartDashboard.putData("Gyro", gyro);
 		SmartDashboard.putNumber("Gyro Angle", gyro.getAngle());
-		SmartDashboard.putNumber("Gyro Center" , gyro.getCenter());
-		SmartDashboard.putNumber("Gyro Offset" , gyro.getOffset());
+		SmartDashboard.putNumber("Gyro Center", gyro.getCenter());
+		SmartDashboard.putNumber("Gyro Offset", gyro.getOffset());
 		SmartDashboard.putNumber("Ultrasonic Sensor Distance", ultrasonicSensor.getDistance());
 		SmartDashboard.putNumber("Raw ultrasonic sensor voltage", ultrasonicSensor.getVoltage());
 		SmartDashboard.putString("Transmission", gear.name());

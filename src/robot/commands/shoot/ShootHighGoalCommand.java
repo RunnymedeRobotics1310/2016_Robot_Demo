@@ -1,6 +1,5 @@
 package robot.commands.shoot;
 
-import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Command;
 import robot.Robot;
 
@@ -31,8 +30,8 @@ public class ShootHighGoalCommand extends Command {
 	protected void end() {
 		Robot.shooterSubsystem.stopIntakeMotor();
 		Robot.shooterSubsystem.stopShooterMotor();
-		if (Robot.shooterSubsystem.getRailPosition() != Value.kReverse) {
-			Robot.shooterSubsystem.setRailPosition(Value.kReverse);
+		if (Robot.shooterSubsystem.getRailPosition()) {
+			Robot.shooterSubsystem.setRailPosition(false);
 		}
 	}
 

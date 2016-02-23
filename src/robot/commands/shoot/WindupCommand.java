@@ -1,6 +1,5 @@
 package robot.commands.shoot;
 
-import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Command;
 import robot.Robot;
 
@@ -14,7 +13,7 @@ public class WindupCommand extends Command {
     	if (Robot.shooterSubsystem.isBoulderRetracted()) {
     		Robot.shooterSubsystem.startShooterMotor();
     	}
-    	Robot.shooterSubsystem.setRailPosition(Value.kForward);
+    	Robot.shooterSubsystem.setRailPosition(true);
     }
 
     protected void execute() {

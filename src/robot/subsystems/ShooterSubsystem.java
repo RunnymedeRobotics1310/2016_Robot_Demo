@@ -2,9 +2,8 @@ package robot.subsystems;
 
 import edu.wpi.first.wpilibj.Counter;
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import robot.R_PIDController;
@@ -16,24 +15,21 @@ import robot.commands.shoot.JoystickShootCommand;
 
 public class ShooterSubsystem extends R_Subsystem {
 
-	public enum IntakeReverseSpeed {LOW, HIGH}
+	public enum IntakeReverseSpeed {
+		LOW, HIGH
+	}
 
-	Victor intakeMotor  = new R_Victor(RobotMap.MotorMap.INTAKE_MOTOR);
+	Victor intakeMotor = new R_Victor(RobotMap.MotorMap.INTAKE_MOTOR);
 	Victor shooterMotor = new R_Victor(RobotMap.MotorMap.SHOOTER_MOTOR);
-	
+
 	DigitalInput boulderProximitySensor = new DigitalInput(RobotMap.SensorMap.BOULDER_PROXIMITY_SENSOR.port);
 
-	Counter shooterSpeedEncoder  = new Counter(RobotMap.SensorMap.SHOOTER_SPEED_ENCODER.port);
-	
-	Encoder intakeEncoder        = 
-			new Encoder(RobotMap.EncoderMap.INTAKE_ENCODER.ch1,
-			            RobotMap.EncoderMap.INTAKE_ENCODER.ch2);
-	
-	DoubleSolenoid shooterRail = 
-			new DoubleSolenoid(RobotMap.Pneumatics.SHOOTER_RAIL_UP.pcmPort, 
-					           RobotMap.Pneumatics.SHOOTER_RAIL_DOWN.pcmPort);
-	
-	
+	Counter shooterSpeedEncoder = new Counter(RobotMap.SensorMap.SHOOTER_SPEED_ENCODER.port);
+
+	Encoder intakeEncoder = new Encoder(RobotMap.EncoderMap.INTAKE_ENCODER.ch1, RobotMap.EncoderMap.INTAKE_ENCODER.ch2);
+
+	Solenoid shooterRail = new Solenoid(RobotMap.Pneumatics.SHOOTER_RAIL_DOWN.pcmPort);
+
 	R_PIDInput intakeLockPIDInput = new R_PIDInput() {
 		@Override
 		public double pidGet() {
@@ -50,7 +46,7 @@ public class ShooterSubsystem extends R_Subsystem {
 	}
 
 	private boolean boulderRetracted = false;
-	
+
 	public double getIntakeDistance() {
 		return intakeEncoder.getDistance();
 	}
@@ -59,20 +55,20 @@ public class ShooterSubsystem extends R_Subsystem {
 		return intakeEncoder.getRate();
 	}
 
-	public Value getRailPosition() {
+	public boolean getRailPosition() {
 		return shooterRail.get();
 	}
-	
+
 	public double getShooterSpeed() {
 		return shooterSpeedEncoder.getRate();
 	}
-	
+
 	public void init() {
 		// Initialize the shooter speed controller to count
-		// rpms.  One count = 1 rpm.
+		// rpms. One count = 1 rpm.
 		shooterSpeedEncoder.setDistancePerPulse(1.0);
 	}
-	
+
 	public void initDefaultCommand() {
 		setDefaultCommand(new JoystickShootCommand());
 	}
@@ -80,46 +76,46 @@ public class ShooterSubsystem extends R_Subsystem {
 	public boolean isBoulderLoaded() {
 		return !boulderProximitySensor.get();
 	}
-	
+
 	public boolean isBoulderRetracted() {
 		return boulderRetracted;
 	}
-	
+
 	public void lockIntakeMotor() {
 		intakeEncoder.reset();
 		intakeLockPID.reset();
 		intakeMotor.set(0.0);
 		intakeLockPID.enable();
 	}
-	
+
 	@Override
 	public void periodic() {
 		intakeLockPID.calculate();
 	}
-	
+
 	public void resetIntakeEncoder() {
 		intakeEncoder.reset();
 	}
-	
+
 	public void setBoulderRetracted(boolean ballRetracted) {
 		this.boulderRetracted = ballRetracted;
 	}
-	
+
 	public void setIntakeMotorReverse(IntakeReverseSpeed intakeReverseSpeed) {
 
 		if (intakeLockPID.isEnabled()) {
 			intakeLockPID.disable();
 		}
-		
+
 		if (intakeReverseSpeed == IntakeReverseSpeed.LOW) {
 			intakeMotor.set(-0.3);
 		} else {
 			intakeMotor.set(-1.0);
 		}
 	}
-	
-	public void setRailPosition(Value v) {
-		shooterRail.set(v);
+
+	public void setRailPosition(boolean b) {
+		shooterRail.set(b);
 	}
 
 	public void startIntakeMotor() {
@@ -127,39 +123,39 @@ public class ShooterSubsystem extends R_Subsystem {
 		if (intakeLockPID.isEnabled()) {
 			intakeLockPID.disable();
 		}
-		
-		intakeMotor.set(1.0); // Speed of intake when taking in a boulder	
+
+		intakeMotor.set(1.0); // Speed of intake when taking in a boulder
 	}
-	
+
 	public void startShooterMotor() {
 		shooterMotor.set(1.0);
 	}
-	
-	public void startShooterMotorReverse(){
+
+	public void startShooterMotorReverse() {
 		shooterMotor.set(-0.5);
 	}
-	
+
 	public void stopIntakeMotor() {
 
 		if (intakeLockPID.isEnabled()) {
 			intakeLockPID.disable();
 		}
-		
+
 		intakeMotor.set(0.0);
 	}
-	
-	public void stopShooterMotor(){
+
+	public void stopShooterMotor() {
 		shooterMotor.set(0.0);
 	}
 
 	@Override
 	public void updateDashboard() {
-		SmartDashboard.putData("Intake Lock PID" , intakeLockPID);
+		SmartDashboard.putData("Intake Lock PID", intakeLockPID);
 		SmartDashboard.putNumber("Intake Lock PID Output", intakeMotor.get());
 		SmartDashboard.putData("Intake motor", intakeMotor);
-		SmartDashboard.putNumber("Shooter Speed" , getShooterSpeed());
-		SmartDashboard.putNumber("Intake Speed" , getIntakeSpeed());
-		SmartDashboard.putNumber("Intake Distance" , getIntakeDistance());
-		SmartDashboard.putBoolean("Boulder Loaded" , isBoulderLoaded());
+		SmartDashboard.putNumber("Shooter Speed", getShooterSpeed());
+		SmartDashboard.putNumber("Intake Speed", getIntakeSpeed());
+		SmartDashboard.putNumber("Intake Distance", getIntakeDistance());
+		SmartDashboard.putBoolean("Boulder Loaded", isBoulderLoaded());
 	}
 }

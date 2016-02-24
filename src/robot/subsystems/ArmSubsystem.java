@@ -1,16 +1,21 @@
 package robot.subsystems;
 
-import edu.wpi.first.wpilibj.AnalogInput;
+import java.util.ArrayList;
+
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import robot.R_AbsoluteEncoder;
+import robot.R_PIDController;
+import robot.R_PIDInput;
 import robot.R_Subsystem;
 import robot.R_Victor;
 import robot.RobotMap;
 import robot.commands.arm.JoystickArmCommand;
 
 public class ArmSubsystem extends R_Subsystem {
+	
+	private static double MAX_ARM_ENCODER = 300;
 
 	Victor armDeployMotor = new R_Victor(RobotMap.MotorMap.ARM_DEPLOY_MOTOR);
 	Victor armIntakeMotor = new R_Victor(RobotMap.MotorMap.ARM_INTAKE_MOTOR);
@@ -18,6 +23,15 @@ public class ArmSubsystem extends R_Subsystem {
 	DigitalInput armMinHeight = new DigitalInput(RobotMap.SensorMap.ARM_LOWER_LIMIT.port);
 	
 	R_AbsoluteEncoder armEncoder = new R_AbsoluteEncoder(2);
+
+	R_PIDInput armPIDInput = new R_PIDInput() {
+		@Override
+		public double pidGet() { return armEncoder.getAngle(); }
+	};
+
+	R_PIDController armPID = new R_PIDController(1.0, 0.0, 0.0, 0.0, armPIDInput, armDeployMotor);
+
+	ArrayList<R_PIDController> pidControllers = new ArrayList<>();
 
 	private boolean armDeployed = false;
 
@@ -31,7 +45,7 @@ public class ArmSubsystem extends R_Subsystem {
 
 	@Override
 	public void periodic() {
-
+		armPID.calculate();
 	}
 
 	@Override
@@ -84,6 +98,25 @@ public class ArmSubsystem extends R_Subsystem {
 	
 	public void resetArmEncoder() {
 		armEncoder.reset();
+	}
+	
+	public void setArmAngle(double armAngle) {
+		
+		// If the arm angle is not between 0 and 300, then ignore the input
+		if (armAngle < 0.0 || armAngle > 300.0) { return; }
+		
+		// Set the arm to the appropriate angle and hold with a PID.
+		armPID.setSetpoint(armAngle);
+		if (!armPID.isEnabled()) {
+			armPID.enable();
+		}
+		
+	}
+	
+	public void disableArmPID() {
+		
+		armPID.disable();
+		
 	}
 	
 	/**

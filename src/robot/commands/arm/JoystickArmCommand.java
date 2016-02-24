@@ -5,6 +5,8 @@ import robot.Robot;
 
 public class JoystickArmCommand extends Command {
 
+	boolean armPIDEnabled = false;
+	
     public JoystickArmCommand() {
        requires(Robot.armSubsystem);
     }
@@ -19,7 +21,20 @@ public class JoystickArmCommand extends Command {
     	if (Robot.oi.getArmEncoderReset()) {
     		Robot.armSubsystem.resetArmEncoder();
     	}
-    	Robot.armSubsystem.setArmSpeed(Robot.oi.getArmSpeed());
+    	
+    	if (Robot.oi.getArmPIDDisable()) {
+    		armPIDEnabled = false;
+    		Robot.armSubsystem.disableArmPID();
+    	}
+    	
+    	if (!armPIDEnabled) {
+        	Robot.armSubsystem.setArmSpeed(Robot.oi.getArmSpeed());
+    	}
+
+    	if (Robot.oi.getArmAngle() >= 0.0) {
+    		Robot.armSubsystem.setArmAngle(Robot.oi.getArmAngle());
+    		armPIDEnabled = true;
+    	}
     	
 /*    	if (Robot.oi.getArmDeploy()){
     		Scheduler.getInstance().add(new ArmDeployCommand());

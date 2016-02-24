@@ -130,6 +130,27 @@ public class OI {
 		return operatorStick.getRawButton(8);
 	}
 
+	public boolean getArmPIDDisable() {
+		return operatorStick.getRawButton(7);
+	}
+
+	public double getArmAngle() {
+		if (operatorStick.getRawButton(9)) {
+			return 0.0;
+		}
+		if (operatorStick.getRawButton(10)) {
+			return 100;
+		}
+		if (operatorStick.getRawButton(11)) {
+			return 200;
+		}
+		if (operatorStick.getRawButton(12)) {
+			return 300;
+		}
+		
+		return -1.0;
+	}
+
 	public Lane getLane() {
 		return Lane.toEnum(autoChooser.getSelectedDistance());
 	}

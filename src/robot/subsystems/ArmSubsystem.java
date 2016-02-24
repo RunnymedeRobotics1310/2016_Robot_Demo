@@ -3,7 +3,6 @@ package robot.subsystems;
 import java.util.ArrayList;
 
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.PIDOutput;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import robot.R_AbsoluteEncoder;
@@ -28,14 +27,6 @@ public class ArmSubsystem extends R_Subsystem {
 	R_PIDInput armPIDInput = new R_PIDInput() {
 		@Override
 		public double pidGet() { return armEncoder.getAngle(); }
-	};
-
-	PIDOutput armPIDOutput = new PIDOutput() {
-
-		@Override
-		public void pidWrite(double output) {
-			armDeployMotor.set(-output);
-		}
 	};
 
 	R_PIDController armPID = new R_PIDController(1.0, 0.0, 0.0, 0.0, armPIDInput, armDeployMotor);

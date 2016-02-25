@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import robot.R_AbsoluteEncoder;
 import robot.R_PIDController;
 import robot.R_PIDInput;
+import robot.R_SafetyVictor;
 import robot.R_Subsystem;
 import robot.R_Victor;
 import robot.RobotMap;
@@ -17,11 +18,11 @@ public class ArmSubsystem extends R_Subsystem {
 	
 	private static double MAX_ARM_ENCODER = 300;
 
-	Victor armDeployMotor = new R_Victor(RobotMap.MotorMap.ARM_DEPLOY_MOTOR);
-	Victor armIntakeMotor = new R_Victor(RobotMap.MotorMap.ARM_INTAKE_MOTOR);
 	DigitalInput armMaxHeight = new DigitalInput(RobotMap.SensorMap.ARM_UPPER_LIMIT.port);
 	DigitalInput armMinHeight = new DigitalInput(RobotMap.SensorMap.ARM_LOWER_LIMIT.port);
-	
+	R_SafetyVictor armDeployMotor = new R_SafetyVictor(RobotMap.MotorMap.ARM_DEPLOY_MOTOR, armMaxHeight, armMinHeight);
+	Victor armIntakeMotor = new R_Victor(RobotMap.MotorMap.ARM_INTAKE_MOTOR);
+
 	R_AbsoluteEncoder armEncoder = new R_AbsoluteEncoder(2);
 
 	R_PIDInput armPIDInput = new R_PIDInput() {
@@ -114,9 +115,7 @@ public class ArmSubsystem extends R_Subsystem {
 	}
 	
 	public void disableArmPID() {
-		
-		armPID.disable();
-		
+		armPID.disable();		
 	}
 	
 	/**
@@ -124,8 +123,7 @@ public class ArmSubsystem extends R_Subsystem {
 	 * @param armDeployed
 	 *            The arm is considered up when this value is true.
 	 */
-	public void setArmSpeed(double armSpeed) {
-		
+	public void setArmSpeed(double armSpeed) {		
 		armDeployMotor.set(armSpeed);
 	}
 }

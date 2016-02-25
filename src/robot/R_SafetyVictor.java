@@ -1,16 +1,15 @@
 package robot;
 
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.Victor;
 import robot.RobotMap.MotorMap;
 
-public class R_SafetyVictor extends Victor {
+public class R_SafetyVictor extends R_Victor {
 	
 	private DigitalInput positiveLimitSwitch = null;
 	private DigitalInput negativeLimitSwitch = null;
 	
 	public R_SafetyVictor(MotorMap motor, DigitalInput positiveLimitSwitch, DigitalInput negativeLimitSwitch) {
-		super(motor.port);
+		super(motor);
 		this.setInverted(motor.inverted);
 		this.positiveLimitSwitch = positiveLimitSwitch;
 		this.negativeLimitSwitch = negativeLimitSwitch;

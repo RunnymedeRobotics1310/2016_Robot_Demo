@@ -8,6 +8,23 @@ package robot;
 public class RobotMap {
     private final static boolean inverted = true;
 
+    public final static double ANALOG_OFFSET = 315;
+    
+    public enum ArmLevel {
+    	INTAKE_LEVEL(60.0),
+    	SHOOT_LEVEL(215.0),
+    	DRIVE_LEVEL(245.0);
+    	
+    	public final double angle;
+    	
+    	ArmLevel(double angle) {
+    		this.angle = angle;
+    	}
+    	
+    	public double getAngle() {
+    		return this.angle;
+    	}
+    }
     public enum MotorMap {
         LEFT_MOTOR      (0,  RobotMap.inverted),
         RIGHT_MOTOR     (1, !RobotMap.inverted),

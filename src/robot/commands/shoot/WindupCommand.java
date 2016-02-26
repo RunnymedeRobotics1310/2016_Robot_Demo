@@ -2,6 +2,7 @@ package robot.commands.shoot;
 
 import edu.wpi.first.wpilibj.command.Command;
 import robot.Robot;
+import robot.RobotMap;
 
 public class WindupCommand extends Command {
 
@@ -20,7 +21,7 @@ public class WindupCommand extends Command {
     }
 
     protected boolean isFinished() {
-    	if (Robot.shooterSubsystem.getShooterSpeed() > 450) { return true; }
+    	if (Robot.shooterSubsystem.getShooterSpeed() > 80) { return true; }
     	return false;
     }
 

@@ -56,7 +56,7 @@ public class JoystickShootCommand extends Command {
 
 			if ( shooterSubsystem.isBoulderRetracted() ) {
 				
-				if ( shooterSubsystem.getShooterSpeed() > 100) {
+				if ( shooterSubsystem.getShooterSpeed() > 80) {
 					
 					shooterSubsystem.setBoulderRetracted(false);
 					Scheduler.getInstance().add(new ShootHighGoalCommand());
@@ -89,6 +89,14 @@ public class JoystickShootCommand extends Command {
 				|| Robot.shooterSubsystem.isBoulderRetracted()) ) {
 			
 			Scheduler.getInstance().add(new ShootLowGoalCommand());
+			
+			return;
+		}
+		
+		if (oi.getShootLowGoalHighPower() && (   Robot.shooterSubsystem.isBoulderLoaded()
+				|| Robot.shooterSubsystem.isBoulderRetracted())) {
+			
+			Scheduler.getInstance().add(new ShootLowGoalHighPowerCommand());
 			
 			return;
 		}

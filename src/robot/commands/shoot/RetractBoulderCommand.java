@@ -2,6 +2,7 @@ package robot.commands.shoot;
 
 import edu.wpi.first.wpilibj.command.Command;
 import robot.Robot;
+import robot.RobotMap;
 import robot.oi.OI;
 import robot.subsystems.ShooterSubsystem;
 import robot.subsystems.ShooterSubsystem.IntakeReverseSpeed;
@@ -21,7 +22,6 @@ import robot.subsystems.ShooterSubsystem.IntakeReverseSpeed;
  */
 public class RetractBoulderCommand extends Command {
 
-	ShooterSubsystem shooterSubsystem = Robot.shooterSubsystem;
 	OI oi = Robot.oi;
 
 	boolean cancelButton = false;
@@ -29,11 +29,12 @@ public class RetractBoulderCommand extends Command {
 	boolean retractStarted = false;
 
 	public RetractBoulderCommand() {
-		requires(shooterSubsystem);
+		requires(Robot.shooterSubsystem);
+		requires(Robot.armSubsystem);
 	}
 
 	protected void initialize() {
-		shooterSubsystem.startShooterMotorReverse();
+		Robot.shooterSubsystem.startShooterMotorReverse();
 	}
 
 	protected void execute() {
@@ -43,8 +44,9 @@ public class RetractBoulderCommand extends Command {
 		if (!retractStarted) {
 			if (timeSinceInitialized() > 0.5) {
 				System.out.println("Time since initialized is more than 0.5");
-				shooterSubsystem.resetIntakeEncoder();
-				shooterSubsystem.setIntakeMotorReverse(IntakeReverseSpeed.LOW);
+				Robot.shooterSubsystem.resetIntakeEncoder();
+				Robot.shooterSubsystem.setIntakeMotorReverse(IntakeReverseSpeed.LOW);
+				Robot.armSubsystem.setArmAngle(RobotMap.ArmLevel.SHOOT_LEVEL.getAngle());
 				retractStarted = true;
 			}
 		}
@@ -67,9 +69,9 @@ public class RetractBoulderCommand extends Command {
 		} else {
 			// Start the lock delay after shutting off the intake motor.
 			// Give the motor a chance to stop before trying to lock it.
-			if (Robot.shooterSubsystem.getIntakeDistance() < -180) {
-				shooterSubsystem.stopIntakeMotor();
-				setTimeout(timeSinceInitialized() + 0.25);
+			if (Robot.shooterSubsystem.getIntakeDistance() < -210) {
+				Robot.shooterSubsystem.stopIntakeMotor();
+				setTimeout(timeSinceInitialized() + 1);
 				lockDelayStarted = true;
 			}
 
@@ -80,14 +82,14 @@ public class RetractBoulderCommand extends Command {
 
 	protected void end() {
 
-		shooterSubsystem.stopShooterMotor();
+		Robot.shooterSubsystem.stopShooterMotor();
 
 		if (cancelButton) {
-			shooterSubsystem.stopIntakeMotor();
-			shooterSubsystem.setBoulderRetracted(false);
+			Robot.shooterSubsystem.stopIntakeMotor();
+			Robot.shooterSubsystem.setBoulderRetracted(false);
 		} else {
-			shooterSubsystem.lockIntakeMotor();
-			shooterSubsystem.setBoulderRetracted(true);
+			Robot.shooterSubsystem.lockIntakeMotor();
+			Robot.shooterSubsystem.setBoulderRetracted(true);
 		}
 
 	}

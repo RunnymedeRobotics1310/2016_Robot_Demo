@@ -9,8 +9,9 @@ public class R_AbsoluteEncoder extends AnalogInput {
 	
 	double offset_degrees = 0.0;
 	
-	public R_AbsoluteEncoder(int port) {
+	public R_AbsoluteEncoder(int port, double offset) {
 		super(port);
+		this.offset_degrees = offset;
 	}
 	
 	/**

@@ -4,26 +4,32 @@ import robot.Robot;
 import robot.RobotMap;
 import robot.subsystems.ShooterSubsystem.IntakeReverseSpeed;
 
-public class ShootLowGoalCommand extends Command {
+public class ShootLowGoalHighPowerCommand extends Command {
 
-	public ShootLowGoalCommand() {
+	double waitTime = 1.0;
+	double startTime;
+	
+	public ShootLowGoalHighPowerCommand() {
 		requires(Robot.shooterSubsystem);
 		requires(Robot.armSubsystem);
-		this.setTimeout(0.5);
+		this.setTimeout(2);
 	}
 
 	@Override
-	protected void execute() {
-		Robot.shooterSubsystem.setIntakeMotorReverse(IntakeReverseSpeed.HIGH);
-		Robot.shooterSubsystem.startShooterMotorReverse();
-		
-		Robot.armSubsystem.startArmIntake();
+	protected void execute() {		
+		Robot.armSubsystem.startArmIntakeReverse();
 		Robot.armSubsystem.setArmAngle(RobotMap.ArmLevel.INTAKE_LEVEL.getAngle());
+		
+		if (startTime + waitTime < this.timeSinceInitialized()) {
+			Robot.shooterSubsystem.setIntakeMotorReverse(IntakeReverseSpeed.HIGH);
+			Robot.shooterSubsystem.startShooterMotorReverse();
+		}
 	}
 
 	@Override
 	protected void initialize() {
 		Robot.shooterSubsystem.resetIntakeEncoder();
+		startTime = this.timeSinceInitialized();
 	}
 	
 	@Override

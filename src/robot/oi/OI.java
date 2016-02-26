@@ -25,7 +25,7 @@ public class OI {
 
 		SHOOT_LOW_GOAL_BUTTON(Button.A), SHOOT_HIGH_GOAL_BUTTON(Button.B), TURBO_BUTTON(
 				Button.LEFT_BUMPER), CANCEL_COMMAND_BUTTON(Button.X), ROLL_INTAKE_BUTTON(
-						Button.RIGHT_BUMPER), TOGGLE_ARM_BUTTON(Button.Y);
+						Button.RIGHT_BUMPER), SHOOT_LOW_GOAL_HIGH_POWER_BUTTON(Button.Y);
 
 		private Button button;
 
@@ -117,8 +117,8 @@ public class OI {
 		return driverStick.getButton(ButtonMap.SHOOT_LOW_GOAL_BUTTON.getButton());
 	}
 
-	public boolean getArmDeploy() {
-		return driverStick.getButton(ButtonMap.TOGGLE_ARM_BUTTON.getButton());
+	public boolean getShootLowGoalHighPower() {
+		return driverStick.getButton(ButtonMap.SHOOT_LOW_GOAL_HIGH_POWER_BUTTON.getButton());
 	}
 
 	public double getArmSpeed() {
@@ -142,10 +142,10 @@ public class OI {
 			return 100;
 		}
 		if (operatorStick.getRawButton(11)) {
-			return 200;
+			return 265;
 		}
 		if (operatorStick.getRawButton(12)) {
-			return 300;
+			return 200;
 		}
 		
 		return -1.0;

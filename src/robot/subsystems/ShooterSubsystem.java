@@ -36,9 +36,18 @@ public class ShooterSubsystem extends R_Subsystem {
 			return -(RobotMap.EncoderMap.INTAKE_ENCODER.inverted ? -1.0 : 1.0) * intakeEncoder.getDistance();
 		}
 	};
+	
+	R_PIDInput shooterSpeedPIDInput = new R_PIDInput() {
+		@Override
+		public double pidGet() {
+			return getShooterSpeed()/100.0;
+		}
+	};
 
 	R_PIDController intakeLockPID = new R_PIDController(0.01, 0.0, 0.0, 0.0, intakeLockPIDInput, intakeMotor);
 
+	R_PIDController shooterSpeedPID = new R_PIDController(1.0, 0.0, 0.0, 1.0, shooterSpeedPIDInput, shooterMotor);
+	
 	// Initialize the subsystem to Disable the intake PID.
 	public ShooterSubsystem() {
 		intakeLockPID.setSetpoint(0.0);
@@ -91,6 +100,7 @@ public class ShooterSubsystem extends R_Subsystem {
 	@Override
 	public void periodic() {
 		intakeLockPID.calculate();
+		shooterSpeedPID.calculate();
 	}
 
 	public void resetIntakeEncoder() {
@@ -134,6 +144,10 @@ public class ShooterSubsystem extends R_Subsystem {
 	public void startShooterMotorReverse() {
 		shooterMotor.set(-0.5);
 	}
+	
+	public void setShooterSpeed(double speedSetPoint) {
+		shooterSpeedPID.setSetpoint(speedSetPoint);
+	}
 
 	public void stopIntakeMotor() {
 
@@ -157,5 +171,6 @@ public class ShooterSubsystem extends R_Subsystem {
 		SmartDashboard.putNumber("Intake Speed", getIntakeSpeed());
 		SmartDashboard.putNumber("Intake Distance", getIntakeDistance());
 		SmartDashboard.putBoolean("Boulder Loaded", isBoulderLoaded());
+		SmartDashboard.putData("Shooter Speed PID", shooterSpeedPID);
 	}
 }

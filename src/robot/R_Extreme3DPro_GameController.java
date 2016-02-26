@@ -3,11 +3,9 @@ package robot;
 import edu.wpi.first.wpilibj.Joystick;
 import robot.R_GameController.Axis;
 import robot.R_GameController.Button;
-import robot.R_GameController.Stick;
-import robot.R_GameController.Trigger;
 
 public class R_Extreme3DPro_GameController {
-	
+
 	private final Joystick joystick;
 
 	public R_Extreme3DPro_GameController(int port) {
@@ -18,54 +16,58 @@ public class R_Extreme3DPro_GameController {
 		joystick = j;
 	}
 
-	public double getRawAxis(int axis) {
+	public double getAxis(Axis axis) {
 
 		double axisValue = 0.0;
-			switch (axis) {
-				case 0:  axisValue = joystick.getRawAxis(0);  break;
-				case 1:  axisValue = joystick.getRawAxis(1);  break;
-			}
+		switch (axis) {
+		case X:
+			axisValue = joystick.getRawAxis(0);
+			break;
+		case Y:
+			axisValue = joystick.getRawAxis(1);
+			break;
+		case Z:
+			axisValue = joystick.getRawAxis(2);
+		case SLIDER:
+			axisValue = joystick.getRawAxis(3);
+		}
 		// Round the axis value to 2 decimal places
-		return Math.round(axisValue*100) / 100.0;
+		return Math.round(axisValue * 100) / 100.0;
 	}
 
-	public boolean getRawButton(int button) {
+	public boolean getButton(Button button) {
 		switch (button) {
-			case 1:     return joystick.getRawButton(1);
-			case 2:		return joystick.getRawButton(2);
-			case 3:		return joystick.getRawButton(3);
-			case 4:		return joystick.getRawButton(4);
-			case 5:		return joystick.getRawButton(5);
-			case 6:		return joystick.getRawButton(6);
-			case 7:		return joystick.getRawButton(7);
-			case 8:		return joystick.getRawButton(8);
-			case 9:		return joystick.getRawButton(9);
-			case 10:	return joystick.getRawButton(10);
-			case 11:	return joystick.getRawButton(11);
-			case 12:	return joystick.getRawButton(12);
-			default:	return false;
+		case BUTTON1:
+			return joystick.getRawButton(1);
+		case BUTTON2:
+			return joystick.getRawButton(2);
+		case BUTTON3:
+			return joystick.getRawButton(3);
+		case BUTTON4:
+			return joystick.getRawButton(4);
+		case BUTTON5:
+			return joystick.getRawButton(5);
+		case BUTTON6:
+			return joystick.getRawButton(6);
+		case BUTTON7:
+			return joystick.getRawButton(7);
+		case BUTTON8:
+			return joystick.getRawButton(8);
+		case BUTTON9:
+			return joystick.getRawButton(9);
+		case BUTTON10:
+			return joystick.getRawButton(10);
+		case BUTTON11:
+			return joystick.getRawButton(11);
+		case BUTTON12:
+			return joystick.getRawButton(12);
+		default:
+			return false;
 		}
 	}
-	
-	public Joystick getRawJoystick() { return joystick; }
 
-	@Override
-	public String toString() {
-
-		String buttonString = "";
-		boolean first = true;
-		for (int i=0; i< joystick.getButtonCount(); i++) {
-			if (getRawButton(i)) {
-				if (!first) {
-					buttonString += ",";
-				}
-				buttonString += i;
-			}
-		}
-
-		return getRawJoystick().getName() + " " + getRawJoystick().getButtonCount() + " (" + 
-		        + getRawAxis(1) + ")" + buttonString;
+	public Joystick getRawJoystick() {
+		return joystick;
 	}
-
 
 }

@@ -23,9 +23,12 @@ public class OI {
 
 	private enum ButtonMap {
 
-		SHOOT_LOW_GOAL_BUTTON(Button.A), SHOOT_HIGH_GOAL_BUTTON(Button.B), TURBO_BUTTON(
-				Button.LEFT_BUMPER), CANCEL_COMMAND_BUTTON(Button.X), ROLL_INTAKE_BUTTON(
-						Button.RIGHT_BUMPER), SHOOT_LOW_GOAL_HIGH_POWER_BUTTON(Button.Y);
+		SHOOT_LOW_GOAL_BUTTON(Button.A), SHOOT_HIGH_GOAL_BUTTON(Button.BUTTON1), SETUP_HIGH_SHOT_BUTTON(
+				Button.BUTTON2), TURBO_BUTTON(Button.LEFT_BUMPER), CANCEL_COMMAND_BUTTON(Button.X), ROLL_INTAKE_BUTTON(
+						Button.RIGHT_BUMPER), SHOOT_LOW_GOAL_HIGH_POWER_BUTTON(Button.Y), ARM_PID_TOGGLE(
+								Button.BUTTON7), RESET_ARM_ENCODER_BUTTON(Button.BUTTON8), DRIVE_ARM_POS_1(
+										Button.BUTTON9), DRIVE_ARM_POS_2(Button.BUTTON10), DRIVE_ARM_POS_3(
+												Button.BUTTON11), DRIVE_ARM_POS_4(Button.BUTTON12);
 
 		private Button button;
 
@@ -52,6 +55,15 @@ public class OI {
 	public double getTurn() {
 		double joystickValue = driverStick.getAxis(Stick.RIGHT, Axis.X);
 		return Math.round(joystickValue * Math.abs(joystickValue) * 100) / 100.0;
+	}
+
+	public double getShootSpeed() {
+		double stickValue = operatorStick.getAxis(Axis.SLIDER);
+		return Math.round(stickValue * Math.abs(stickValue) * 100) / 100.0;
+	}
+
+	public double getShootSpeedOverRideButton() {
+		return operatorStick.getAxis(Axis.SLIDER);
 	}
 
 	/**
@@ -105,8 +117,12 @@ public class OI {
 		return driverStick.getButton(ButtonMap.ROLL_INTAKE_BUTTON.getButton());
 	}
 
+	public boolean getSetupHighShotButton() {
+		return operatorStick.getButton(ButtonMap.SETUP_HIGH_SHOT_BUTTON.getButton());
+	}
+
 	public boolean getShootHighGoalButton() {
-		return driverStick.getButton(ButtonMap.SHOOT_HIGH_GOAL_BUTTON.getButton());
+		return operatorStick.getButton(ButtonMap.SHOOT_HIGH_GOAL_BUTTON.getButton());
 	}
 
 	public boolean getCancel() {
@@ -122,32 +138,31 @@ public class OI {
 	}
 
 	public double getArmSpeed() {
-		return operatorStick.getRawAxis(1) * operatorStick.getRawAxis(1)
-				* operatorStick.getRawAxis(1); //Y-axis
+		return operatorStick.getAxis(Axis.Y) * operatorStick.getAxis(Axis.Y) * operatorStick.getAxis(Axis.Y);
 	}
 
 	public boolean getArmEncoderReset() {
-		return operatorStick.getRawButton(8);
+		return operatorStick.getButton(ButtonMap.RESET_ARM_ENCODER_BUTTON.getButton());
 	}
 
-	public boolean getArmPIDDisable() {
-		return operatorStick.getRawButton(7);
+	public boolean getArmPIDToggle() {
+		return operatorStick.getButton(ButtonMap.ARM_PID_TOGGLE.getButton());
 	}
 
 	public double getArmAngle() {
-		if (operatorStick.getRawButton(9)) {
+		if (operatorStick.getButton(ButtonMap.DRIVE_ARM_POS_1.getButton())) {
 			return 0.0;
 		}
-		if (operatorStick.getRawButton(10)) {
+		if (operatorStick.getButton(ButtonMap.DRIVE_ARM_POS_2.getButton())) {
 			return 100;
 		}
-		if (operatorStick.getRawButton(11)) {
+		if (operatorStick.getButton(ButtonMap.DRIVE_ARM_POS_3.getButton())) {
 			return 265;
 		}
-		if (operatorStick.getRawButton(12)) {
+		if (operatorStick.getButton(ButtonMap.DRIVE_ARM_POS_4.getButton())) {
 			return 200;
 		}
-		
+
 		return -1.0;
 	}
 

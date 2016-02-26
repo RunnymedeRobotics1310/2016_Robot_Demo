@@ -6,28 +6,37 @@ import robot.RobotMap;
 
 public class WindupCommand extends Command {
 
-    public WindupCommand() {
-    	requires(Robot.shooterSubsystem);
-    }
+	double speedSetPoint;
 
-    protected void initialize() {
-    	if (Robot.shooterSubsystem.isBoulderRetracted()) {
-    		Robot.shooterSubsystem.startShooterMotor();
-    	}
-    	Robot.shooterSubsystem.setRailPosition(true);
-    }
+	public WindupCommand() {
+		requires(Robot.shooterSubsystem);
+	}
 
-    protected void execute() {
-    }
+	protected void initialize() {
+		speedSetPoint = 0.1 * (-Robot.oi.getShootSpeed() + 1) + 0.8;
 
-    protected boolean isFinished() {
-    	if (Robot.shooterSubsystem.getShooterSpeed() > 80) { return true; }
-    	return false;
-    }
+		if (Robot.shooterSubsystem.isBoulderRetracted()) {
+			Robot.shooterSubsystem.setShooterSpeed(speedSetPoint);
+		}
 
-    protected void end() {
-    }
+		Robot.shooterSubsystem.setRailPosition(true);
+	}
 
-    protected void interrupted() {
-    }
+	protected void execute() {
+		speedSetPoint = 0.1 * (-Robot.oi.getShootSpeed() + 1) + 0.8;
+		Robot.shooterSubsystem.setShooterSpeed(speedSetPoint);
+	}
+
+	protected boolean isFinished() {
+		if (Robot.shooterSubsystem.getShooterSpeed() > speedSetPoint * 0.8 * 100) {
+			return true;
+		}
+		return false;
+	}
+
+	protected void end() {
+	}
+
+	protected void interrupted() {
+	}
 }

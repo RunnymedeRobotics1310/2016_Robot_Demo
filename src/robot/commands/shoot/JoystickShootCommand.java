@@ -9,8 +9,8 @@ import robot.subsystems.ShooterSubsystem;
 public class JoystickShootCommand extends Command {
 
 	ShooterSubsystem shooterSubsystem = Robot.shooterSubsystem;
-	OI               oi               = Robot.oi;
-	
+	OI oi = Robot.oi;
+
 	public JoystickShootCommand() {
 		requires(shooterSubsystem);
 	}
@@ -21,87 +21,78 @@ public class JoystickShootCommand extends Command {
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		
-		// Look for a button and start the intake. 
+
+		// Look for a button and start the intake.
 		// (do nothing if we already have a ball)
-		
+
 		if (oi.getIntakeStartButton()) {
 
 			if (!shooterSubsystem.isBoulderLoaded()) {
 				shooterSubsystem.setBoulderRetracted(false);
 				Scheduler.getInstance().add(new PickupBoulderCommand());
 				return;
-				//and actuate arms
+				// and actuate arms
 			} else {
-				//just actuate arms
+				// just actuate arms
 			}
-			
+
 			// Dont look for other buttons
 			return;
-			
+
 		}
-		
-		// The High Goal shooter button is used for both starting the 
+
+		// The High Goal shooter button is used for both starting the
 		// high goal spinner, and for taking a shot.
 		//
-		// If the ball is not yet retracted, then set up for a shot by 
+		// If the ball is not yet retracted, then set up for a shot by
 		// retracting the ball and starting the shooter.
 		//
 		// If the ball is retracted, and the shooter is up to speed, then
 		// take a shot.
 
-		if (oi.getShootHighGoalButton()) {			
-		
-			System.out.println("Boulder rectracted; " + Robot.shooterSubsystem.isBoulderRetracted());
+		if (oi.getSetupHighShotButton()) {
+			// Only start retracting if you have a ball
+			if (shooterSubsystem.isBoulderLoaded()) {
 
-			if ( shooterSubsystem.isBoulderRetracted() ) {
-				
-				if ( shooterSubsystem.getShooterSpeed() > 80) {
-					
+				shooterSubsystem.setBoulderRetracted(true);
+				Scheduler.getInstance().add(new SetupHighShotCommand());
+
+				return;
+			}
+		}
+
+		if (oi.getShootHighGoalButton()) {
+			if (shooterSubsystem.isBoulderRetracted()) {
+				if (shooterSubsystem.getShooterSpeed() > 80) {
 					shooterSubsystem.setBoulderRetracted(false);
 					Scheduler.getInstance().add(new ShootHighGoalCommand());
-					
+
 					return;
 
-				}
-			
-			} else {
-				
-				// Only start retracting if you have a ball
-				if (shooterSubsystem.isBoulderLoaded()) {
-					
-					shooterSubsystem.setBoulderRetracted(true);
-					Scheduler.getInstance().add(new SetupHighShotCommand());
-					
-					return;
 				}
 			}
-			
-			// Don't look for other buttons when the shooter button is pressed
-			return;
 		}
-		
+
 		// Look for a button for low shot (needs to have a ball loaded)
 
-		if (   oi.getShootLowGoalButton()
-				
-			&& (   Robot.shooterSubsystem.isBoulderLoaded()
-				|| Robot.shooterSubsystem.isBoulderRetracted()) ) {
-			
+		if (oi.getShootLowGoalButton()
+
+				&& (Robot.shooterSubsystem.isBoulderLoaded() || Robot.shooterSubsystem.isBoulderRetracted())) {
+
 			Scheduler.getInstance().add(new ShootLowGoalCommand());
-			
-			return;
-		}
-		
-		if (oi.getShootLowGoalHighPower() && (   Robot.shooterSubsystem.isBoulderLoaded()
-				|| Robot.shooterSubsystem.isBoulderRetracted())) {
-			
-			Scheduler.getInstance().add(new ShootLowGoalHighPowerCommand());
-			
+
 			return;
 		}
 
-		// Look for the cancel button.  
+		if (oi.getShootLowGoalHighPower()
+				&& (Robot.shooterSubsystem.isBoulderLoaded() || Robot.shooterSubsystem.isBoulderRetracted())) {
+
+			Scheduler.getInstance().add(new ShootLowGoalHighPowerCommand());
+
+			return;
+		}
+
+		// Look for the cancel button.
 		// The cancel button ejects the boulder, and sets it to not retracted.
 		if (Robot.oi.getCancel()) {
 			Scheduler.getInstance().add(new EjectBoulderCommand());

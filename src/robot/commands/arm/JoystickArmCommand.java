@@ -22,7 +22,7 @@ public class JoystickArmCommand extends Command {
     		Robot.armSubsystem.resetArmEncoder();
     	}
     	
-    	if (Robot.oi.getArmPIDDisable()) {
+    	if (Robot.oi.getArmPIDToggle()) {
     		armPIDEnabled = false;
     		Robot.armSubsystem.disableArmPID();
     	}

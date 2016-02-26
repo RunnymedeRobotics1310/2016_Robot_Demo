@@ -15,8 +15,8 @@ import edu.wpi.first.wpilibj.Joystick.RumbleType;
 public abstract class R_GameController {
 
 	public enum Axis {
-		X, Y;
-	};
+		X, Y, Z, SLIDER;
+	}
 
 	public enum Stick {
 		LEFT, RIGHT;
@@ -27,7 +27,7 @@ public abstract class R_GameController {
 	}
 
 	public enum Button {
-		A, B, X, Y, LEFT_STICK, RIGHT_STICK, LEFT_BUMPER, RIGHT_BUMPER, START, BACK;
+		A, B, X, Y, LEFT_STICK, RIGHT_STICK, LEFT_BUMPER, RIGHT_BUMPER, START, BACK, BUTTON1, BUTTON2, BUTTON3, BUTTON4, BUTTON5, BUTTON6, BUTTON7, BUTTON8, BUTTON9, BUTTON10, BUTTON11, BUTTON12;
 	}
 
 	private double curLeftRumble = 0.0;

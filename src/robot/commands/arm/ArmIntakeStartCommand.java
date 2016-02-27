@@ -3,9 +3,9 @@ package robot.commands.arm;
 import edu.wpi.first.wpilibj.command.Command;
 import robot.Robot;
 
-public class ArmIntakeCommand extends Command {
+public class ArmIntakeStartCommand extends Command {
 
-    public ArmIntakeCommand() {
+    public ArmIntakeStartCommand() {
     	requires(Robot.armSubsystem);
     }
 

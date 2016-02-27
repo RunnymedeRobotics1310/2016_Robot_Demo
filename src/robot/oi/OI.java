@@ -23,12 +23,19 @@ public class OI {
 
 	private enum ButtonMap {
 
-		SHOOT_LOW_GOAL_BUTTON(Button.A), SHOOT_HIGH_GOAL_BUTTON(Button.BUTTON1), SETUP_HIGH_SHOT_BUTTON(
-				Button.BUTTON2), TURBO_BUTTON(Button.LEFT_BUMPER), CANCEL_COMMAND_BUTTON(Button.X), ROLL_INTAKE_BUTTON(
-						Button.RIGHT_BUMPER), SHOOT_LOW_GOAL_HIGH_POWER_BUTTON(Button.Y), ARM_PID_TOGGLE(
-								Button.BUTTON7), RESET_ARM_ENCODER_BUTTON(Button.BUTTON8), DRIVE_ARM_POS_1(
-										Button.BUTTON9), DRIVE_ARM_POS_2(Button.BUTTON10), DRIVE_ARM_POS_3(
-												Button.BUTTON11), DRIVE_ARM_POS_4(Button.BUTTON12);
+		SHOOT_LOW_GOAL_BUTTON(Button.A),
+		SHOOT_HIGH_GOAL_BUTTON(Button.BUTTON1),
+		SETUP_HIGH_SHOT_BUTTON(Button.BUTTON2),
+		TURBO_BUTTON(Button.LEFT_BUMPER),
+		CANCEL_COMMAND_BUTTON(Button.X),
+		ROLL_INTAKE_BUTTON(Button.RIGHT_BUMPER),
+		SHOOT_LOW_GOAL_HIGH_POWER_BUTTON(Button.Y),
+		ARM_PID_TOGGLE(Button.BUTTON7),
+		RESET_ARM_ENCODER_BUTTON(Button.BUTTON8),
+		DRIVE_ARM_POS_1(Button.BUTTON9),
+		DRIVE_ARM_POS_2(Button.BUTTON10),
+		DRIVE_ARM_POS_3(Button.BUTTON11), 
+		DRIVE_ARM_POS_4(Button.BUTTON12);
 
 		private Button button;
 
@@ -43,9 +50,9 @@ public class OI {
 	}
 
 	private R_GameController driverStick = R_GameControllerFactory.getGameController(0);
-	private AutoChooser autoChooser = new AutoChooser();
-
 	private R_Extreme3DPro_GameController operatorStick = new R_Extreme3DPro_GameController(1);
+	
+	private AutoChooser autoChooser = new AutoChooser();
 
 	public double getSpeed() {
 		double joystickValue = driverStick.getAxis(Stick.LEFT, Axis.Y);

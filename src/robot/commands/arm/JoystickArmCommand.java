@@ -35,10 +35,6 @@ public class JoystickArmCommand extends Command {
     		Robot.armSubsystem.setArmAngle(Robot.oi.getArmAngle());
     		armPIDEnabled = true;
     	}
-    	
-/*    	if (Robot.oi.getArmDeploy()){
-    		Scheduler.getInstance().add(new ArmDeployCommand());
-    	} */
     }
 
     // Make this return true when this Command no longer needs to run execute()

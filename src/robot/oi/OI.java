@@ -176,6 +176,10 @@ public class OI {
 		return Goal.toEnum(autoChooser.getSelectedGoal());
 	}
 
+	public boolean getWinch() {
+		return driverStick.getButton(Button.Y);
+	}
+	
 	public Command getAutoCommand() {
 
 		switch (autoChooser.getAutoMode()) {

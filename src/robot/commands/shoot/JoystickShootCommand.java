@@ -63,7 +63,7 @@ public class JoystickShootCommand extends Command {
 
 		if (oi.getShootHighGoalButton()) {
 			if (shooterSubsystem.isBoulderRetracted()) {
-				if (shooterSubsystem.getShooterSpeed() > 80) {
+				if (shooterSubsystem.getShooterSpeed() > Robot.shooterSubsystem.getShootSpeedSetPoint() * 0.8 * 100) {
 					shooterSubsystem.setBoulderRetracted(false);
 					Scheduler.getInstance().add(new ShootHighGoalCommand());
 

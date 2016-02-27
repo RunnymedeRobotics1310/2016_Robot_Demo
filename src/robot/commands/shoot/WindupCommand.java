@@ -2,7 +2,6 @@ package robot.commands.shoot;
 
 import edu.wpi.first.wpilibj.command.Command;
 import robot.Robot;
-import robot.RobotMap;
 
 public class WindupCommand extends Command {
 

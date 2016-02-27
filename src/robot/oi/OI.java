@@ -9,33 +9,21 @@ import robot.Field.Slot;
 import robot.commands.auto.AutoDriveAndShootCommand;
 import robot.utils.R_Extreme3DPro_GameController;
 import robot.utils.R_GameController;
-import robot.utils.R_GameControllerFactory;
 import robot.utils.R_GameController.Axis;
 import robot.utils.R_GameController.Button;
 import robot.utils.R_GameController.Stick;
 import robot.utils.R_GameController.Trigger;
+import robot.utils.R_GameControllerFactory;
 
-/**
- * This class is the glue that binds the controls on the physical operator
- * interface to the commands and command groups that allow control of the robot.
- */
 public class OI {
 
-	private enum ButtonMap {
-
-		SHOOT_LOW_GOAL_BUTTON(Button.A),
-		SHOOT_HIGH_GOAL_BUTTON(Button.BUTTON1),
-		SETUP_HIGH_SHOT_BUTTON(Button.BUTTON2),
-		TURBO_BUTTON(Button.LEFT_BUMPER),
-		CANCEL_COMMAND_BUTTON(Button.X),
-		ROLL_INTAKE_BUTTON(Button.RIGHT_BUMPER),
-		ARM_PID_TOGGLE(Button.BUTTON7),
-		RESET_ARM_ENCODER_BUTTON(Button.BUTTON8),
-		DRIVE_ARM_POS_1(Button.BUTTON9),
-		DRIVE_ARM_POS_2(Button.BUTTON10),
-		DRIVE_ARM_POS_3(Button.BUTTON11), 
-		DRIVE_ARM_POS_4(Button.BUTTON12);
-
+	public enum ButtonMap  {
+		//Driver Controls
+		OUTER_INTAKE_BOULDER(Button.LEFT_BUMPER), EXTAKE_BOULDER(Button.B), RESET_GYRO(Button.BACK), CALIBRATE_GYRO(Button.START), CANCEL_COMMAND(Button.X),
+		
+		//Operator Controls
+		WIND_UP_SHOOTER(Button.BUTTON2), SHOOT_BOULDER(Button.BUTTON1), ROTATE_ARM_MIN_POS(Button.BUTTON9), ROTATE_ARM_INTAKE_POS(Button.BUTTON10), ROTATE_ARM_DRIVE_POS(Button.BUTTON12), ROTATE_ARM_MAX_POS(Button.BUTTON11), CLIMB(Button.Y);
+		
 		private Button button;
 
 		ButtonMap(Button button) {
@@ -45,14 +33,113 @@ public class OI {
 		public Button getButton() {
 			return this.button;
 		}
-
 	}
+	
+	public enum TriggerMap {
+		
+		//Driver Controls
+		INNER_INTAKE_BOULDER(Trigger.LEFT), SHIFT_GEARS(Trigger.RIGHT);
+		
+		private Trigger trigger;
 
+		TriggerMap(Trigger trigger) {
+			this.trigger = trigger;
+		}
+
+		public Trigger getTrigger() {
+			return this.trigger;
+		}
+	}
+	
+	public enum POVMap {
+		UP(0), RIGHT(90), DOWN(180), LEFT(270);
+		
+		private int angle;
+		
+		POVMap(int angle) {
+			this.angle = angle;
+		}
+		
+		public int getAngle() {
+			return this.angle;
+		}
+	}
+	
 	private R_GameController driverStick = R_GameControllerFactory.getGameController(0);
 	private R_Extreme3DPro_GameController operatorStick = new R_Extreme3DPro_GameController(1);
 	
 	private AutoChooser autoChooser = new AutoChooser();
 
+	public boolean getOuterIntakeBoulderButton() {
+		return driverStick.getButton(ButtonMap.OUTER_INTAKE_BOULDER.getButton());
+	}
+	
+	public double getInnerIntakeBoulderButton() {
+		return driverStick.getTrigger(TriggerMap.INNER_INTAKE_BOULDER.getTrigger());
+	}
+	
+	public double getGearShiftButton() {
+		return driverStick.getTrigger(TriggerMap.SHIFT_GEARS.getTrigger());
+	}
+	
+	public boolean getExtakeBoulderButton() {
+		return driverStick.getButton(ButtonMap.EXTAKE_BOULDER.getButton());
+	}
+	
+	public boolean getResetGyroButton() {
+		return driverStick.getButton(ButtonMap.RESET_GYRO.getButton());
+	}
+	
+	public boolean getWindUpShooterButton() {
+		return operatorStick.getButton(ButtonMap.WIND_UP_SHOOTER.getButton());
+	}
+	
+	public boolean getShootButton() {
+		return operatorStick.getButton(ButtonMap.SHOOT_BOULDER.getButton());
+	}
+	
+	public boolean getRotateArmMinPosButton() {
+		return operatorStick.getButton(ButtonMap.ROTATE_ARM_MIN_POS.getButton());
+	}
+	
+	public boolean getRotateArmIntakePosButton() {
+		return operatorStick.getButton(ButtonMap.ROTATE_ARM_INTAKE_POS.getButton());
+	}
+	
+	public boolean getRotateArmDrivePosButton() {
+		return operatorStick.getButton(ButtonMap.ROTATE_ARM_DRIVE_POS.getButton());
+	}
+	
+	public boolean getRotateArmMaxPosButton() {
+		return operatorStick.getButton(ButtonMap.ROTATE_ARM_MAX_POS.getButton());
+	}
+	
+	public double getArmAngle() {
+		if (getRotateArmMinPosButton()) {
+			return 0.0;
+		}
+		if (getRotateArmIntakePosButton()) {
+			return 100;
+		}
+		if (getRotateArmDrivePosButton()) {
+			return 265;
+		}
+		if (getRotateArmMaxPosButton()) {
+			return 200;
+		}
+
+		return -1.0;
+	}
+	
+	public double getArmSpeed() {
+		return operatorStick.getAxis(Axis.Y) * operatorStick.getAxis(Axis.Y) * operatorStick.getAxis(Axis.Y);
+	}
+
+	
+	public boolean getClimbButton() {
+		return operatorStick.getButton(ButtonMap.CLIMB.getButton());
+	}
+	
 	public double getSpeed() {
 		double joystickValue = driverStick.getAxis(Stick.LEFT, Axis.Y);
 		return -Math.round(joystickValue * Math.abs(joystickValue) * 100) / 100.0;
@@ -62,134 +149,34 @@ public class OI {
 		double joystickValue = driverStick.getAxis(Stick.RIGHT, Axis.X);
 		return Math.round(joystickValue * Math.abs(joystickValue) * 100) / 100.0;
 	}
-
-	public double getShootSpeed() {
-		double stickValue = operatorStick.getAxis(Axis.SLIDER);
-		return Math.round(stickValue * Math.abs(stickValue) * 100) / 100.0;
-	}
 	
 	public double getPOV() {
 		return driverStick.getPOVAngle();
 	}
 	
 	public boolean getRotateLeft() {
-		return (getPOV() ==  270);
+		return (getPOV() == POVMap.LEFT.getAngle());
 	}
 	
 	public boolean getRotateRight() {
-		return (getPOV() == 90);
+		return (getPOV() == POVMap.RIGHT.getAngle());
 	}
 
-	public double getShootSpeedOverRideButton() {
-		return operatorStick.getAxis(Axis.SLIDER);
+	public double getShootSpeed() {
+		double stickValue = operatorStick.getAxis(Axis.SLIDER);
+		return Math.round(stickValue * Math.abs(stickValue) * 100) / 100.0;
 	}
-
-	/**
-	 * Sets the joystick rumble strength.
-	 * 
-	 * @param strength
-	 *            Has to be between 0.0 and 1.0.
-	 */
-	public void setRumble(double strength) {
-		driverStick.setRumble(strength);
+	
+	public boolean getCancel() {
+		return driverStick.getButton(ButtonMap.CANCEL_COMMAND.getButton());
 	}
-
-	/**
-	 * Sets the joystick rumble strength on the left and right channels
-	 * individually.
-	 * 
-	 * @param leftRumble
-	 *            Rumble strength on the left channel.
-	 * @param rightRumble
-	 *            Rumble strength on the right channel.
-	 */
-	public void setRumble(double leftRumble, double rightRumble) {
-		driverStick.setRumble(leftRumble, rightRumble);
-	}
-
-	public int getPOVAngle() {
-		return driverStick.getPOVAngle();
-	}
-
+	
 	public boolean getGyroReset() {
-		return driverStick.getButton(Button.BACK);
+		return driverStick.getButton(ButtonMap.RESET_GYRO.getButton());
 	}
 
 	public boolean getGyroCalibrate() {
-		return driverStick.getButton(Button.START);
-	}
-
-	public boolean getTurbo() {
-		return driverStick.getButton(Trigger.LEFT);
-	}
-
-	public Defense getDefense() {
-		return Defense.toEnum(autoChooser.getSelectedDefence());
-	}
-
-	public Slot getSlot() {
-		return Slot.toEnum(autoChooser.getSelectedSlot());
-	}
-
-	public boolean getIntakeStartButton() {
-		return driverStick.getButton(ButtonMap.ROLL_INTAKE_BUTTON.getButton());
-	}
-
-	public boolean getSetupHighShotButton() {
-		return operatorStick.getButton(ButtonMap.SETUP_HIGH_SHOT_BUTTON.getButton());
-	}
-
-	public boolean getShootHighGoalButton() {
-		return operatorStick.getButton(ButtonMap.SHOOT_HIGH_GOAL_BUTTON.getButton());
-	}
-
-	public boolean getCancel() {
-		return driverStick.getButton(ButtonMap.CANCEL_COMMAND_BUTTON.getButton());
-	}
-
-	public boolean getShootLowGoalButton() {
-		return driverStick.getButton(ButtonMap.SHOOT_LOW_GOAL_BUTTON.getButton());
-	}
-
-	public double getArmSpeed() {
-		return operatorStick.getAxis(Axis.Y) * operatorStick.getAxis(Axis.Y) * operatorStick.getAxis(Axis.Y);
-	}
-
-	public boolean getArmEncoderReset() {
-		return operatorStick.getButton(ButtonMap.RESET_ARM_ENCODER_BUTTON.getButton());
-	}
-
-	public boolean getArmPIDToggle() {
-		return operatorStick.getButton(ButtonMap.ARM_PID_TOGGLE.getButton());
-	}
-
-	public double getArmAngle() {
-		if (operatorStick.getButton(ButtonMap.DRIVE_ARM_POS_1.getButton())) {
-			return 0.0;
-		}
-		if (operatorStick.getButton(ButtonMap.DRIVE_ARM_POS_2.getButton())) {
-			return 100;
-		}
-		if (operatorStick.getButton(ButtonMap.DRIVE_ARM_POS_3.getButton())) {
-			return 265;
-		}
-		if (operatorStick.getButton(ButtonMap.DRIVE_ARM_POS_4.getButton())) {
-			return 200;
-		}
-
-		return -1.0;
-	}
-
-	public Lane getLane() {
-		return Lane.toEnum(autoChooser.getSelectedDistance());
-	}
-
-	public Goal getGoal() {
-		return Goal.toEnum(autoChooser.getSelectedGoal());
-	}
-
-	public boolean getWinch() {
-		return driverStick.getButton(Button.Y);
+		return driverStick.getButton(ButtonMap.CALIBRATE_GYRO.getButton());
 	}
 	
 	public Command getAutoCommand() {
@@ -202,6 +189,22 @@ public class OI {
 		default:
 			return null;
 		}
+	}
+	
+	public Defense getDefense() {
+		return Defense.toEnum(autoChooser.getSelectedDefence());
+	}
+
+	public Slot getSlot() {
+		return Slot.toEnum(autoChooser.getSelectedSlot());
+	}
+	
+	public Lane getLane() {
+		return Lane.toEnum(autoChooser.getSelectedDistance());
+	}
+
+	public Goal getGoal() {
+		return Goal.toEnum(autoChooser.getSelectedGoal());
 	}
 
 	/**
@@ -219,4 +222,5 @@ public class OI {
 		SmartDashboard.putString("Driver Controllers", driverStick.toString());
 		SmartDashboard.putString("Operator Controllers", operatorStick.toString());
 	}
+	
 }

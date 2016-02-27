@@ -39,7 +39,7 @@ public class JoystickDriveCommand extends Command {
 		 * If the chassisSubsystem says that we should be in high gear, switch
 		 * to high gear, otherwise, switch to low gear.
 		 */
-		if (Robot.oi.getTurbo()) {
+		if (Robot.oi.getGearShiftButton() >= 0.5) {
 			Robot.chassisSubsystem.setGear(Gear.HIGH);
 		} else {
 			Robot.chassisSubsystem.setGear(Gear.LOW);

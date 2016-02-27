@@ -3,8 +3,6 @@ package robot.commands.shoot;
 import edu.wpi.first.wpilibj.command.Command;
 import robot.Robot;
 import robot.RobotMap;
-import robot.oi.OI;
-import robot.subsystems.ShooterSubsystem;
 import robot.subsystems.ShooterSubsystem.IntakeReverseSpeed;
 
 /**
@@ -21,8 +19,6 @@ import robot.subsystems.ShooterSubsystem.IntakeReverseSpeed;
  *
  */
 public class RetractBoulderCommand extends Command {
-
-	OI oi = Robot.oi;
 
 	boolean cancelButton = false;
 	boolean lockDelayStarted = false;
@@ -55,7 +51,7 @@ public class RetractBoulderCommand extends Command {
 	protected boolean isFinished() {
 
 		// If the cancel button is pressed, then end
-		if (oi.getCancel()) {
+		if (Robot.oi.getCancel()) {
 			cancelButton = true;
 			return true;
 		}

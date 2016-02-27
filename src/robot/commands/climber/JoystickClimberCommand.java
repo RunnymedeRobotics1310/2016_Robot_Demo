@@ -26,7 +26,7 @@ public class JoystickClimberCommand extends Command {
 		
 		// On the first time the button is pressed, deploy the scissor.
 		if (!scissorUp) {
-			if (Robot.oi.getWinch()) {
+			if (Robot.oi.getClimbButton()) {
 				Robot.climberSubsystem.scissorUp();
 				this.setTimeout(this.timeSinceInitialized() + 2.0);
 				scissorUp = true;
@@ -34,7 +34,7 @@ public class JoystickClimberCommand extends Command {
 			return;
 		}
 		
-		if (Robot.oi.getWinch()) {
+		if (Robot.oi.getClimbButton()) {
 			Robot.climberSubsystem.winchOn();
 			return;
 		}

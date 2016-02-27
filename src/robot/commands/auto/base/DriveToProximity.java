@@ -20,5 +20,9 @@ public class DriveToProximity extends AutoGoStraightCommand {
 	@Override
 	protected boolean isFinished() {
 		return Robot.chassisSubsystem.getProximity();
-	}	
+	}
+	
+	public void end() {
+		Robot.chassisSubsystem.setSpeed(0.0, 0.0);
+	}
 }

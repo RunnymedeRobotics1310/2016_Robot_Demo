@@ -1,7 +1,6 @@
 package robot.commands.shoot;
 import edu.wpi.first.wpilibj.command.Command;
 import robot.Robot;
-import robot.RobotMap;
 import robot.subsystems.ShooterSubsystem.IntakeReverseSpeed;
 
 public class ShootLowGoalCommand extends Command {

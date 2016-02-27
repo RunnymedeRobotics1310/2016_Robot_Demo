@@ -1,7 +1,6 @@
 package robot.utils;
 
 import edu.wpi.first.wpilibj.DigitalInput;
-import robot.RobotMap;
 import robot.RobotMap.MotorMap;
 
 public class R_SafetyVictor extends R_Victor {

@@ -65,8 +65,8 @@ public class RotateToAngleCommand extends Command {
 	    System.out.println("rotate finished");
 		if (Math.abs(Robot.oi.getSpeed()) > 0.05 || Math.abs(Robot.oi.getTurn()) > 0.05) {
 			return true;
-		} else if (Robot.oi.getPOVAngle() != -1) {
-			Scheduler.getInstance().add(new RotateToAngleCommand(Robot.oi.getPOVAngle(), 3.0));
+		} else if (Robot.oi.getPOV() != -1) {
+			Scheduler.getInstance().add(new RotateToAngleCommand(Robot.oi.getPOV(), 3.0));
 			return true;
 		}
 		double angleDifference = Robot.chassisSubsystem.getAngleDifference(this.targetAngle);

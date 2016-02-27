@@ -25,7 +25,7 @@ public class JoystickShootCommand extends Command {
 		// Look for a button and start the intake.
 		// (do nothing if we already have a ball)
 
-		if (oi.getIntakeStartButton()) {
+		if (oi.getOuterIntakeBoulderButton()) {
 
 			if (!shooterSubsystem.isBoulderLoaded()) {
 				shooterSubsystem.setBoulderRetracted(false);
@@ -50,7 +50,7 @@ public class JoystickShootCommand extends Command {
 		// If the ball is retracted, and the shooter is up to speed, then
 		// take a shot.
 
-		if (oi.getSetupHighShotButton()) {
+		if (oi.getWindUpShooterButton()) {
 			// Only start retracting if you have a ball
 			if (shooterSubsystem.isBoulderLoaded()) {
 
@@ -61,7 +61,7 @@ public class JoystickShootCommand extends Command {
 			}
 		}
 
-		if (oi.getShootHighGoalButton()) {
+		if (oi.getShootButton()) {
 			if (shooterSubsystem.isBoulderRetracted()) {
 				if (shooterSubsystem.getShooterSpeed() > Robot.shooterSubsystem.getShootSpeedSetPoint() * 0.8 * 100) {
 					shooterSubsystem.setBoulderRetracted(false);
@@ -75,8 +75,7 @@ public class JoystickShootCommand extends Command {
 
 		// Look for a button for low shot (needs to have a ball loaded)
 
-		if (oi.getShootLowGoalButton()
-
+		if (oi.getExtakeBoulderButton()
 				&& (Robot.shooterSubsystem.isBoulderLoaded() || Robot.shooterSubsystem.isBoulderRetracted())) {
 
 			Scheduler.getInstance().add(new ShootLowGoalCommand());

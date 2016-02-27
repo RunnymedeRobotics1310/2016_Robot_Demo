@@ -18,14 +18,14 @@ public class JoystickArmCommand extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	
-    	if (Robot.oi.getArmEncoderReset()) {
+    	/*if (Robot.oi.getArmEncoderReset()) {
     		Robot.armSubsystem.resetArmEncoder();
-    	}
+    	}*/
     	
-    	if (Robot.oi.getArmPIDToggle()) {
+    	/*if (Robot.oi.getArmPIDToggle()) {
     		armPIDEnabled = false;
     		Robot.armSubsystem.disableArmPID();
-    	}
+    	}*/
     	
     	if (!armPIDEnabled) {
         	Robot.armSubsystem.setArmSpeed(Robot.oi.getArmSpeed());

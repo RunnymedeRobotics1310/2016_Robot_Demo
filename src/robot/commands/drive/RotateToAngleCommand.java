@@ -8,14 +8,14 @@ import robot.Robot;
 /**
  *
  */
-public class RotateToAngle extends Command {
+public class RotateToAngleCommand extends Command {
 
 	private double targetAngle;
 	private double leftSpeed;
 	private double rightSpeed;
 	private double initSpeed = 0.5;
 
-	public RotateToAngle(double targetAngle, double time) {
+	public RotateToAngleCommand(double targetAngle, double time) {
 		requires(Robot.chassisSubsystem);
 		this.targetAngle = targetAngle;
 		this.setTimeout(time);
@@ -66,7 +66,7 @@ public class RotateToAngle extends Command {
 		if (Math.abs(Robot.oi.getSpeed()) > 0.05 || Math.abs(Robot.oi.getTurn()) > 0.05) {
 			return true;
 		} else if (Robot.oi.getPOVAngle() != -1) {
-			Scheduler.getInstance().add(new RotateToAngle(Robot.oi.getPOVAngle(), 3.0));
+			Scheduler.getInstance().add(new RotateToAngleCommand(Robot.oi.getPOVAngle(), 3.0));
 			return true;
 		}
 		double angleDifference = Robot.chassisSubsystem.getAngleDifference(this.targetAngle);

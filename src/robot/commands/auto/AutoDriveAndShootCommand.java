@@ -14,7 +14,7 @@ import robot.commands.auto.defenses.CrossLowBarCommand;
 import robot.commands.auto.defenses.CrossMoatCommand;
 import robot.commands.auto.defenses.CrossPortcullisCommand;
 import robot.commands.auto.defenses.CrossRockWallCommand;
-import robot.commands.drive.RotateToAngle;
+import robot.commands.drive.RotateToAngleCommand;
 import robot.commands.shoot.SetupHighShotCommand;
 import robot.commands.shoot.ShootHighGoalCommand;
 
@@ -53,7 +53,7 @@ public class AutoDriveAndShootCommand extends CommandGroup {
 		}
 
 		// Rotate to 90 degrees, because that's what we always do.
-		addSequential(new RotateToAngle(90, waitTime));
+		addSequential(new RotateToAngleCommand(90, waitTime));
 
 		// If the ultasonic distance is not within threshold then
 		// wait until the path is clear and then continue.
@@ -72,7 +72,7 @@ public class AutoDriveAndShootCommand extends CommandGroup {
 		}
 
 		// Rotate to 0 degrees, because that's what we always do.
-		addSequential(new RotateToAngle(0, waitTime));
+		addSequential(new RotateToAngleCommand(0, waitTime));
 
 		addSequential(new DriveToProximity(0.5, 0));
 
@@ -84,14 +84,14 @@ public class AutoDriveAndShootCommand extends CommandGroup {
 
 		switch (goal) {
 		case LEFT:
-			addSequential(new RotateToAngle(rampAngle, waitTime));
+			addSequential(new RotateToAngleCommand(rampAngle, waitTime));
 			addSequential(new DriveToProximity(0.5, rampAngle));
 			break;
 		case CENTER:
 			// do nothing.
 			break;
 		case RIGHT:
-			addSequential(new RotateToAngle(360 - rampAngle, waitTime));
+			addSequential(new RotateToAngleCommand(360 - rampAngle, waitTime));
 			addSequential(new DriveToProximity(0.5, 360 - rampAngle));
 			break;
 		}

@@ -51,6 +51,20 @@ public class TheOI {
 		}
 	}
 	
+	public enum POVMap {
+		UP(0), RIGHT(90), DOWN(180), LEFT(270);
+		
+		private int angle;
+		
+		POVMap(int angle) {
+			this.angle = angle;
+		}
+		
+		public int getAngle() {
+			return this.angle;
+		}
+	}
+	
 	private R_GameController driverStick = R_GameControllerFactory.getGameController(0);
 	private R_Extreme3DPro_GameController operatorStick = new R_Extreme3DPro_GameController(1);
 	
@@ -112,6 +126,18 @@ public class TheOI {
 	public double getTurn() {
 		double joystickValue = driverStick.getAxis(Stick.RIGHT, Axis.X);
 		return Math.round(joystickValue * Math.abs(joystickValue) * 100) / 100.0;
+	}
+	
+	public double getPOV() {
+		return driverStick.getPOVAngle();
+	}
+	
+	public boolean getRotateLeft() {
+		return (getPOV() == POVMap.LEFT.getAngle());
+	}
+	
+	public boolean getRotateRight() {
+		return (getPOV() == POVMap.RIGHT.getAngle());
 	}
 
 	public double getShootSpeed() {

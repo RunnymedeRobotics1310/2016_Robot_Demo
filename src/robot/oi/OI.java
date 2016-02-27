@@ -67,6 +67,18 @@ public class OI {
 		double stickValue = operatorStick.getAxis(Axis.SLIDER);
 		return Math.round(stickValue * Math.abs(stickValue) * 100) / 100.0;
 	}
+	
+	public double getPOV() {
+		return driverStick.getPOVAngle();
+	}
+	
+	public boolean getRotateLeft() {
+		return (getPOV() ==  270);
+	}
+	
+	public boolean getRotateRight() {
+		return (getPOV() == 90);
+	}
 
 	public double getShootSpeedOverRideButton() {
 		return operatorStick.getAxis(Axis.SLIDER);

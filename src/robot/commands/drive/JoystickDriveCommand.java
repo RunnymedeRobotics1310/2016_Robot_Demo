@@ -2,7 +2,9 @@
 package robot.commands.drive;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.Scheduler;
 import robot.Robot;
+import robot.commands.drive.RotateFixedCommand.Direction;
 import robot.subsystems.ChassisSubsystem.Gear;
 
 /**
@@ -41,6 +43,14 @@ public class JoystickDriveCommand extends Command {
 			Robot.chassisSubsystem.setGear(Gear.HIGH);
 		} else {
 			Robot.chassisSubsystem.setGear(Gear.LOW);
+		}
+		
+		if (Robot.oi.getRotateLeft()) {
+			Scheduler.getInstance().add(new RotateFixedCommand(Direction.LEFT));
+		}
+		
+		if (Robot.oi.getRotateRight()) {
+			Scheduler.getInstance().add(new RotateFixedCommand(Direction.RIGHT));
 		}
 		
 		/**

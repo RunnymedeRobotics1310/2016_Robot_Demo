@@ -22,14 +22,23 @@ public class ClimberSubsystem extends R_Subsystem {
 
 
 	public void init() {
-		leftScissorPiston.set(Value.kReverse);
-		rightScissorPiston.set(Value.kReverse);
+		scissorDown();
 	}
 
 	public void initDefaultCommand() {
 		setDefaultCommand(new JoystickShootCommand());
 	}
 
+	public void scissorUp() {
+		leftScissorPiston.set(Value.kReverse);
+		rightScissorPiston.set(Value.kReverse);
+	}
+	
+	public void scissorDown() {
+		leftScissorPiston.set(Value.kForward);
+		rightScissorPiston.set(Value.kForward);
+	}
+	
 	public void winchOn() {
 		leftWinchMotor.set(1.0);
 		rightWinchMotor.set(1.0);
@@ -40,8 +49,6 @@ public class ClimberSubsystem extends R_Subsystem {
 	public void winchOff() {
 		leftWinchMotor.set(0.0);
 		rightWinchMotor.set(0.0);
-		leftScissorPiston.set(Value.kOff);
-		rightScissorPiston.set(Value.kOff);
 	}
 	
 	@Override

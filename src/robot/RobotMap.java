@@ -32,8 +32,8 @@ public class RobotMap {
         SHOOTER_MOTOR   (3,  RobotMap.inverted),
         ARM_DEPLOY_MOTOR(4, !RobotMap.inverted),
         ARM_INTAKE_MOTOR(5, !RobotMap.inverted),
-        LEFT_WINCH      (6,  RobotMap.inverted),
-        RIGHT_WINCH     (7, !RobotMap.inverted);
+        LEFT_WINCH      (7,  RobotMap.inverted),
+        RIGHT_WINCH     (6, !RobotMap.inverted);
 
         public final int port;
         public final boolean inverted;
@@ -51,11 +51,11 @@ public class RobotMap {
     	ANGLE_ENCODER             (2),
     	
     	// Digital Ports
-    	SHOOTER_SPEED_ENCODER    (6),
+    	SHOOTER_SPEED_ENCODER     (6),
     	LEFT_PROXIMITY_SENSOR     (7),
     	RIGHT_PROXIMITY_SENSOR    (8),
     	UPPER_PROXIMITY_SENSOR    (9),
-    	BOULDER_PROXIMITY_SENSOR     (10),
+    	BOULDER_PROXIMITY_SENSOR  (10),
     	ARM_LOWER_LIMIT           (11),
     	ARM_UPPER_LIMIT           (12);
     	

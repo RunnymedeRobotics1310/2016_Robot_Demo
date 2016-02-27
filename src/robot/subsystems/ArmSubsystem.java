@@ -2,7 +2,6 @@ package robot.subsystems;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.PIDOutput;
-import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import robot.RobotMap;
 import robot.commands.arm.JoystickArmCommand;
@@ -20,7 +19,7 @@ public class ArmSubsystem extends R_Subsystem {
 	DigitalInput armMaxHeight = new DigitalInput(RobotMap.SensorMap.ARM_UPPER_LIMIT.port);
 	DigitalInput armMinHeight = new DigitalInput(RobotMap.SensorMap.ARM_LOWER_LIMIT.port);
 	R_SafetyVictor armDeployMotor = new R_SafetyVictor(RobotMap.MotorMap.ARM_DEPLOY_MOTOR, armMaxHeight, armMinHeight);
-	Victor armIntakeMotor = new R_Victor(RobotMap.MotorMap.ARM_INTAKE_MOTOR);
+	R_Victor armIntakeMotor = new R_Victor(RobotMap.MotorMap.ARM_INTAKE_MOTOR);
 
 	R_AbsoluteEncoder armEncoder = new R_AbsoluteEncoder(2, RobotMap.ANALOG_OFFSET);
 

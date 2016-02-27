@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Solenoid;
-import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import robot.RobotMap;
 import robot.commands.drive.JoystickDriveCommand;
@@ -18,8 +17,8 @@ import robot.utils.R_Victor;
 
 public class ChassisSubsystem extends R_Subsystem {
 
-	Victor leftMotor = new R_Victor(RobotMap.MotorMap.LEFT_MOTOR);
-	Victor rightMotor = new R_Victor(RobotMap.MotorMap.RIGHT_MOTOR);
+	R_Victor leftMotor = new R_Victor(RobotMap.MotorMap.LEFT_MOTOR);
+	R_Victor rightMotor = new R_Victor(RobotMap.MotorMap.RIGHT_MOTOR);
 
 	DigitalInput leftProximitySensor = new DigitalInput(RobotMap.SensorMap.LEFT_PROXIMITY_SENSOR.port);
 	DigitalInput centerProximitySensor = new DigitalInput(RobotMap.SensorMap.UPPER_PROXIMITY_SENSOR.port);

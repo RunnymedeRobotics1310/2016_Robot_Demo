@@ -31,7 +31,9 @@ public class RobotMap {
         INTAKE_MOTOR    (2,  RobotMap.inverted),
         SHOOTER_MOTOR   (3,  RobotMap.inverted),
         ARM_DEPLOY_MOTOR(4, !RobotMap.inverted),
-        ARM_INTAKE_MOTOR(5, !RobotMap.inverted);
+        ARM_INTAKE_MOTOR(5, !RobotMap.inverted),
+        LEFT_WINCH      (6,  RobotMap.inverted),
+        RIGHT_WINCH     (7, !RobotMap.inverted);
 
         public final int port;
         public final boolean inverted;
@@ -93,7 +95,11 @@ public class RobotMap {
     	BALLSHIFTER_LOW   (0),
     	BALLSHIFTER_HIGH  (1),
     	SHOOTER_RAIL_DOWN (2),
-    	SHOOTER_RAIL_UP   (3);
+    	SHOOTER_RAIL_UP   (3),
+    	SCISSOR_LIFT_1    (4),
+    	SCISSOR_LIFT_2    (5),
+    	SCISSOR_LIFT_3    (6),
+    	SCISSOR_LIFT_4    (7);
     	
        	//Pneumatics control module port
     	public final int pcmPort;

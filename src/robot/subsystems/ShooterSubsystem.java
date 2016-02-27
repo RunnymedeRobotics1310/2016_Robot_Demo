@@ -4,7 +4,6 @@ import edu.wpi.first.wpilibj.Counter;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Solenoid;
-import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import robot.RobotMap;
 import robot.commands.shoot.JoystickShootCommand;
@@ -19,8 +18,8 @@ public class ShooterSubsystem extends R_Subsystem {
 		LOW, HIGH
 	}
 
-	Victor intakeMotor = new R_Victor(RobotMap.MotorMap.INTAKE_MOTOR);
-	Victor shooterMotor = new R_Victor(RobotMap.MotorMap.SHOOTER_MOTOR);
+	R_Victor intakeMotor = new R_Victor(RobotMap.MotorMap.INTAKE_MOTOR);
+	R_Victor shooterMotor = new R_Victor(RobotMap.MotorMap.SHOOTER_MOTOR);
 
 	DigitalInput boulderProximitySensor = new DigitalInput(RobotMap.SensorMap.BOULDER_PROXIMITY_SENSOR.port);
 

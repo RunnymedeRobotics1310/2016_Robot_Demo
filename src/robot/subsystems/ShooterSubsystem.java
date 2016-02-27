@@ -6,12 +6,12 @@ import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import robot.R_PIDController;
-import robot.R_PIDInput;
-import robot.R_Subsystem;
-import robot.R_Victor;
 import robot.RobotMap;
 import robot.commands.shoot.JoystickShootCommand;
+import robot.utils.R_PIDController;
+import robot.utils.R_PIDInput;
+import robot.utils.R_Subsystem;
+import robot.utils.R_Victor;
 
 public class ShooterSubsystem extends R_Subsystem {
 

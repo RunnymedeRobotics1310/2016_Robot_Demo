@@ -84,14 +84,6 @@ public class JoystickShootCommand extends Command {
 			return;
 		}
 
-		if (oi.getShootLowGoalHighPower()
-				&& (Robot.shooterSubsystem.isBoulderLoaded() || Robot.shooterSubsystem.isBoulderRetracted())) {
-
-			Scheduler.getInstance().add(new ShootLowGoalHighPowerCommand());
-
-			return;
-		}
-
 		// Look for the cancel button.
 		// The cancel button ejects the boulder, and sets it to not retracted.
 		if (Robot.oi.getCancel()) {

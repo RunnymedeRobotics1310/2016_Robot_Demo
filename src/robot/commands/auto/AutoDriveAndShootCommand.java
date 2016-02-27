@@ -9,8 +9,10 @@ import robot.commands.auto.base.DriveToDistance;
 import robot.commands.auto.base.DriveToProximity;
 import robot.commands.auto.base.DriveToUltraDistance;
 import robot.commands.auto.base.WaitUntilPathClear;
+import robot.commands.auto.defenses.CrossChavelDeFriseCommand;
+import robot.commands.auto.defenses.CrossMoatCommand;
+import robot.commands.auto.defenses.CrossRockWallCommand;
 import robot.commands.drive.RotateToAngle;
-import robot.commands.shoot.LowerArmCommand;
 import robot.commands.shoot.SetupHighShotCommand;
 import robot.commands.shoot.ShootHighGoalCommand;
 
@@ -21,24 +23,25 @@ public class AutoDriveAndShootCommand extends CommandGroup {
 
 		switch (defense) {
 		case LOW_BAR:
-			addSequential(new LowerArmCommand());
-			addSequential(new DriveToDistance(0.5, 0, 192));
+			addSequential(new CrossChavelDeFriseCommand());
 			break;
 		case MOAT:
-			addSequential(new DriveToDistance(0.5, 0, 192));
+			addSequential(new CrossMoatCommand());
 			break;
 		case RAMPARTS:
 			addSequential(new DriveToDistance(0.5, 0, 192));
 			break;
 		case ROCK_WALL:
-			addSequential(new DriveToDistance(0.5, 0, 192));
+			addSequential(new CrossRockWallCommand());
 			break;
 		case ROUGH_TERRAIN:
 			addSequential(new DriveToDistance(0.5, 0, 192));
 			break;
 		case PORTCULLIS:
+			addSequential(new CrossPortcullisCommand());
 			break;
 		case CHEVAL_DE_FRISE:
+			addSequential(new CrossChavelDeFriseCommand());
 			break;
 		}
 

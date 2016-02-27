@@ -6,14 +6,14 @@ import robot.Field.Defense;
 import robot.Field.Goal;
 import robot.Field.Lane;
 import robot.Field.Slot;
-import robot.R_Extreme3DPro_GameController;
-import robot.R_GameController;
-import robot.R_GameController.Axis;
-import robot.R_GameController.Button;
-import robot.R_GameController.Stick;
-import robot.R_GameController.Trigger;
-import robot.R_GameControllerFactory;
 import robot.commands.auto.AutoDriveAndShootCommand;
+import robot.utils.R_Extreme3DPro_GameController;
+import robot.utils.R_GameController;
+import robot.utils.R_GameControllerFactory;
+import robot.utils.R_GameController.Axis;
+import robot.utils.R_GameController.Button;
+import robot.utils.R_GameController.Stick;
+import robot.utils.R_GameController.Trigger;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -29,7 +29,6 @@ public class OI {
 		TURBO_BUTTON(Button.LEFT_BUMPER),
 		CANCEL_COMMAND_BUTTON(Button.X),
 		ROLL_INTAKE_BUTTON(Button.RIGHT_BUMPER),
-		SHOOT_LOW_GOAL_HIGH_POWER_BUTTON(Button.Y),
 		ARM_PID_TOGGLE(Button.BUTTON7),
 		RESET_ARM_ENCODER_BUTTON(Button.BUTTON8),
 		DRIVE_ARM_POS_1(Button.BUTTON9),
@@ -138,10 +137,6 @@ public class OI {
 
 	public boolean getShootLowGoalButton() {
 		return driverStick.getButton(ButtonMap.SHOOT_LOW_GOAL_BUTTON.getButton());
-	}
-
-	public boolean getShootLowGoalHighPower() {
-		return driverStick.getButton(ButtonMap.SHOOT_LOW_GOAL_HIGH_POWER_BUTTON.getButton());
 	}
 
 	public double getArmSpeed() {

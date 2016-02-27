@@ -1,7 +1,7 @@
 package robot.subsystems;
 
 import edu.wpi.first.wpilibj.CameraServer;
-import robot.R_Subsystem;
+import robot.utils.R_Subsystem;
 
 public class CameraSubsystem extends R_Subsystem {
 

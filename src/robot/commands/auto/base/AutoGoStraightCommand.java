@@ -3,8 +3,8 @@ package robot.commands.auto.base;
 
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import robot.GoStraightPID;
 import robot.Robot;
+import robot.pids.GoStraightPID;
 
 public abstract class AutoGoStraightCommand extends Command {
 

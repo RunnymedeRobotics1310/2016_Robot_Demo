@@ -1,4 +1,4 @@
-package robot;
+package robot.utils;
 
 public class R_LowPassFilter {
 

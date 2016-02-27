@@ -4,14 +4,14 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.PIDOutput;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import robot.R_AbsoluteEncoder;
-import robot.R_PIDController;
-import robot.R_PIDInput;
-import robot.R_SafetyVictor;
-import robot.R_Subsystem;
-import robot.R_Victor;
 import robot.RobotMap;
 import robot.commands.arm.JoystickArmCommand;
+import robot.utils.R_AbsoluteEncoder;
+import robot.utils.R_PIDController;
+import robot.utils.R_PIDInput;
+import robot.utils.R_SafetyVictor;
+import robot.utils.R_Subsystem;
+import robot.utils.R_Victor;
 
 public class ArmSubsystem extends R_Subsystem {
 

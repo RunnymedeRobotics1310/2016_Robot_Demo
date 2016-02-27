@@ -16,9 +16,6 @@ public class ShootLowGoalCommand extends Command {
 	protected void execute() {
 		Robot.shooterSubsystem.setIntakeMotorReverse(IntakeReverseSpeed.HIGH);
 		Robot.shooterSubsystem.startShooterMotorReverse();
-		
-		Robot.armSubsystem.startArmIntake();
-		Robot.armSubsystem.setArmAngle(RobotMap.ArmLevel.INTAKE_LEVEL.getAngle());
 	}
 
 	@Override
@@ -30,8 +27,6 @@ public class ShootLowGoalCommand extends Command {
 	protected void end() {
 		Robot.shooterSubsystem.stopIntakeMotor();
 		Robot.shooterSubsystem.stopShooterMotor();
-		Robot.armSubsystem.stopArmIntake();
-		Robot.armSubsystem.setArmAngle(RobotMap.ArmLevel.INTAKE_LEVEL.getAngle());
 	}
 	
 	@Override

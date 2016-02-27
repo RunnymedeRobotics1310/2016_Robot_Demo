@@ -1,4 +1,4 @@
-package robot;
+package robot.utils;
 
 import edu.wpi.first.wpilibj.AnalogInput;
 

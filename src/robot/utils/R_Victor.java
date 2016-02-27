@@ -1,6 +1,7 @@
-package robot;
+package robot.utils;
 
 import edu.wpi.first.wpilibj.Victor;
+import robot.RobotMap;
 import robot.RobotMap.MotorMap;
 
 public class R_Victor extends Victor {

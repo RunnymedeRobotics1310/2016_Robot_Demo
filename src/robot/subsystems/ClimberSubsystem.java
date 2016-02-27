@@ -4,7 +4,7 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import robot.RobotMap;
-import robot.commands.shoot.JoystickShootCommand;
+import robot.commands.climber.JoystickClimberCommand;
 import robot.utils.R_Subsystem;
 import robot.utils.R_Victor;
 
@@ -13,8 +13,8 @@ public class ClimberSubsystem extends R_Subsystem {
 	R_Victor leftWinchMotor = new R_Victor(RobotMap.MotorMap.LEFT_WINCH);
 	R_Victor rightWinchMotor = new R_Victor(RobotMap.MotorMap.RIGHT_WINCH);
 
-	DoubleSolenoid leftScissorPiston = new DoubleSolenoid(RobotMap.Pneumatics.SCISSOR_LIFT_1.pcmPort, RobotMap.Pneumatics.SCISSOR_LIFT_2.pcmPort);
-	DoubleSolenoid rightScissorPiston = new DoubleSolenoid(RobotMap.Pneumatics.SCISSOR_LIFT_3.pcmPort, RobotMap.Pneumatics.SCISSOR_LIFT_4.pcmPort);
+	DoubleSolenoid leftScissorPiston = new DoubleSolenoid(RobotMap.Pneumatics.SCISSOR_LIFT_EXTEND1.pcmPort, RobotMap.Pneumatics.SCISSOR_LIFT_RETRACT1.pcmPort);
+	DoubleSolenoid rightScissorPiston = new DoubleSolenoid(RobotMap.Pneumatics.SCISSOR_LIFT_EXTEND2.pcmPort, RobotMap.Pneumatics.SCISSOR_LIFT_RETRACT2.pcmPort);
 
 	// Initialize the subsystem to Disable the intake PID.
 	public ClimberSubsystem() {
@@ -26,7 +26,7 @@ public class ClimberSubsystem extends R_Subsystem {
 	}
 
 	public void initDefaultCommand() {
-		setDefaultCommand(new JoystickShootCommand());
+		setDefaultCommand(new JoystickClimberCommand());
 	}
 
 	public void scissorUp() {

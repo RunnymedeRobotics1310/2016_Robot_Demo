@@ -96,10 +96,10 @@ public class RobotMap {
     	BALLSHIFTER_HIGH  (1),
     	SHOOTER_RAIL_DOWN (2),
     	SHOOTER_RAIL_UP   (3),
-    	SCISSOR_LIFT_1    (4),
-    	SCISSOR_LIFT_2    (5),
-    	SCISSOR_LIFT_3    (6),
-    	SCISSOR_LIFT_4    (7);
+    	SCISSOR_LIFT_EXTEND1    (4),
+    	SCISSOR_LIFT_RETRACT1    (5),
+    	SCISSOR_LIFT_EXTEND2    (6),
+    	SCISSOR_LIFT_RETRACT2    (7);
     	
        	//Pneumatics control module port
     	public final int pcmPort;

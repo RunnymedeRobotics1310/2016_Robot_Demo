@@ -1,18 +1,23 @@
 package robot.commands.auto.defenses;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
-import robot.commands.arm.LowerArmCommand;
-import robot.commands.arm.RaiseArmCommand;
+import robot.RobotMap.ArmLevel;
+import robot.commands.arm.SetArmLevelCommand;
 import robot.commands.auto.base.DriveToDistance;
 import robot.commands.auto.base.DriveToProximity;
+import robot.commands.auto.base.WaitCommand;
 
 public class CrossPortcullisCommand extends CommandGroup {
 
 	public CrossPortcullisCommand() {
-		addSequential(new RaiseArmCommand());
+		addSequential(new SetArmLevelCommand(ArmLevel.DRIVE_LEVEL));
 		addSequential(new DriveToProximity(0.5, 0));
+		addSequential(new SetArmLevelCommand(ArmLevel.GROUND_LEVEL));
+		addSequential(new WaitCommand(1.0));
 		addSequential(new DriveToDistance(1.0, 0, 15));
-		addSequential(new LowerArmCommand());
-		addSequential(new DriveToDistance(1.0, 0, 150));
+		addParallel(new SetArmLevelCommand(ArmLevel.DRIVE_LEVEL));
+		addSequential(new WaitCommand(1.0));
+		addSequential(new DriveToDistance(1.0, 0, 60));
+		
 	}
 }

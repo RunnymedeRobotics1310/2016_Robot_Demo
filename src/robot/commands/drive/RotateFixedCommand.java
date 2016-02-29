@@ -25,17 +25,17 @@ public class RotateFixedCommand extends Command {
 
 		switch (direction) {
 		case LEFT:
-			Robot.chassisSubsystem.setSpeed(0, 1);
+			Robot.chassisSubsystem.setSpeed(-1, 1);
 			break;
 		case RIGHT:
-			Robot.chassisSubsystem.setSpeed(1, 0);
+			Robot.chassisSubsystem.setSpeed(1, -1);
 			break;
 		}
 	}
 
 	@Override
 	protected void initialize() {
-		this.setTimeout(0.05);
+		this.setTimeout(0.005);
 	}
 
 	@Override

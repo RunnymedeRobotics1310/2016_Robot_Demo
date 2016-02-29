@@ -5,6 +5,7 @@ import robot.Field.Defense;
 import robot.Field.Goal;
 import robot.Field.Lane;
 import robot.Field.Slot;
+import robot.commands.auto.base.DriveToCenterProximity;
 import robot.commands.auto.base.DriveToDistance;
 import robot.commands.auto.base.DriveToProximity;
 import robot.commands.auto.base.DriveToUltraDistance;
@@ -76,7 +77,7 @@ public class AutoDriveAndShootCommand extends CommandGroup {
 		// Rotate to 0 degrees, because that's what we always do.
 		addSequential(new RotateToAngleCommand(0, waitTime));
 
-		addSequential(new DriveToProximity(0.5, 0));
+		addSequential(new DriveToCenterProximity(0.5, 0));
 
 		if (goal != Goal.CENTER) {
 			addSequential(new DriveToDistance(0.5, 0, -20));

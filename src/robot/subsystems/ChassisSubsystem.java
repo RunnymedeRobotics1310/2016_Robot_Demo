@@ -105,7 +105,13 @@ public class ChassisSubsystem extends R_Subsystem {
 	}
 
 	public boolean getProximity() {
-		boolean proximity = !leftProximitySensor.get() || !centerProximitySensor.get() || !rightProximitySensor.get();
+		boolean proximity = !leftProximitySensor.get() || !rightProximitySensor.get();
+		SmartDashboard.putBoolean("Proximity Sensor(s) active", proximity);
+		return proximity;
+	}
+	
+	public boolean getCenterProximity() {
+		boolean proximity = !centerProximitySensor.get();
 		SmartDashboard.putBoolean("Proximity Sensor(s) active", proximity);
 		return proximity;
 	}

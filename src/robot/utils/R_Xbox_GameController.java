@@ -24,6 +24,8 @@ public class R_Xbox_GameController extends R_GameController {
 			switch (axis) {
 			case X:  axisValue = joystick.getRawAxis(0);  break;
 			case Y:  axisValue = joystick.getRawAxis(1);  break;
+			default:
+				break;
 			}
 			break;
 
@@ -31,6 +33,8 @@ public class R_Xbox_GameController extends R_GameController {
 			switch (axis) {
 			case X:  axisValue = joystick.getRawAxis(4);  break;
 			case Y:  axisValue = joystick.getRawAxis(5);  break;
+			default:
+				break;
 			}
 			break;
 		}

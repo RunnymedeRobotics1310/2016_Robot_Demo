@@ -33,6 +33,8 @@ public class R_F310_GameController extends R_GameController {
 				switch (axis) {
 				case X:  axisValue = joystick.getRawAxis(0);  break;
 				case Y:  axisValue = joystick.getRawAxis(1);  break;
+				default:
+					break;
 				}
 				break;
 				
@@ -40,6 +42,8 @@ public class R_F310_GameController extends R_GameController {
 				switch (axis) {
 				case X:  axisValue = joystick.getRawAxis(2);  break;
 				case Y:  axisValue = joystick.getRawAxis(3);  break;
+				default:
+					break;
 				}
 				break;
 			}
@@ -51,6 +55,8 @@ public class R_F310_GameController extends R_GameController {
 				switch (axis) {
 				case X:  axisValue = joystick.getRawAxis(0);  break;
 				case Y:  axisValue = joystick.getRawAxis(1);  break;
+				default:
+					break;
 				}
 				break;
 				
@@ -58,6 +64,8 @@ public class R_F310_GameController extends R_GameController {
 				switch (axis) {
 				case X:  axisValue = joystick.getRawAxis(4);  break;
 				case Y:  axisValue = joystick.getRawAxis(5);  break;
+				default:
+					break;
 				}
 				break;
 			}

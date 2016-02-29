@@ -13,7 +13,9 @@ import robot.commands.auto.defenses.CrossChavelDeFriseCommand;
 import robot.commands.auto.defenses.CrossLowBarCommand;
 import robot.commands.auto.defenses.CrossMoatCommand;
 import robot.commands.auto.defenses.CrossPortcullisCommand;
+import robot.commands.auto.defenses.CrossRampartsCommand;
 import robot.commands.auto.defenses.CrossRockWallCommand;
+import robot.commands.auto.defenses.CrossRoughTerrainCommand;
 import robot.commands.drive.RotateToAngleCommand;
 import robot.commands.shoot.SetupHighShotCommand;
 import robot.commands.shoot.ShootHighGoalCommand;
@@ -31,13 +33,13 @@ public class AutoDriveAndShootCommand extends CommandGroup {
 			addSequential(new CrossMoatCommand());
 			break;
 		case RAMPARTS:
-			addSequential(new DriveToDistance(0.5, 0, 192));
+			addSequential(new CrossRampartsCommand());
 			break;
 		case ROCK_WALL:
 			addSequential(new CrossRockWallCommand());
 			break;
 		case ROUGH_TERRAIN:
-			addSequential(new DriveToDistance(0.5, 0, 192));
+			addSequential(new CrossRoughTerrainCommand());
 			break;
 		case PORTCULLIS:
 			addSequential(new CrossPortcullisCommand());

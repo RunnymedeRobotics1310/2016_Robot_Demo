@@ -20,7 +20,6 @@ public class RaiseArmCommand extends Command {
 	@Override
 	protected void initialize() {
 		Robot.armSubsystem.setArmAngle(RobotMap.ArmLevel.DRIVE_LEVEL.getAngle());
-		Robot.armSubsystem.startArmIntakeReverse();
 	}
 
 	@Override

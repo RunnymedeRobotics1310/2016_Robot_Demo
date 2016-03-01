@@ -12,7 +12,6 @@ public class WaitUntilPathClear extends Command {
 		this.setTimeout(waitTime);
 		this.slot = slot;
 		requires(Robot.chassisSubsystem);
-
 	}
 
 	@Override

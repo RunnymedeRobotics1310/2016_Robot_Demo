@@ -14,14 +14,12 @@ public class ShiftGearCommand extends Command {
 
 	@Override
 	protected void end() {
-		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
 	protected void execute() {
-		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
@@ -31,8 +29,7 @@ public class ShiftGearCommand extends Command {
 
 	@Override
 	protected void interrupted() {
-		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override

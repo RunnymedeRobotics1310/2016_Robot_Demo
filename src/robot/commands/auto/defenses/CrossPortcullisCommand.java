@@ -18,6 +18,5 @@ public class CrossPortcullisCommand extends CommandGroup {
 		addParallel(new SetArmLevelCommand(ArmLevel.DRIVE_LEVEL));
 		addSequential(new WaitCommand(1.0));
 		addSequential(new DriveToDistance(1.0, 0, 60));
-		
 	}
 }

@@ -62,17 +62,7 @@ public class AutoDriveAndShootCommand extends CommandGroup {
 		// wait until the path is clear and then continue.
 		addSequential(new WaitUntilPathClear(waitTime, slot));
 
-		switch (goal) {
-		case LEFT:
-			addSequential(new DriveToUltraDistance(0.5, 90, Goal.LEFT.getRequiredDistance()));
-			break;
-		case CENTER:
-			addSequential(new DriveToUltraDistance(0.5, 90, Goal.CENTER.getRequiredDistance()));
-			break;
-		case RIGHT:
-			addSequential(new DriveToUltraDistance(0.5, 90, Goal.RIGHT.getRequiredDistance()));
-			break;
-		}
+		addSequential(new DriveToUltraDistance(0.5, 90, goal.getRequiredDistance()));
 
 		// Rotate to 0 degrees, because that's what we always do.
 		addSequential(new RotateToAngleCommand(0, waitTime));

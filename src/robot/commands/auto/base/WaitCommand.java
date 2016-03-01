@@ -3,9 +3,6 @@ package robot.commands.auto.base;
 import edu.wpi.first.wpilibj.command.Command;
 import robot.Robot;
 
-/**
- *
- */
 public class WaitCommand extends Command {
 
 	public WaitCommand(double waitTime) {

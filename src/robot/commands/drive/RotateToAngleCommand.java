@@ -5,9 +5,6 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import robot.Robot;
 
-/**
- *
- */
 public class RotateToAngleCommand extends Command {
 
 	private double targetAngle;

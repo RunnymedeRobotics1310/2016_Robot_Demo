@@ -3,6 +3,7 @@ package robot.commands.shoot;
 import edu.wpi.first.wpilibj.command.Command;
 import robot.Robot;
 import robot.RobotMap;
+import robot.subsystems.ShooterSubsystem.IntakeReverseSpeed;
 
 public class PickupBoulderCommand extends Command {
 
@@ -21,7 +22,11 @@ public class PickupBoulderCommand extends Command {
 		// Robot.shooterSubsystem.resetIntakeEncoder();
 		if (Robot.shooterSubsystem.getShooterSpeed() == 0) {
 			Robot.shooterSubsystem.startIntakeMotor();
-			Robot.armSubsystem.startArmIntake();
+			if (Robot.oi.getBallStuckButton()) {
+				Robot.armSubsystem.startArmIntakeReverse();
+			} else {
+				Robot.armSubsystem.startArmIntake();
+			}
 			Robot.armSubsystem.setArmAngle(RobotMap.ArmLevel.INTAKE_LEVEL.getAngle());
 		}
 	}

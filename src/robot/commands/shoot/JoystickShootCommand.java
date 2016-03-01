@@ -87,6 +87,7 @@ public class JoystickShootCommand extends Command {
 		// The cancel button ejects the boulder, and sets it to not retracted.
 		if (Robot.oi.getCancel()) {
 			Scheduler.getInstance().add(new EjectBoulderCommand());
+			Robot.shooterSubsystem.setRailPosition(false);
 			Robot.shooterSubsystem.setBoulderRetracted(false);
 		}
 	}

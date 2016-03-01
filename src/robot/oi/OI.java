@@ -6,6 +6,7 @@ import robot.Field.Defense;
 import robot.Field.Goal;
 import robot.Field.Lane;
 import robot.Field.Slot;
+import robot.RobotMap;
 import robot.commands.auto.AutoDriveAndShootCommand;
 import robot.utils.R_Extreme3DPro_GameController;
 import robot.utils.R_GameController;
@@ -22,7 +23,13 @@ public class OI {
 		OUTER_INTAKE_BOULDER(Button.LEFT_BUMPER), EXTAKE_BOULDER(Button.B), RESET_GYRO(Button.BACK), CALIBRATE_GYRO(Button.START), CANCEL_COMMAND(Button.X),
 		
 		//Operator Controls
-		WIND_UP_SHOOTER(Button.BUTTON2), SHOOT_BOULDER(Button.BUTTON1), ROTATE_ARM_MIN_POS(Button.BUTTON9), ROTATE_ARM_INTAKE_POS(Button.BUTTON10), ROTATE_ARM_DRIVE_POS(Button.BUTTON12), ROTATE_ARM_MAX_POS(Button.BUTTON11), CLIMB(Button.Y);
+		WIND_UP_SHOOTER(Button.BUTTON2), 
+		SHOOT_BOULDER(Button.BUTTON1), 
+		ROTATE_ARM_MIN_POS(Button.BUTTON9), 
+		ROTATE_ARM_LOW_POS(Button.BUTTON10),
+		ROTATE_ARM_PORTCULLIS_POS(Button.BUTTON12),
+		ROTATE_ARM_DRIVE_POS(Button.BUTTON11), 
+		CLIMB(Button.Y);
 		
 		private Button button;
 
@@ -98,34 +105,38 @@ public class OI {
 		return operatorStick.getButton(ButtonMap.SHOOT_BOULDER.getButton());
 	}
 	
+	public boolean getBallStuckButton() {
+		return driverStick.getButton(Button.A);
+	}
+	
 	public boolean getRotateArmMinPosButton() {
 		return operatorStick.getButton(ButtonMap.ROTATE_ARM_MIN_POS.getButton());
 	}
 	
-	public boolean getRotateArmIntakePosButton() {
-		return operatorStick.getButton(ButtonMap.ROTATE_ARM_INTAKE_POS.getButton());
+	public boolean getRotateArmLowPosButton() {
+		return operatorStick.getButton(ButtonMap.ROTATE_ARM_LOW_POS.getButton());
 	}
 	
 	public boolean getRotateArmDrivePosButton() {
 		return operatorStick.getButton(ButtonMap.ROTATE_ARM_DRIVE_POS.getButton());
 	}
 	
-	public boolean getRotateArmMaxPosButton() {
-		return operatorStick.getButton(ButtonMap.ROTATE_ARM_MAX_POS.getButton());
+	public boolean getRotateArmPortcullisPosButton() {
+		return operatorStick.getButton(ButtonMap.ROTATE_ARM_PORTCULLIS_POS.getButton());
 	}
 	
 	public double getArmAngle() {
 		if (getRotateArmMinPosButton()) {
-			return 0.0;
+			return RobotMap.ArmLevel.GROUND_LEVEL.angle;
 		}
-		if (getRotateArmIntakePosButton()) {
-			return 100;
+		if (getRotateArmLowPosButton()) {
+			return RobotMap.ArmLevel.LOW_LEVEL.angle;
 		}
 		if (getRotateArmDrivePosButton()) {
-			return 265;
+			return RobotMap.ArmLevel.DRIVE_LEVEL.angle;
 		}
-		if (getRotateArmMaxPosButton()) {
-			return 200;
+		if (getRotateArmPortcullisPosButton()) {
+			return RobotMap.ArmLevel.PORTCULLIS_LEVEL.angle;
 		}
 
 		return -1.0;

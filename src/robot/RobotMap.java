@@ -8,15 +8,16 @@ package robot;
 public class RobotMap {
     private final static boolean inverted = true;
 
-    public final static double ANALOG_OFFSET = 315;
+    public final static double ANALOG_OFFSET = 60;
     
     public enum ArmLevel {
     	//All angles are 15 degrees smaller than the normal.
     	GROUND_LEVEL(0.0),
     	LOW_LEVEL(45.0),
     	INTAKE_LEVEL(60.0),
+    	PORTCULLIS_LEVEL(155.0),
     	SHOOT_LEVEL(215.0),
-    	DRIVE_LEVEL(245.0);
+    	DRIVE_LEVEL(270.0);
     	
     	public final double angle;
     	

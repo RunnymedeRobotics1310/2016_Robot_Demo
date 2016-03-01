@@ -18,7 +18,6 @@ public class PickupBoulderCommand extends Command {
 	}
 
 	protected void execute() {
-		// Robot.shooterSubsystem.resetIntakeEncoder();
 		if (Robot.shooterSubsystem.getShooterSpeed() == 0) {
 			Robot.shooterSubsystem.startIntakeMotor();
 			if (Robot.oi.getBallStuckButton()) {

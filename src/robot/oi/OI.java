@@ -30,6 +30,8 @@ public class OI {
 		SHOOT_BOULDER(Button.BUTTON1),
 		WIND_UP_SHOOTER(Button.BUTTON2), 
 		CLIMB(Button.BUTTON7),
+		PORTCULLIS_OPEN(Button.BUTTON5),
+		ARM_PID_OVERRIDE(Button.BUTTON6),
 		ROTATE_ARM_MIN_POS(Button.BUTTON9),
 		ROTATE_ARM_LOW_POS(Button.BUTTON10),
 		ROTATE_ARM_DRIVE_POS(Button.BUTTON11),
@@ -150,6 +152,15 @@ public class OI {
 		return operatorStick.getAxis(Axis.Y) * operatorStick.getAxis(Axis.Y) * operatorStick.getAxis(Axis.Y);
 	}
 
+	
+	public boolean getArmPIDOverride() {
+		return operatorStick.getButton(ButtonMap.ARM_PID_OVERRIDE.getButton());
+	}
+
+	
+	public boolean getPortcullisOpenButton() {
+		return operatorStick.getButton(ButtonMap.PORTCULLIS_OPEN.getButton());
+	}
 	
 	public boolean getClimbButton() {
 		return operatorStick.getButton(ButtonMap.CLIMB.getButton());

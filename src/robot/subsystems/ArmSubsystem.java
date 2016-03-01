@@ -37,7 +37,7 @@ public class ArmSubsystem extends R_Subsystem {
 			armDeployMotor.set(speed);
 		}
 	};
-	R_PIDController armPID = new R_PIDController(4.0, 0.0, 0.0, 0.0, armPIDInput, armPIDOutput);
+	R_PIDController armPID = new R_PIDController(2.0, 0.0, 0.0, 0.0, armPIDInput, armPIDOutput);
 
 	private boolean armDeployed = false;
 
@@ -72,6 +72,10 @@ public class ArmSubsystem extends R_Subsystem {
 		return armDeployed;
 	}
 
+	public double getArmAngle() {
+		return armEncoder.getAngle();
+	}
+	
 	public void deployArm() {
 		if (armDeployed) {
 			armDeployMotor.set(1.0);

@@ -1,12 +1,12 @@
 package robot.commands.arm;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.Scheduler;
 import robot.Robot;
+import robot.commands.defenses.PortcullisOpenCommand;
 
 public class JoystickArmCommand extends Command {
 
-	boolean armPIDEnabled = false;
-	
     public JoystickArmCommand() {
        requires(Robot.armSubsystem);
     }
@@ -18,22 +18,19 @@ public class JoystickArmCommand extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	
-    	/*if (Robot.oi.getArmEncoderReset()) {
-    		Robot.armSubsystem.resetArmEncoder();
-    	}*/
-    	
-    	/*if (Robot.oi.getArmPIDToggle()) {
-    		armPIDEnabled = false;
+    	if (Robot.oi.getArmPIDOverride()) {
     		Robot.armSubsystem.disableArmPID();
-    	}*/
-    	
-    	if (!armPIDEnabled) {
         	Robot.armSubsystem.setArmSpeed(Robot.oi.getArmSpeed());
-    	}
+    	} else {
 
-    	if (Robot.oi.getArmAngle() >= 0.0) {
-    		Robot.armSubsystem.setArmAngle(Robot.oi.getArmAngle());
-    		armPIDEnabled = true;
+	    	if (Robot.oi.getArmAngle() >= 0.0) {
+	    		Robot.armSubsystem.setArmAngle(Robot.oi.getArmAngle());
+	    	}
+    	}
+    	
+    	// Look for the Portcullis command
+    	if (Robot.oi.getPortcullisOpenButton()) {
+    		Scheduler.getInstance().add(new PortcullisOpenCommand());
     	}
     	
     }

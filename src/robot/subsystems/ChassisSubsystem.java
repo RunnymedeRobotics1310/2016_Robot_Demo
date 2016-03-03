@@ -65,7 +65,7 @@ public class ChassisSubsystem extends R_Subsystem {
 	ArrayList<R_PIDController> pidControllers = new ArrayList<>();
 
 	// Gyro
-	R_Gyro gyro = new R_Gyro(RobotMap.SensorMap.GYRO.port, 1916000);
+	R_Gyro gyro = new R_Gyro(RobotMap.SensorMap.GYRO.port);
 
 	public void init() {
 

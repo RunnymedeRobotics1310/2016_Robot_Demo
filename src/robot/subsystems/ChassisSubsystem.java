@@ -261,6 +261,7 @@ public class ChassisSubsystem extends R_Subsystem {
 		SmartDashboard.putNumber("Encoder Speed", getEncoderSpeed());
 		SmartDashboard.putNumber("Left Encoder Speed", getLeftEncoderSpeed());
 		SmartDashboard.putNumber("Right Encoder Speed", getRightEncoderSpeed());
+		SmartDashboard.putNumber("Encoder Distance", getEncoderDistance());
 		SmartDashboard.putData("Ball shifter", ballShifter);
 	}
 }

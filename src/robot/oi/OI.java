@@ -8,6 +8,7 @@ import robot.Field.Lane;
 import robot.Field.Slot;
 import robot.RobotMap;
 import robot.commands.auto.AutoDriveAndShootCommand;
+import robot.commands.auto.base.DriveToUltraDistance;
 import robot.utils.R_Extreme3DPro_GameController;
 import robot.utils.R_GameController;
 import robot.utils.R_GameController.Axis;
@@ -212,6 +213,8 @@ public class OI {
 			return null;
 		case "Drive and Shoot":
 			return new AutoDriveAndShootCommand(getSlot(), getDefense(), getLane(), getGoal());
+		case "Drive to 70":
+			return new DriveToUltraDistance(0.5, 0, 70);
 		default:
 			return null;
 		}

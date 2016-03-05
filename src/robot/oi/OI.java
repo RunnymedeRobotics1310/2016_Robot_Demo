@@ -209,6 +209,7 @@ public class OI {
 	
 	public Command getAutoCommand() {
 
+		// Main Auto Mode
 		switch (autoChooser.getAutoMode()) {
 		case "Do Nothing":
 			return null;

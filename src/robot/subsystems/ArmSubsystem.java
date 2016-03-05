@@ -59,12 +59,12 @@ public class ArmSubsystem extends R_Subsystem {
 
 	@Override
 	public void updateDashboard() {
-		SmartDashboard.putData("Deploy Motor", armDeployMotor);
-		SmartDashboard.putNumber("Arm Encoder Voltage", armEncoder.getVoltage());
+		//SmartDashboard.putData("Deploy Motor", armDeployMotor);
+		//SmartDashboard.putNumber("Arm Encoder Voltage", armEncoder.getVoltage());
 		SmartDashboard.putNumber("Arm Encoder Angle", armEncoder.getAngle());
 		SmartDashboard.putBoolean("Arm Max Height", armMaxHeight.get());
 		SmartDashboard.putBoolean("Arm Min Height", armMinHeight.get());
-		SmartDashboard.putData("Arm PID", armPID);
+		//SmartDashboard.putData("Arm PID", armPID);
 	}
 
 	/**

@@ -3,7 +3,7 @@ package robot;
 public class Field {
 	
 	public enum Goal {
-		LEFT ("Left", 70),
+		LEFT ("Left", 60),
 		CENTER ("Center", 145),
 		RIGHT ("Right", 220);
 		

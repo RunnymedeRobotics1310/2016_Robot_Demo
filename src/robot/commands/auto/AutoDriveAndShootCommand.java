@@ -75,7 +75,7 @@ public class AutoDriveAndShootCommand extends CommandGroup {
 			addSequential(new DriveToProximity(autoSpeed-0.3, 0));
 		}
 
-		final int rampAngle = 65;
+		final int rampAngle = 60;
 		
 		switch (goal) {
 		case LEFT:

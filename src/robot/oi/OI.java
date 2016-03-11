@@ -164,8 +164,8 @@ public class OI {
 	}
 	
 	public boolean getClimbButton() {
-		//return operatorStick.getButton(ButtonMap.CLIMB.getButton());
 		return false;
+		//return operatorStick.getButton(ButtonMap.CLIMB.getButton()); 
 	}
 	
 	public double getSpeed() {

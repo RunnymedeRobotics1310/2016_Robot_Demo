@@ -12,6 +12,6 @@ public class CrossRampartsCommand extends CommandGroup {
 		//THIS IS SO SKETCHY. AND IT MAY NOT WORK AT ALL. BE WARNED.
 		addSequential(new SetArmLevelCommand(ArmLevel.DRIVE_LEVEL));
 		addSequential(new RotateToAngleCommand(20.0, 2));
-		addSequential(new DriveToDistance(1.0, 0, 60));
+		addSequential(new DriveToDistance(1.0, 0, 110));
 	}
 }

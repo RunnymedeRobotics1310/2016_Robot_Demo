@@ -34,7 +34,7 @@ public class JoystickClimberCommand extends Command {
 			return;
 		}
 		
-		if (Robot.oi.getClimbButton()) {
+		else if (Robot.oi.getClimbButton()) {
 			Robot.climberSubsystem.winchOn();
 			return;
 		}

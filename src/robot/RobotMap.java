@@ -97,10 +97,9 @@ public class RobotMap {
     }
     
     public enum Pneumatics{
-    	BALLSHIFTER_LOW   (0),
-    	BALLSHIFTER_HIGH  (1),
-    	SHOOTER_RAIL_DOWN (2),
-    	SHOOTER_RAIL_UP   (3),
+    	BALLSHIFTER   			(0),
+    	SHOOTER_RAIL (2),
+    	SCISSOR_LIFT_RELEASE   (3),
     	SCISSOR_LIFT_EXTEND1    (4),
     	SCISSOR_LIFT_RETRACT1    (5),
     	SCISSOR_LIFT_EXTEND2    (6),

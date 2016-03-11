@@ -27,7 +27,7 @@ public class ShooterSubsystem extends R_Subsystem {
 
 	Encoder intakeEncoder = new Encoder(RobotMap.EncoderMap.INTAKE_ENCODER.ch1, RobotMap.EncoderMap.INTAKE_ENCODER.ch2);
 
-	Solenoid shooterRail = new Solenoid(RobotMap.Pneumatics.SHOOTER_RAIL_DOWN.pcmPort);
+	Solenoid shooterRail = new Solenoid(RobotMap.Pneumatics.SHOOTER_RAIL.pcmPort);
 
 	R_PIDInput intakeLockPIDInput = new R_PIDInput() {
 		@Override

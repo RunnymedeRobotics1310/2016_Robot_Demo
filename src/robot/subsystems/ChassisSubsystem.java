@@ -29,7 +29,7 @@ public class ChassisSubsystem extends R_Subsystem {
 
 	R_Ultrasonic ultrasonicSensor = new R_Ultrasonic(RobotMap.SensorMap.ULTRASONIC.port);
 
-	Solenoid ballShifter = new Solenoid(RobotMap.Pneumatics.BALLSHIFTER_LOW.pcmPort);
+	Solenoid ballShifter = new Solenoid(RobotMap.Pneumatics.BALLSHIFTER.pcmPort);
 
 	public enum Gear {
 		LOW, HIGH;

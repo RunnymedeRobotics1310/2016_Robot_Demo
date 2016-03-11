@@ -98,12 +98,12 @@ public class RobotMap {
     
     public enum Pneumatics{
     	BALLSHIFTER   			(0),
-    	SHOOTER_RAIL (2),
-    	SCISSOR_LIFT_RELEASE   (3),
+    	SHOOTER_RAIL 			(2),
+    	SCISSOR_LIFT_RELEASE    (3),
     	SCISSOR_LIFT_EXTEND1    (4),
-    	SCISSOR_LIFT_RETRACT1    (5),
+    	SCISSOR_LIFT_RETRACT1   (5),
     	SCISSOR_LIFT_EXTEND2    (6),
-    	SCISSOR_LIFT_RETRACT2    (7);
+    	SCISSOR_LIFT_RETRACT2   (7);
     	
        	//Pneumatics control module port
     	public final int pcmPort;

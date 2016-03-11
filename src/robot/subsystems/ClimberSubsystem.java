@@ -2,6 +2,7 @@ package robot.subsystems;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import robot.RobotMap;
 import robot.commands.climber.JoystickClimberCommand;
@@ -15,7 +16,8 @@ public class ClimberSubsystem extends R_Subsystem {
 
 	DoubleSolenoid leftScissorPiston = new DoubleSolenoid(RobotMap.Pneumatics.SCISSOR_LIFT_EXTEND1.pcmPort, RobotMap.Pneumatics.SCISSOR_LIFT_RETRACT1.pcmPort);
 	DoubleSolenoid rightScissorPiston = new DoubleSolenoid(RobotMap.Pneumatics.SCISSOR_LIFT_EXTEND2.pcmPort, RobotMap.Pneumatics.SCISSOR_LIFT_RETRACT2.pcmPort);
-
+	Solenoid scissorReleasePiston = new Solenoid(RobotMap.Pneumatics.SCISSOR_LIFT_RELEASE.pcmPort);
+	
 	// Initialize the subsystem to Disable the intake PID.
 	public ClimberSubsystem() {
 	}
@@ -30,6 +32,7 @@ public class ClimberSubsystem extends R_Subsystem {
 	}
 
 	public void scissorUp() {
+		scissorReleasePiston.set(false);
 		leftScissorPiston.set(Value.kReverse);
 		rightScissorPiston.set(Value.kReverse);
 	}
@@ -58,6 +61,7 @@ public class ClimberSubsystem extends R_Subsystem {
 
 	@Override
 	public void updateDashboard() {
+		SmartDashboard.putData("Scissor Release Piston", scissorReleasePiston);
 		SmartDashboard.putData("Left Scissor", leftScissorPiston);
 		SmartDashboard.putData("Right Scissor", rightScissorPiston);
 		SmartDashboard.putData("Left Winch", leftWinchMotor);

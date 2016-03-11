@@ -5,8 +5,9 @@ import robot.Robot;
 
 public class JoystickClimberCommand extends Command {
 
-	private boolean scissorUp = false;
-	
+	private boolean climberReleased;
+	private boolean scissorUp;
+
 	public JoystickClimberCommand() {
 		requires(Robot.climberSubsystem);
 	}
@@ -17,30 +18,37 @@ public class JoystickClimberCommand extends Command {
 		Robot.climberSubsystem.scissorDown();
 		this.setTimeout(0);
 		scissorUp = false;
+		climberReleased = false;
 	}
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		
-		if (!this.isTimedOut()) { return; }
-		
+
+		if (!this.isTimedOut()) {
+			return;
+		}
+
 		// On the first time the button is pressed, deploy the scissor.
 		if (!scissorUp) {
 			if (Robot.oi.getClimbButton()) {
+				if (!climberReleased) {
+					this.setTimeout(this.timeSinceInitialized() + 0.2);
+					Robot.climberSubsystem.releaseClimber();
+					climberReleased = true;
+				}
 				Robot.climberSubsystem.scissorUp();
 				this.setTimeout(this.timeSinceInitialized() + 2.0);
 				scissorUp = true;
 			}
 			return;
 		}
-		
+
 		else if (Robot.oi.getClimbButton()) {
 			Robot.climberSubsystem.winchOn();
 			return;
 		}
-		
 		Robot.climberSubsystem.winchOff();
-		
+
 	}
 
 	// Make this return true when this Command no longer needs to run execute()

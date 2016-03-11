@@ -30,7 +30,7 @@ public class OI {
 		//Operator Controls
 		SHOOT_BOULDER(Button.BUTTON1),
 		WIND_UP_SHOOTER(Button.BUTTON2), 
-		//CLIMB(Button.BUTTON7),
+		CLIMB(Button.BUTTON7),
 		PORTCULLIS_OPEN(Button.BUTTON5),
 		ARM_PID_OVERRIDE(Button.BUTTON6),
 		ROTATE_ARM_MIN_POS(Button.BUTTON9),
@@ -164,8 +164,7 @@ public class OI {
 	}
 	
 	public boolean getClimbButton() {
-		return false;
-		//return operatorStick.getButton(ButtonMap.CLIMB.getButton()); 
+		return operatorStick.getButton(ButtonMap.CLIMB.getButton()); 
 	}
 	
 	public double getSpeed() {

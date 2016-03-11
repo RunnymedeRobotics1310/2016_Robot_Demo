@@ -31,8 +31,11 @@ public class ClimberSubsystem extends R_Subsystem {
 		setDefaultCommand(new JoystickClimberCommand());
 	}
 
+	public void releaseClimber(){
+		scissorReleasePiston.set(true);
+	}
+	
 	public void scissorUp() {
-		scissorReleasePiston.set(false);
 		leftScissorPiston.set(Value.kReverse);
 		rightScissorPiston.set(Value.kReverse);
 	}

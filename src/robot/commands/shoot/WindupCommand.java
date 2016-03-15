@@ -5,29 +5,35 @@ import robot.Robot;
 
 public class WindupCommand extends Command {
 
-	double speedSetPoint;
+	double speedSetPointPercent;
 
 	public WindupCommand() {
 		requires(Robot.shooterSubsystem);
 	}
 
 	protected void initialize() {
-		speedSetPoint = 0.1 * (-Robot.oi.getShootSpeed() + 1) + 0.8;
+		
+		// Shooter speeds.
+		// Low speed = 80rps    - OI input = +1.0
+		// High speed = 95rps   - OI input = -1.0
+		
+		speedSetPointPercent = 0.1 * (-Robot.oi.getShootSpeed() + 1) + 0.8;
 
 		if (Robot.shooterSubsystem.isBoulderRetracted()) {
-			Robot.shooterSubsystem.setShooterSpeed(speedSetPoint);
+			Robot.shooterSubsystem.setShooterSpeed(speedSetPointPercent);
 		}
 
 		Robot.shooterSubsystem.setRailPosition(true);
 	}
 
 	protected void execute() {
-		speedSetPoint = 0.1 * (-Robot.oi.getShootSpeed() + 1) + 0.8;
-		Robot.shooterSubsystem.setShooterSpeed(speedSetPoint);
+		speedSetPointPercent = 0.1 * (-Robot.oi.getShootSpeed() + 1) + 0.8;
+		Robot.shooterSubsystem.setShooterSpeed(speedSetPointPercent);
 	}
 
 	protected boolean isFinished() {
-		if (Robot.shooterSubsystem.getShooterSpeed() > speedSetPoint * 0.8 * 100) {
+		// Finish the wind up when at 94% of the target.
+		if (Robot.shooterSubsystem.getShooterSpeed() > speedSetPointPercent * 0.94 * 100) {
 			return true;
 		}
 		return false;

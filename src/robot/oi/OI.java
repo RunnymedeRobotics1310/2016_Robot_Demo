@@ -33,6 +33,7 @@ public class OI {
 		CLIMB(Button.BUTTON7),
 		PORTCULLIS_OPEN(Button.BUTTON5),
 		ARM_PID_OVERRIDE(Button.BUTTON6),
+		SCISSOR_RELEASE(Button.BUTTON8),
 		ROTATE_ARM_MIN_POS(Button.BUTTON9),
 		ROTATE_ARM_LOW_POS(Button.BUTTON10),
 		ROTATE_ARM_DRIVE_POS(Button.BUTTON11),
@@ -165,6 +166,10 @@ public class OI {
 	
 	public boolean getClimbButton() {
 		return operatorStick.getButton(ButtonMap.CLIMB.getButton()); 
+	}
+	
+	public boolean getScissorReleaseButton() {
+		return operatorStick.getButton(ButtonMap.SCISSOR_RELEASE.getButton()); 
 	}
 	
 	public double getSpeed() {

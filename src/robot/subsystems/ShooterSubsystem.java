@@ -24,6 +24,7 @@ public class ShooterSubsystem extends R_Subsystem {
 	DigitalInput boulderProximitySensor = new DigitalInput(RobotMap.SensorMap.BOULDER_PROXIMITY_SENSOR.port);
 
 	Counter shooterSpeedEncoder = new Counter(RobotMap.SensorMap.SHOOTER_SPEED_ENCODER.port);
+	double prevShooterSpeed = 0.0;
 
 	Encoder intakeEncoder = new Encoder(RobotMap.EncoderMap.INTAKE_ENCODER.ch1, RobotMap.EncoderMap.INTAKE_ENCODER.ch2);
 
@@ -68,7 +69,17 @@ public class ShooterSubsystem extends R_Subsystem {
 	}
 
 	public double getShooterSpeed() {
-		return shooterSpeedEncoder.getRate();
+		
+		// The shooter speed cannot be greater than 100 so if a reading is more than 
+		// 100 more than the previous reading then ignore the reading.  There are 
+		// occasional spikes in the shooter speed feedback that cause a very high
+		// reading (> 1000).
+		double shooterSpeed = shooterSpeedEncoder.getRate();
+		if (Math.abs(shooterSpeed) > 120) {
+			return prevShooterSpeed;
+		}
+		prevShooterSpeed = shooterSpeed;
+		return shooterSpeed;
 	}
 
 	public void init() {

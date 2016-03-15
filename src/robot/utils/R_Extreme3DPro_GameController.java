@@ -4,7 +4,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import robot.utils.R_GameController.Axis;
 import robot.utils.R_GameController.Button;
 
-public class R_Extreme3DPro_GameController {
+public class R_Extreme3DPro_GameController extends R_GameController {
 
 	private final Joystick joystick;
 
@@ -68,6 +68,24 @@ public class R_Extreme3DPro_GameController {
 
 	public Joystick getRawJoystick() {
 		return joystick;
+	}
+
+	@Override
+	// There is only one stick on this controller.  Assume that
+	// it is the left stick.
+	public double getAxis(Stick stick, Axis axis) {
+		if (stick == Stick.RIGHT) { return 0; }
+		return getAxis(axis);
+	}
+
+	@Override
+	public double getTrigger(Trigger trigger) {
+		return 0;
+	}
+
+	@Override
+	public int getPOVAngle() {
+		return joystick.getPOV();
 	}
 
 }

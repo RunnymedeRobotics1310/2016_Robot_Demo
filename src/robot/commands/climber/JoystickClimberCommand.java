@@ -28,14 +28,19 @@ public class JoystickClimberCommand extends Command {
 			return;
 		}
 
+		// On the first button, just release the climber.
+		if (!climberReleased) {
+			if (Robot.oi.getClimbButton()) {
+				Robot.climberSubsystem.releaseClimber();
+				this.setTimeout(this.timeSinceInitialized() + 1.0);
+				climberReleased = true;
+			}
+			return;
+		}
+		
 		// On the first time the button is pressed, deploy the scissor.
 		if (!scissorUp) {
 			if (Robot.oi.getClimbButton()) {
-				if (!climberReleased) {
-					this.setTimeout(this.timeSinceInitialized() + 0.2);
-					Robot.climberSubsystem.releaseClimber();
-					climberReleased = true;
-				}
 				Robot.climberSubsystem.scissorUp();
 				this.setTimeout(this.timeSinceInitialized() + 2.0);
 				scissorUp = true;
@@ -43,10 +48,16 @@ public class JoystickClimberCommand extends Command {
 			return;
 		}
 
-		else if (Robot.oi.getClimbButton()) {
+		// Release the pressure on the scissor lift
+		if (Robot.oi.getScissorReleaseButton()) {
+			Robot.climberSubsystem.scissorDown();
+		}
+		
+		if (Robot.oi.getClimbButton()) {
 			Robot.climberSubsystem.winchOn();
 			return;
 		}
+		
 		Robot.climberSubsystem.winchOff();
 
 	}

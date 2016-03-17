@@ -127,7 +127,7 @@ public class ShooterSubsystem extends R_Subsystem {
 		}
 
 		if (intakeReverseSpeed == IntakeReverseSpeed.LOW) {
-			intakeMotor.set(-0.3);
+			intakeMotor.set(-0.35);
 		} else {
 			intakeMotor.set(-1.0);
 		}

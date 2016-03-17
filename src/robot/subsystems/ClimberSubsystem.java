@@ -20,11 +20,13 @@ public class ClimberSubsystem extends R_Subsystem {
 	
 	// Initialize the subsystem to Disable the intake PID.
 	public ClimberSubsystem() {
+		init();
 	}
 
 
 	public void init() {
 		scissorDown();
+		scissorReleasePiston.set(false);
 	}
 
 	public void initDefaultCommand() {

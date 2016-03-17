@@ -56,18 +56,32 @@ public class AutoDriveAndShootCommand extends CommandGroup {
 			addSequential(new DriveToDistance(autoSpeed, 0, 50));
 		}
 
-		// Rotate to 90 degrees, because that's what we always do.
-		addSequential(new RotateToAngleCommand(90, waitTime));
+		// If the slot is 4 and the Goal is center, then the robot is
+		// already lined up.
+		if ( ! (slot == Slot.FOUR && goal == Goal.CENTER) ) {
+			
+			// Rotate to 90 degrees, because that's what we always do.
+			addSequential(new RotateToAngleCommand(90, waitTime));
+	
+			// If the ultasonic distance is not within threshold then
+			// wait until the path is clear and then continue.
+			addSequential(new WaitUntilPathClear(waitTime, slot));
+	
+			double distance = goal.getRequiredDistance();
+			
+			// If the slot is FIVE, then we will be going backwards and so we need
+			// to stop sooner, so tweak the distance.
+			if (slot == Slot.FIVE) {
+				distance += 15;
+			}
+			
+			addSequential(new DriveToUltraDistance(autoSpeed, 90, distance));
 
-		// If the ultasonic distance is not within threshold then
-		// wait until the path is clear and then continue.
-		addSequential(new WaitUntilPathClear(waitTime, slot));
-
-		addSequential(new DriveToUltraDistance(autoSpeed, 90, goal.getRequiredDistance()));
-
-		// Rotate to 0 degrees, because that's what we always do.
-		addSequential(new RotateToAngleCommand(0, waitTime));
-
+			
+			// Rotate to 0 degrees, because that's what we always do.
+			addSequential(new RotateToAngleCommand(0, waitTime));
+		}
+		
 		if (goal != Goal.CENTER) {
 			addSequential(new DriveToCenterProximity(autoSpeed, 0));
 			addSequential(new DriveToDistance(autoSpeed, 0, -20));

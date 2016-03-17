@@ -11,11 +11,10 @@ public class CrossChavelDeFriseCommand extends CommandGroup {
 
 	public CrossChavelDeFriseCommand() {
 		addSequential(new SetArmLevelCommand(ArmLevel.DRIVE_LEVEL));
-		addSequential(new DriveToProximity(0.5, 0));
-		addSequential(new DriveToDistance(0.5, 0, 6));
+		addSequential(new DriveToProximity(0.7, 0));
 		addSequential(new SetArmLevelCommand(ArmLevel.INTAKE_LEVEL));
 		addSequential(new WaitCommand(1.0));
-		addSequential(new DriveToDistance(0.5, 0, 110));
+		addSequential(new DriveToDistance(0.7, 0, 100));
 		addSequential(new SetArmLevelCommand(ArmLevel.DRIVE_LEVEL));
 	}
 }

@@ -21,9 +21,9 @@ import robot.commands.drive.RotateToAngleCommand;
 import robot.commands.shoot.SetupHighShotCommand;
 import robot.commands.shoot.ShootHighGoalCommand;
 
-public class AutoDriveAndShootCommand extends CommandGroup {	
+public class AutoDriveAndShootCommandNoGyro extends CommandGroup {	
 	
-	public AutoDriveAndShootCommand(Slot slot, Defense defense, Lane lane, Goal goal) {
+	public AutoDriveAndShootCommandNoGyro(Slot slot, Defense defense, Lane lane, Goal goal) {
 		double waitTime = 4.0;
 		double autoSpeed = 0.8;
 
@@ -84,12 +84,12 @@ public class AutoDriveAndShootCommand extends CommandGroup {
 		
 		if (goal != Goal.CENTER) {
 			addSequential(new DriveToCenterProximity(autoSpeed, 0));
-			addSequential(new DriveToDistance(autoSpeed, 0, -16));
+			addSequential(new DriveToDistance(autoSpeed, 0, -20));
 		} else {
 			addSequential(new DriveToProximity(autoSpeed-0.3, 0));
 		}
 
-		final int rampAngle = 60;
+		final int rampAngle = 55;
 		
 		switch (goal) {
 		case LEFT:

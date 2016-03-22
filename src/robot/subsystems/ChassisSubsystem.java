@@ -44,8 +44,7 @@ public class ChassisSubsystem extends R_Subsystem {
 		@Override
 		public double pidGet() {
 			return (RobotMap.EncoderMap.LEFT.inverted ? -1.0 : 1.0) * leftEncoder.getRate()
-					/ ((ballShifter.get()) ? RobotMap.EncoderMap.LEFT.maxRate
-							: RobotMap.EncoderMap.LEFT.maxRateHigh);
+					/ ((ballShifter.get()) ? RobotMap.EncoderMap.LEFT.maxRate : RobotMap.EncoderMap.LEFT.maxRateHigh);
 		}
 	};
 
@@ -53,8 +52,7 @@ public class ChassisSubsystem extends R_Subsystem {
 		@Override
 		public double pidGet() {
 			return (RobotMap.EncoderMap.RIGHT.inverted ? -1.0 : 1.0) * rightEncoder.getRate()
-					/ ((ballShifter.get()) ? RobotMap.EncoderMap.RIGHT.maxRate
-							: RobotMap.EncoderMap.RIGHT.maxRateHigh);
+					/ ((ballShifter.get()) ? RobotMap.EncoderMap.RIGHT.maxRate : RobotMap.EncoderMap.RIGHT.maxRateHigh);
 		}
 	};
 
@@ -73,7 +71,7 @@ public class ChassisSubsystem extends R_Subsystem {
 		pidControllers.add(rightMotorPID);
 
 		gyro.initGyro();
-		gyro.setSensitivity(0.00165 * (360.0 / 345.0));
+		gyro.setSensitivity(0.00165 * (360.0 / 350.0));
 	}
 
 	public void initDefaultCommand() {
@@ -109,7 +107,7 @@ public class ChassisSubsystem extends R_Subsystem {
 		SmartDashboard.putBoolean("Proximity Sensor(s) active", proximity);
 		return proximity;
 	}
-	
+
 	public boolean getCenterProximity() {
 		boolean proximity = !centerProximitySensor.get();
 		SmartDashboard.putBoolean("Proximity Sensor(s) active", proximity);
@@ -198,6 +196,13 @@ public class ChassisSubsystem extends R_Subsystem {
 		return (leftDistance + rightDistance) / 2.0 / RobotMap.EncoderMap.LEFT.countsPerInch;
 	}
 
+	public double getRawEncoderDistance() {
+		double leftDistance = this.leftEncoder.get();
+		double rightDistance = this.rightEncoder.get();
+
+		return (leftDistance + rightDistance) / 2.0;
+	}
+
 	/**
 	 * Gets the approximate speed using encoder speed by averaging the two
 	 * encoder speeds.
@@ -253,15 +258,16 @@ public class ChassisSubsystem extends R_Subsystem {
 		SmartDashboard.putData("Right Motor PID", rightMotorPID);
 		SmartDashboard.putData("Gyro", gyro);
 		SmartDashboard.putNumber("Gyro Angle", gyro.getAngle());
-		//SmartDashboard.putNumber("Gyro Center", gyro.getCenter());
-		//SmartDashboard.putNumber("Gyro Offset", gyro.getOffset());
+		// SmartDashboard.putNumber("Gyro Center", gyro.getCenter());
+		// SmartDashboard.putNumber("Gyro Offset", gyro.getOffset());
 		SmartDashboard.putNumber("Ultrasonic Sensor Distance", ultrasonicSensor.getDistance());
-		//SmartDashboard.putNumber("Raw ultrasonic sensor voltage", ultrasonicSensor.getVoltage());
-		//SmartDashboard.putString("Transmission", gear.name());
+		// SmartDashboard.putNumber("Raw ultrasonic sensor voltage",
+		// ultrasonicSensor.getVoltage());
+		// SmartDashboard.putString("Transmission", gear.name());
 		SmartDashboard.putNumber("Encoder Speed", getEncoderSpeed());
 		SmartDashboard.putNumber("Left Encoder Speed", getLeftEncoderSpeed());
 		SmartDashboard.putNumber("Right Encoder Speed", getRightEncoderSpeed());
 		SmartDashboard.putNumber("Encoder Distance", getEncoderDistance());
-		//SmartDashboard.putData("Ball shifter", ballShifter);
+		// SmartDashboard.putData("Ball shifter", ballShifter);
 	}
 }

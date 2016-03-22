@@ -5,7 +5,7 @@ public class Field {
 	public enum Goal {
 		LEFT ("Left", 60),
 		CENTER ("Center", 152),
-		RIGHT ("Right", 220);
+		RIGHT ("Right", 235);
 		
 		private final String stringValue;
 		private final int requiredDistance;

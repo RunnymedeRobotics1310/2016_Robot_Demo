@@ -220,7 +220,7 @@ public class OI {
 		case "Drive and Shoot":
 			return new AutoDriveAndShootCommand(getSlot(), getDefense(), getLane(), getGoal());
 		case "Drive to 70":
-			return new DriveToUltraDistance(0.5, 0, 70);
+			return new DriveToUltraDistance(0.5, 0, 70, RobotMap.UltrasonicDirection.REAR);
 		default:
 			return null;
 		}

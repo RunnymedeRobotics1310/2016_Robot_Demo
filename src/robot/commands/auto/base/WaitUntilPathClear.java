@@ -32,7 +32,7 @@ public class WaitUntilPathClear extends Command {
 	@Override
 	protected boolean isFinished() {
 		return isTimedOut() 
-				|| Robot.chassisSubsystem.getUltrasonicDistance() >= 
+				|| Robot.chassisSubsystem.getRearUltrasonicDistance() >= 
 										slot.getDistanceToLeftWall();
 
 	}

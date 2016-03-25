@@ -5,6 +5,7 @@ import robot.Field.Defense;
 import robot.Field.Goal;
 import robot.Field.Lane;
 import robot.Field.Slot;
+import robot.RobotMap;
 import robot.commands.auto.base.DriveToCenterProximity;
 import robot.commands.auto.base.DriveToDistance;
 import robot.commands.auto.base.DriveToProximity;
@@ -63,7 +64,7 @@ public class AutoDriveAndShootCommand extends CommandGroup {
 			// Rotate to 90 degrees, because that's what we always do.
 			addSequential(new RotateToAngleCommand(90, waitTime));
 	
-			// If the ultasonic distance is not within threshold then
+			// If the ultrasonic distance is not within threshold then
 			// wait until the path is clear and then continue.
 			addSequential(new WaitUntilPathClear(waitTime, slot));
 	
@@ -75,7 +76,7 @@ public class AutoDriveAndShootCommand extends CommandGroup {
 				distance += 15;
 			}
 			
-			addSequential(new DriveToUltraDistance(autoSpeed, 90, distance));
+			addSequential(new DriveToUltraDistance(autoSpeed, 90, distance, RobotMap.UltrasonicDirection.REAR));
 
 			
 			// Rotate to 0 degrees, because that's what we always do.
@@ -83,13 +84,16 @@ public class AutoDriveAndShootCommand extends CommandGroup {
 		}
 		
 		if (goal != Goal.CENTER) {
-			addSequential(new DriveToCenterProximity(autoSpeed, 0));
-			addSequential(new DriveToDistance(autoSpeed, 0, -16));
+			
+			addSequential(new DriveToUltraDistance(autoSpeed, 0, 26, RobotMap.UltrasonicDirection.FRONT));
+			
+			//addSequential(new DriveToCenterProximity(autoSpeed, 0));
+			//addSequential(new DriveToDistance(autoSpeed, 0, -16));
 		} else {
 			addSequential(new DriveToProximity(autoSpeed-0.3, 0));
 		}
 
-		final int rampAngle = 60;
+		final int rampAngle = 52;
 		
 		switch (goal) {
 		case LEFT:

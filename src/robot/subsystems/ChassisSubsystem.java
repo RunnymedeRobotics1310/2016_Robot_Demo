@@ -23,11 +23,13 @@ public class ChassisSubsystem extends R_Subsystem {
 	DigitalInput leftProximitySensor = new DigitalInput(RobotMap.SensorMap.LEFT_PROXIMITY_SENSOR.port);
 	DigitalInput centerProximitySensor = new DigitalInput(RobotMap.SensorMap.UPPER_PROXIMITY_SENSOR.port);
 	DigitalInput rightProximitySensor = new DigitalInput(RobotMap.SensorMap.RIGHT_PROXIMITY_SENSOR.port);
-
+	
+	R_Ultrasonic frontUltrasonicSensor = new R_Ultrasonic(RobotMap.SensorMap.FRONT_ULTRASONIC.port);
+	
 	Encoder leftEncoder = new Encoder(RobotMap.EncoderMap.LEFT.ch1, RobotMap.EncoderMap.LEFT.ch2);
 	Encoder rightEncoder = new Encoder(RobotMap.EncoderMap.RIGHT.ch1, RobotMap.EncoderMap.RIGHT.ch2);
 
-	R_Ultrasonic ultrasonicSensor = new R_Ultrasonic(RobotMap.SensorMap.ULTRASONIC.port);
+	R_Ultrasonic rearUltrasonicSensor = new R_Ultrasonic(RobotMap.SensorMap.REAR_ULTRASONIC.port);
 
 	Solenoid ballShifter = new Solenoid(RobotMap.Pneumatics.BALLSHIFTER.pcmPort);
 
@@ -114,8 +116,12 @@ public class ChassisSubsystem extends R_Subsystem {
 		return proximity;
 	}
 
-	public double getUltrasonicDistance() {
-		return this.ultrasonicSensor.getDistance();
+	public double getRearUltrasonicDistance() {
+		return this.rearUltrasonicSensor.getDistance();
+	}
+	
+	public double getFrontUltrasonicDistance() {
+		return this.frontUltrasonicSensor.getDistance();
 	}
 
 	@Override
@@ -234,7 +240,7 @@ public class ChassisSubsystem extends R_Subsystem {
 	}
 
 	public void resetUltrasonicSensorFilter() {
-		ultrasonicSensor.reset();
+		rearUltrasonicSensor.reset();
 	}
 
 	public void resetGyroHeading() {
@@ -260,7 +266,7 @@ public class ChassisSubsystem extends R_Subsystem {
 		SmartDashboard.putNumber("Gyro Angle", gyro.getAngle());
 		// SmartDashboard.putNumber("Gyro Center", gyro.getCenter());
 		// SmartDashboard.putNumber("Gyro Offset", gyro.getOffset());
-		SmartDashboard.putNumber("Ultrasonic Sensor Distance", ultrasonicSensor.getDistance());
+		SmartDashboard.putNumber("Ultrasonic Sensor Distance", rearUltrasonicSensor.getDistance());
 		// SmartDashboard.putNumber("Raw ultrasonic sensor voltage",
 		// ultrasonicSensor.getVoltage());
 		// SmartDashboard.putString("Transmission", gear.name());

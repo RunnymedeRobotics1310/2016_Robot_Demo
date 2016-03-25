@@ -1,6 +1,7 @@
 package robot.commands.auto;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
+import robot.RobotMap;
 import robot.Field.Defense;
 import robot.Field.Goal;
 import robot.Field.Lane;
@@ -75,7 +76,7 @@ public class AutoDriveAndShootCommandNoGyro extends CommandGroup {
 				distance += 15;
 			}
 			
-			addSequential(new DriveToUltraDistance(autoSpeed, 90, distance));
+			addSequential(new DriveToUltraDistance(autoSpeed, 90, distance, RobotMap.UltrasonicDirection.REAR));
 
 			
 			// Rotate to 0 degrees, because that's what we always do.

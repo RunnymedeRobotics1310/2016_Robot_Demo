@@ -8,7 +8,7 @@ package robot;
 public class RobotMap {
     private final static boolean inverted = true;
 
-    public final static double ANALOG_OFFSET = 315;
+    public final static double ANALOG_OFFSET = 20;
     
     public enum ArmLevel {
     	//All angles are 15 degrees smaller than the normal.
@@ -52,8 +52,9 @@ public class RobotMap {
     public enum SensorMap {
     	// Analog Ports
     	GYRO                      (0),
-    	ULTRASONIC                (1),
+    	REAR_ULTRASONIC           (1),
     	ANGLE_ENCODER             (2),
+    	FRONT_ULTRASONIC		  (3),
     	
     	// Digital Ports
     	SHOOTER_SPEED_ENCODER     (6),
@@ -110,6 +111,11 @@ public class RobotMap {
  
     	Pneumatics (int pcmPort){
     		this.pcmPort = pcmPort;
+    	
     	} 
+    }
+    
+    public enum UltrasonicDirection {
+    	FRONT, REAR;
     }
 }

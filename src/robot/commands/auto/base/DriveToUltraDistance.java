@@ -1,6 +1,7 @@
 package robot.commands.auto.base;
 
 import robot.Robot;
+import robot.RobotMap.UltrasonicDirection;
 
 public class DriveToUltraDistance extends AutoGoStraightCommand {
 
@@ -10,6 +11,8 @@ public class DriveToUltraDistance extends AutoGoStraightCommand {
 	private double distanceSetpoint;
 
 	private double speedSetpoint;
+	
+	private UltrasonicDirection direction;
 
 	/**
 	 * The constructor for a new DriveToDistance command.
@@ -21,19 +24,32 @@ public class DriveToUltraDistance extends AutoGoStraightCommand {
 	 * @param distance
 	 *            The distance to drive to.
 	 */
-	public DriveToUltraDistance(double speed, double angle, double distance) {
+	public DriveToUltraDistance(double speed, double angle, double distance, UltrasonicDirection direction) {
 		super(angle);
 		this.speedSetpoint = speed;
 		this.distanceSetpoint = distance;
+		
+		this.direction = direction;
 	}
 
 	protected void initialize() {
 		super.initialize();
 		Robot.chassisSubsystem.resetUltrasonicSensorFilter();
-		if (distanceSetpoint - Robot.chassisSubsystem.getUltrasonicDistance() < 0) {
-			setSpeed(speedSetpoint, Direction.BACKWARD);
-		} else {
-			setSpeed(speedSetpoint, Direction.FORWARD);
+		switch (direction) {
+		case FRONT:
+			if (distanceSetpoint - Robot.chassisSubsystem.getFrontUltrasonicDistance() < 0) {
+				setSpeed(speedSetpoint, Direction.FORWARD);
+			} else {
+				setSpeed(speedSetpoint, Direction.BACKWARD);
+			}
+			break;
+		case REAR:
+			if (distanceSetpoint - Robot.chassisSubsystem.getRearUltrasonicDistance() < 0) {
+				setSpeed(speedSetpoint, Direction.BACKWARD);
+			} else {
+				setSpeed(speedSetpoint, Direction.FORWARD);
+			}
+			break;
 		}
 	}
 
@@ -49,7 +65,13 @@ public class DriveToUltraDistance extends AutoGoStraightCommand {
 	// Called once after isFinished returns true
 	protected boolean isFinished() {
 		// Stop 4" early because it takes the robot 12 inches to stop.
-		return (Math.abs(distanceSetpoint - Robot.chassisSubsystem.getUltrasonicDistance()) <= 12);
+		switch (direction) {
+		case FRONT:
+			return (Math.abs(distanceSetpoint - Robot.chassisSubsystem.getFrontUltrasonicDistance()) <= 12);
+		case REAR:
+			return (Math.abs(distanceSetpoint - Robot.chassisSubsystem.getRearUltrasonicDistance()) <= 12);
+		}
+		return true;
 
 	}
 }

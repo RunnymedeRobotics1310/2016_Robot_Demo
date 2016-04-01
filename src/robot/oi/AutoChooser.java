@@ -15,9 +15,11 @@ public class AutoChooser {
 	SendableChooser goalChooser = new SendableChooser();
 
 	public AutoChooser() {
-		autoModeChooser.addDefault("Drive and Shoot", "Drive and Shoot");
+		autoModeChooser.addDefault("Drive and Shoot Low",  "Drive and Shoot Low");
+		autoModeChooser.addObject("Drive and Shoot High", "Drive and Shoot High");
 		autoModeChooser.addObject("Do nothing", "Do Nothing");
-		autoModeChooser.addObject("Drive to 70",  "Drive to 70");
+
+		autoModeChooser.addObject("Drive to Proximity", "Drive to Proximity");
 
 		laneChooser.addObject("1", 1);
 		laneChooser.addObject("2", 2);

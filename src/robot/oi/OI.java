@@ -7,8 +7,9 @@ import robot.Field.Goal;
 import robot.Field.Lane;
 import robot.Field.Slot;
 import robot.RobotMap;
-import robot.commands.auto.AutoDriveAndShootCommand;
-import robot.commands.auto.base.DriveToUltraDistance;
+import robot.commands.auto.AutoDriveAndShootHighCommand;
+import robot.commands.auto.AutoDriveAndShootLowCommand;
+import robot.commands.auto.base.DriveToProximity;
 import robot.utils.R_Extreme3DPro_GameController;
 import robot.utils.R_GameController;
 import robot.utils.R_GameController.Axis;
@@ -217,10 +218,12 @@ public class OI {
 		switch (autoChooser.getAutoMode()) {
 		case "Do Nothing":
 			return null;
-		case "Drive and Shoot":
-			return new AutoDriveAndShootCommand(getSlot(), getDefense(), getLane(), getGoal());
-		case "Drive to 70":
-			return new DriveToUltraDistance(0.5, 0, 70, RobotMap.UltrasonicDirection.REAR);
+		case "Drive and Shoot High":
+			return new AutoDriveAndShootHighCommand(getSlot(), getDefense(), getLane(), getGoal());
+		case "Drive and Shoot Low":
+			return new AutoDriveAndShootLowCommand(getSlot(), getDefense(), getLane(), getGoal());
+		case "Drive to Proximity":
+			return new DriveToProximity(0.5, 0);
 		default:
 			return null;
 		}

@@ -6,7 +6,6 @@ import robot.Field.Goal;
 import robot.Field.Lane;
 import robot.Field.Slot;
 import robot.RobotMap;
-import robot.commands.auto.base.DriveToCenterProximity;
 import robot.commands.auto.base.DriveToDistance;
 import robot.commands.auto.base.DriveToProximity;
 import robot.commands.auto.base.DriveToUltraDistance;
@@ -19,12 +18,11 @@ import robot.commands.auto.defenses.CrossRampartsCommand;
 import robot.commands.auto.defenses.CrossRockWallCommand;
 import robot.commands.auto.defenses.CrossRoughTerrainCommand;
 import robot.commands.drive.RotateToAngleCommand;
-import robot.commands.shoot.SetupHighShotCommand;
-import robot.commands.shoot.ShootHighGoalCommand;
+import robot.commands.shoot.ShootLowGoalCommand;
 
-public class AutoDriveAndShootCommand extends CommandGroup {	
+public class AutoDriveAndShootLowCommand extends CommandGroup {	
 	
-	public AutoDriveAndShootCommand(Slot slot, Defense defense, Lane lane, Goal goal) {
+	public AutoDriveAndShootLowCommand(Slot slot, Defense defense, Lane lane, Goal goal) {
 		double waitTime = 4.0;
 		double autoSpeed = 0.8;
 
@@ -76,8 +74,8 @@ public class AutoDriveAndShootCommand extends CommandGroup {
 				distance += 15;
 			}
 			
+			//addSequential(new DriveToDistance(autoSpeed, 90, 45));
 			addSequential(new DriveToUltraDistance(autoSpeed, 90, distance, RobotMap.UltrasonicDirection.REAR));
-
 			
 			// Rotate to 0 degrees, because that's what we always do.
 			addSequential(new RotateToAngleCommand(0, waitTime));
@@ -85,7 +83,7 @@ public class AutoDriveAndShootCommand extends CommandGroup {
 		
 		if (goal != Goal.CENTER) {
 			
-			addSequential(new DriveToUltraDistance(autoSpeed, 0, 26, RobotMap.UltrasonicDirection.FRONT));
+			addSequential(new DriveToUltraDistance(autoSpeed, 0, 33, RobotMap.UltrasonicDirection.FRONT));
 			
 			//addSequential(new DriveToCenterProximity(autoSpeed, 0));
 			//addSequential(new DriveToDistance(autoSpeed, 0, -16));
@@ -93,24 +91,25 @@ public class AutoDriveAndShootCommand extends CommandGroup {
 			addSequential(new DriveToProximity(autoSpeed-0.3, 0));
 		}
 
-		final int rampAngle = 52;
+		final int rampAngle = 60;
 		
 		switch (goal) {
 		case LEFT:
 			addSequential(new RotateToAngleCommand(rampAngle, waitTime));
-			addSequential(new DriveToProximity(autoSpeed, rampAngle));
+			addSequential(new DriveToProximity(autoSpeed-0.4, rampAngle));
 			break;
 		case CENTER:
 			// do nothing.
 			break;
 		case RIGHT:
 			addSequential(new RotateToAngleCommand(360 - rampAngle, waitTime));
-			addSequential(new DriveToProximity(autoSpeed, 360 - rampAngle));
+			addSequential(new DriveToProximity(autoSpeed-0.4, 360 - rampAngle));
 			break;
 		}
 
 		// shoot
-		addSequential(new SetupHighShotCommand());
-		addSequential(new ShootHighGoalCommand());
+		
+		addSequential(new DriveToDistance(0.4, rampAngle, 30));
+		addSequential(new ShootLowGoalCommand());
 	}
 }

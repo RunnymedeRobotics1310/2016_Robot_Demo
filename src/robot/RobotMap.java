@@ -8,7 +8,7 @@ package robot;
 public class RobotMap {
     private final static boolean inverted = true;
 
-    public final static double ANALOG_OFFSET = 20;
+    public final static double ANALOG_OFFSET = 9;
     
     public enum ArmLevel {
     	//All angles are 15 degrees smaller than the normal.

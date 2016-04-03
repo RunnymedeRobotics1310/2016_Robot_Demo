@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import robot.oi.OI;
 import robot.pids.GoStraightPID;
+import robot.pids.PivotPID;
 import robot.subsystems.ArmSubsystem;
 import robot.subsystems.CameraSubsystem;
 import robot.subsystems.ChassisSubsystem;
@@ -124,7 +125,9 @@ public class Robot extends IterativeRobot {
         }
         oi.periodic();
         
+        // Command PID updates
         GoStraightPID.periodic();
+        PivotPID.periodic();
     }
 
     private void updateDashboard() {

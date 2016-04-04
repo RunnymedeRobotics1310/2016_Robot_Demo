@@ -1,8 +1,6 @@
 package robot.commands.drive;
 
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import robot.Robot;
 
 public class RotateToAngleCommandNoGyro extends Command {

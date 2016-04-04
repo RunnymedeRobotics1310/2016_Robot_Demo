@@ -42,7 +42,7 @@ public class JoystickShootCommand extends Command {
 		}
 
 		// The High Goal shooter button is used for both starting the
-		// high goal spinner, and for taking a shot.
+		// high goal spinner.  The trigger is used to shoot.
 		//
 		// If the ball is not yet retracted, then set up for a shot by
 		// retracting the ball and starting the shooter.
@@ -61,15 +61,32 @@ public class JoystickShootCommand extends Command {
 			}
 		}
 
+		// The Bank Shot shooter button is used for both starting the
+		// high goal spinner, and for taking a shot.
+		//
+		// If the ball is not yet retracted, then set up for a shot by
+		// retracting the ball and starting the shooter.
+		//
+		// If the ball is retracted, and the shooter is up to speed, then
+		// take a shot.
+
+		if (oi.getWindUpBankShotButton()) {
+			// Only start retracting if you have a ball
+			if (shooterSubsystem.isBoulderLoaded()) {
+
+				shooterSubsystem.setBoulderRetracted(true);
+				Scheduler.getInstance().add(new SetupBankShotCommand());
+
+				return;
+			}
+		}
+
 		if (oi.getShootButton()) {
 			if (shooterSubsystem.isBoulderRetracted()) {
-				if (shooterSubsystem.getShooterSpeed() > Robot.shooterSubsystem.getShootSpeedSetPoint() * 0.8 * 100) {
-					shooterSubsystem.setBoulderRetracted(false);
-					Scheduler.getInstance().add(new ShootHighGoalCommand());
-
-					return;
-
-				}
+				shooterSubsystem.setBoulderRetracted(false);
+				Scheduler.getInstance().add(new ShootHighGoalCommand());
+				
+				return;
 			}
 		}
 

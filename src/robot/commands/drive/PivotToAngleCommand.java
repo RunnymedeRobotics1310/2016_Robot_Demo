@@ -55,7 +55,7 @@ public class PivotToAngleCommand extends Command {
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
 		double turn = Robot.oi.getTurn();
-		if (Math.abs(turn) > 0.03) {
+		if (Math.abs(turn) < 0.03) {
 			return true;
 		}
 		return false;

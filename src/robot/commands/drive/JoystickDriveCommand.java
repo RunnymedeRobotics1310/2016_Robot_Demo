@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import robot.Robot;
 import robot.commands.drive.RotateFixedCommand.Direction;
+import robot.oi.OI.Nudge;
 import robot.subsystems.ChassisSubsystem.Gear;
 
 /**
@@ -45,12 +46,16 @@ public class JoystickDriveCommand extends Command {
 			Robot.chassisSubsystem.setGear(Gear.LOW);
 		}
 		
-		if (Robot.oi.getRotateLeft()) {
-			Scheduler.getInstance().add(new RotateFixedCommand(Direction.LEFT));
-		}
-		
-		if (Robot.oi.getRotateRight()) {
+		// Nudge the robot to the left or right based on the operator input.
+		// If the driver is turning the robot then ignore the nudge command.
+		// Pass the speed of the robot to the nudge command.
+		Nudge nudge = Robot.oi.getNudge();
+		if (Math.abs(turn) < 0.03 && nudge != Nudge.NONE) {
+			if (Robot.oi.getNudge() == Nudge.LEFT) {
+				Scheduler.getInstance().add(new RotateFixedCommand(Direction.LEFT));
+			} else {
 			Scheduler.getInstance().add(new RotateFixedCommand(Direction.RIGHT));
+			}
 		}
 		
 		/**
@@ -62,6 +67,7 @@ public class JoystickDriveCommand extends Command {
 			return;
 		}*/
 		 
+		// Use the driver input to set the speed and direction.
 		if (Math.abs(speed) < 0.03) {
 			leftSpeed  =   turn / 2.0;
 			rightSpeed = - turn / 2.0;

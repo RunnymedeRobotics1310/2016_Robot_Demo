@@ -16,9 +16,9 @@ public class ArmSubsystem extends R_Subsystem {
 
 	private static double MAX_ARM_ENCODER = 280;
 
-	DigitalInput armMaxHeight = new DigitalInput(RobotMap.SensorMap.ARM_UPPER_LIMIT.port);
-	DigitalInput armMinHeight = new DigitalInput(RobotMap.SensorMap.ARM_LOWER_LIMIT.port);
-	R_SafetyVictor armDeployMotor = new R_SafetyVictor(RobotMap.MotorMap.ARM_DEPLOY_MOTOR, armMaxHeight, armMinHeight);
+	DigitalInput armUpperLimitSwitch = new DigitalInput(RobotMap.SensorMap.ARM_UPPER_LIMIT.port);
+	DigitalInput armLowerLimitSwitch = new DigitalInput(RobotMap.SensorMap.ARM_LOWER_LIMIT.port);
+	R_SafetyVictor armDeployMotor = new R_SafetyVictor(RobotMap.MotorMap.ARM_DEPLOY_MOTOR, armUpperLimitSwitch, armLowerLimitSwitch);
 	R_Victor armIntakeMotor = new R_Victor(RobotMap.MotorMap.ARM_INTAKE_MOTOR);
 
 	R_AbsoluteEncoder armEncoder = new R_AbsoluteEncoder(2, RobotMap.ANALOG_OFFSET);
@@ -54,6 +54,12 @@ public class ArmSubsystem extends R_Subsystem {
 
 	@Override
 	public void periodic() {
+		if (getArmLowerLimit()) {
+			armEncoder.setEncoderAngle(RobotMap.ArmLevel.LOWER_LIMIT.angle);
+		}
+		if (getArmUpperLimit()) {
+			armEncoder.setEncoderAngle(RobotMap.ArmLevel.UPPER_LIMIT.angle);
+		}
 		armPID.calculate();
 	}
 
@@ -62,8 +68,8 @@ public class ArmSubsystem extends R_Subsystem {
 		//SmartDashboard.putData("Deploy Motor", armDeployMotor);
 		//SmartDashboard.putNumber("Arm Encoder Voltage", armEncoder.getVoltage());
 		SmartDashboard.putNumber("Arm Encoder Angle", armEncoder.getAngle());
-		SmartDashboard.putBoolean("Arm Max Height", armMaxHeight.get());
-		SmartDashboard.putBoolean("Arm Min Height", armMinHeight.get());
+		SmartDashboard.putBoolean("Arm Max Limit Switch", armUpperLimitSwitch.get());
+		SmartDashboard.putBoolean("Arm Min Limit Switch", armLowerLimitSwitch.get());
 		//SmartDashboard.putData("Arm PID", armPID);
 	}
 
@@ -88,11 +94,11 @@ public class ArmSubsystem extends R_Subsystem {
 	}
 
 	public boolean getArmLowerLimit() {
-		return armMinHeight.get();
+		return armLowerLimitSwitch.get();
 	}
 
 	public boolean getArmUpperLimit() {
-		return armMaxHeight.get();
+		return armUpperLimitSwitch.get();
 	}
 
 	public void startArmIntake() {

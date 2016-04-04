@@ -37,6 +37,13 @@ public class R_AbsoluteEncoder extends AnalogInput {
 		offset_degrees = getRawAngle();
 	}
 
+	/**
+	 * Set the offset to make the current angle the set angle
+	 */
+	public void setEncoderAngle(double angle) {
+		offset_degrees = getRawAngle() - angle;
+	}
+
 	private double getRawAngle() {
 		
 		// The raw angle is the angle between 0 and 360 as measured by the encoder voltage

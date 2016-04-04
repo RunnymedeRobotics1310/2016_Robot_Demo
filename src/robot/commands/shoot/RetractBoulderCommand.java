@@ -20,11 +20,19 @@ import robot.subsystems.ShooterSubsystem.IntakeReverseSpeed;
  */
 public class RetractBoulderCommand extends Command {
 
-	boolean cancelButton = false;
-	boolean lockDelayStarted = false;
-	boolean retractStarted = false;
+	private static boolean ARM_FULLY_UP = true;
+	
+	private boolean cancelButton = false;
+	private boolean lockDelayStarted = false;
+	private boolean retractStarted = false;
+	private final boolean armPosition;
 
 	public RetractBoulderCommand() {
+		this(false);
+	}
+
+	public RetractBoulderCommand(boolean armPosition) {
+		this.armPosition = armPosition;
 		requires(Robot.shooterSubsystem);
 		requires(Robot.armSubsystem);
 	}
@@ -42,7 +50,11 @@ public class RetractBoulderCommand extends Command {
 				System.out.println("Start retraction - shooter ran backwards for 0.5s");
 				Robot.shooterSubsystem.resetIntakeEncoder();
 				Robot.shooterSubsystem.setIntakeMotorReverse(IntakeReverseSpeed.LOW);
-				Robot.armSubsystem.setArmAngle(RobotMap.ArmLevel.SHOOT_LEVEL.getAngle());
+				if (armPosition == ARM_FULLY_UP) {
+					Robot.armSubsystem.setArmAngle(RobotMap.ArmLevel.UPPER_LIMIT.getAngle());
+				} else {
+					Robot.armSubsystem.setArmAngle(RobotMap.ArmLevel.SHOOT_LEVEL.getAngle());
+				}
 				Robot.shooterSubsystem.stopShooterMotor();
 				retractStarted = true;
 			}

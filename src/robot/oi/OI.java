@@ -19,7 +19,7 @@ import robot.utils.R_GameController.Trigger;
 import robot.utils.R_GameControllerFactory;
 
 public class OI {
-
+	
 	public enum ButtonMap  {
 		//Driver Controls
 		OUTER_INTAKE_BOULDER(Button.LEFT_BUMPER),
@@ -31,6 +31,7 @@ public class OI {
 		//Operator Controls
 		SHOOT_BOULDER(Button.BUTTON1),
 		WIND_UP_SHOOTER(Button.BUTTON2), 
+		WIND_UP_BANK_SHOT(Button.BUTTON3), 
 		CLIMB(Button.BUTTON7),
 		PORTCULLIS_OPEN(Button.BUTTON5),
 		ARM_PID_OVERRIDE(Button.BUTTON6),
@@ -81,8 +82,12 @@ public class OI {
 		}
 	}
 	
+	public enum Nudge { LEFT, RIGHT, NONE };
+	
 	private R_GameController driverStick = R_GameControllerFactory.getGameController(0);
 	private R_Extreme3DPro_GameController operatorStick = new R_Extreme3DPro_GameController(1);
+	
+	private boolean operatorStickPreviouslyCentered = false;
 	
 	private AutoChooser autoChooser = new AutoChooser();
 
@@ -104,6 +109,10 @@ public class OI {
 	
 	public boolean getResetGyroButton() {
 		return driverStick.getButton(ButtonMap.RESET_GYRO.getButton());
+	}
+	
+	public boolean getWindUpBankShotButton() {
+		return operatorStick.getButton(ButtonMap.WIND_UP_BANK_SHOT.getButton());
 	}
 	
 	public boolean getWindUpShooterButton() {
@@ -187,6 +196,20 @@ public class OI {
 		return driverStick.getPOVAngle();
 	}
 	
+	public Nudge getNudge() {
+		if (operatorStickPreviouslyCentered) {
+			if (operatorStick.getAxis(Axis.X) < -.5) {
+				operatorStickPreviouslyCentered = false;
+				return Nudge.LEFT;
+			}
+			if (operatorStick.getAxis(Axis.X) > .5) {
+				operatorStickPreviouslyCentered = false;
+				return Nudge.RIGHT;
+			}
+		}
+		return Nudge.NONE;
+	}
+	
 	public boolean getRotateLeft() {
 		return (getPOV() == POVMap.LEFT.getAngle());
 	}
@@ -251,6 +274,9 @@ public class OI {
 	 * i.e. all toggle buttons
 	 */
 	public void periodic() {
+		if (Math.abs(operatorStick.getAxis(Axis.X)) < 0.5) {
+			operatorStickPreviouslyCentered = true;
+		}
 	}
 
 	/**

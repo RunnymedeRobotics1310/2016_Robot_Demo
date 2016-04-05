@@ -14,8 +14,6 @@ import robot.utils.R_Victor;
 
 public class ArmSubsystem extends R_Subsystem {
 
-	private static double MAX_ARM_ENCODER = 280;
-
 	DigitalInput armUpperLimitSwitch = new DigitalInput(RobotMap.SensorMap.ARM_UPPER_LIMIT.port);
 	DigitalInput armLowerLimitSwitch = new DigitalInput(RobotMap.SensorMap.ARM_LOWER_LIMIT.port);
 	R_SafetyVictor armDeployMotor = new R_SafetyVictor(RobotMap.MotorMap.ARM_DEPLOY_MOTOR, armUpperLimitSwitch, armLowerLimitSwitch);
@@ -26,7 +24,7 @@ public class ArmSubsystem extends R_Subsystem {
 	R_PIDInput armPIDInput = new R_PIDInput() {
 		@Override
 		public double pidGet() {
-			return armEncoder.getAngle() / MAX_ARM_ENCODER;
+			return armEncoder.getAngle() / RobotMap.ArmLevel.UPPER_LIMIT.getAngle();
 		}
 	};
 
@@ -54,10 +52,10 @@ public class ArmSubsystem extends R_Subsystem {
 
 	@Override
 	public void periodic() {
-		if (getArmLowerLimit()) {
+		if (!getArmLowerLimit()) {
 			armEncoder.setEncoderAngle(RobotMap.ArmLevel.LOWER_LIMIT.angle);
 		}
-		if (getArmUpperLimit()) {
+		if (!getArmUpperLimit()) {
 			armEncoder.setEncoderAngle(RobotMap.ArmLevel.UPPER_LIMIT.angle);
 		}
 		armPID.calculate();
@@ -129,7 +127,7 @@ public class ArmSubsystem extends R_Subsystem {
 	public void setArmAngle(double armAngle) {
 
 		// Set the arm to the appropriate angle and hold with a PID.
-		armPID.setSetpoint(armAngle / MAX_ARM_ENCODER);
+		armPID.setSetpoint(armAngle / RobotMap.ArmLevel.UPPER_LIMIT.getAngle());
 		if (!armPID.isEnabled()) {
 			armPID.enable();
 		}

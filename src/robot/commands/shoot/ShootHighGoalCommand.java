@@ -30,6 +30,7 @@ public class ShootHighGoalCommand extends Command {
 	protected void end() {
 		Robot.shooterSubsystem.stopIntakeMotor();
 		Robot.shooterSubsystem.stopShooterMotor();
+		Robot.armSubsystem.stopArmIntake();
 		
 		if (Robot.shooterSubsystem.getRailPosition()) {
 			Robot.shooterSubsystem.setRailPosition(false);

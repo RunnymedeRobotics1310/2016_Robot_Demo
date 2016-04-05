@@ -18,6 +18,7 @@ public class RobotMap {
     	PORTCULLIS_LEVEL(165.0),
     	SHOOT_LEVEL(225.0),
     	DRIVE_LEVEL(280.0),
+    	BANK_SHOT_LEVEL(325.0),
     	UPPER_LIMIT(350.0);
     	
     	public final double angle;

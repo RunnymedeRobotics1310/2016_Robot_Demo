@@ -30,16 +30,16 @@ public class OI {
 		
 		//Operator Controls
 		SHOOT_BOULDER(Button.BUTTON1),
-		WIND_UP_SHOOTER(Button.BUTTON2), 
-		WIND_UP_BANK_SHOT(Button.BUTTON3), 
-		CLIMB(Button.BUTTON7),
-		PORTCULLIS_OPEN(Button.BUTTON5),
+		WIND_UP_SHOOTER(Button.BUTTON2),
+		WIND_UP_BANK_SHOT(Button.BUTTON3),
+		//PORTCULLIS_OPEN(Button.BUTTON5),
 		ARM_PID_OVERRIDE(Button.BUTTON6),
+		CLIMB(Button.BUTTON7),
 		SCISSOR_RELEASE(Button.BUTTON8),
-		ROTATE_ARM_MIN_POS(Button.BUTTON9),
-		ROTATE_ARM_LOW_POS(Button.BUTTON10),
-		ROTATE_ARM_DRIVE_POS(Button.BUTTON11),
-		ROTATE_ARM_PORTCULLIS_POS(Button.BUTTON12);
+		//ROTATE_ARM_MIN_POS(Button.BUTTON9),
+		ROTATE_ARM_PICKUP_POS(Button.BUTTON11),
+		ROTATE_ARM_DRIVE_POS(Button.BUTTON12),
+		/*ROTATE_ARM_PORTCULLIS_POS(Button.BUTTON12)*/;
 		
 		private Button button;
 
@@ -127,12 +127,12 @@ public class OI {
 		return driverStick.getButton(Button.A);
 	}
 	
-	public boolean getRotateArmMinPosButton() {
+	/*public boolean getRotateArmMinPosButton() {
 		return operatorStick.getButton(ButtonMap.ROTATE_ARM_MIN_POS.getButton());
-	}
+	}*/
 	
 	public boolean getRotateArmLowPosButton() {
-		return operatorStick.getButton(ButtonMap.ROTATE_ARM_LOW_POS.getButton());
+		return operatorStick.getButton(ButtonMap.ROTATE_ARM_PICKUP_POS.getButton());
 	}
 	
 	public boolean getRotateArmDrivePosButton() {
@@ -144,9 +144,9 @@ public class OI {
 	}
 	
 	public double getArmAngle() {
-		if (getRotateArmMinPosButton()) {
+		/*if (getRotateArmMinPosButton()) {
 			return RobotMap.ArmLevel.GROUND_LEVEL.angle;
-		}
+		}*/
 		if (getRotateArmLowPosButton()) {
 			return RobotMap.ArmLevel.LOW_LEVEL.angle;
 		}
@@ -170,9 +170,9 @@ public class OI {
 	}
 
 	
-	public boolean getPortcullisOpenButton() {
+	/*public boolean getPortcullisOpenButton() {
 		return operatorStick.getButton(ButtonMap.PORTCULLIS_OPEN.getButton());
-	}
+	}*/
 	
 	public boolean getClimbButton() {
 		return operatorStick.getButton(ButtonMap.CLIMB.getButton()); 

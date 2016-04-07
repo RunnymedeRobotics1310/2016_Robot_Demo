@@ -6,9 +6,9 @@ import robot.Field.Defense;
 import robot.Field.Goal;
 import robot.Field.Lane;
 import robot.Field.Slot;
+import robot.Field.Target;
 import robot.RobotMap;
-import robot.commands.auto.AutoDriveAndShootHighCommand;
-import robot.commands.auto.AutoDriveAndShootLowCommand;
+import robot.commands.auto.AutoDriveAndShootCommand;
 import robot.commands.auto.base.DriveToProximity;
 import robot.utils.R_Extreme3DPro_GameController;
 import robot.utils.R_GameController;
@@ -242,10 +242,8 @@ public class OI {
 		switch (autoChooser.getAutoMode()) {
 		case "Do Nothing":
 			return null;
-		case "Drive and Shoot High":
-			return new AutoDriveAndShootHighCommand(getSlot(), getDefense(), getLane(), getGoal());
-		case "Drive and Shoot Low":
-			return new AutoDriveAndShootLowCommand(getSlot(), getDefense(), getLane(), getGoal());
+		case "Drive and Shoot":
+			return new AutoDriveAndShootCommand(getSlot(), getDefense(), getLane(), getTarget(), getGoal());
 		case "Drive to Proximity":
 			return new DriveToProximity(0.5, 0);
 		default:
@@ -267,6 +265,10 @@ public class OI {
 
 	public Goal getGoal() {
 		return Goal.toEnum(autoChooser.getSelectedGoal());
+	}
+	
+	public Target getTarget() {
+		return Target.toEnum(autoChooser.getSelectedTarget());
 	}
 
 	/**

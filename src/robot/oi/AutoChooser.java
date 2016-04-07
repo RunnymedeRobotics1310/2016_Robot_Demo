@@ -6,28 +6,28 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class AutoChooser {
 
 	public enum AutoMode {
-		DO_NOTHING, DRIVE_AND_SHOOT;
+		DO_NOTHING, 
+		DRIVE_AND_SHOOT;
 	}
+	
 	SendableChooser autoModeChooser = new SendableChooser();
 	SendableChooser laneChooser = new SendableChooser();
 	SendableChooser defenceChooser = new SendableChooser();
 	SendableChooser distanceChooser = new SendableChooser();
+	SendableChooser targetChooser = new SendableChooser();
 	SendableChooser goalChooser = new SendableChooser();
 
 	public AutoChooser() {
-		autoModeChooser.addDefault("Drive and Shoot Low",  "Drive and Shoot Low");
-		autoModeChooser.addObject("Drive and Shoot High", "Drive and Shoot High");
+		autoModeChooser.addDefault("Drive and Shoot",  "Drive and Shoot");
 		autoModeChooser.addObject("Do nothing", "Do Nothing");
 
-		autoModeChooser.addObject("Drive to Proximity", "Drive to Proximity");
-
-		laneChooser.addObject("1", 1);
+		laneChooser.addDefault("1", 1);
 		laneChooser.addObject("2", 2);
 		laneChooser.addObject("3", 3);
 		laneChooser.addObject("4", 4);
 		laneChooser.addObject("5", 5);
 
-		defenceChooser.addObject("Low Bar",         "Low Bar");
+		defenceChooser.addDefault("Low Bar",         "Low Bar");
 		defenceChooser.addObject("Ramparts",        "Ramparts");
 		defenceChooser.addObject("Moat",            "Moat");
 		defenceChooser.addObject("Rock Wall",       "Rock Wall");
@@ -35,17 +35,21 @@ public class AutoChooser {
 		defenceChooser.addObject("Portcullis",      "Portcullis");
 		defenceChooser.addObject("Cheval de Frise", "Cheval de Frise");
 
-		distanceChooser.addObject("Close", "Close");
+		distanceChooser.addDefault("Close", "Close");
 		distanceChooser.addObject("Far",   "Far");
 
-		goalChooser.addObject("Left",   "Left");
-		goalChooser.addObject("Center", "Center");
-		goalChooser.addObject("Right",  "Right");
+		targetChooser.addDefault("Left",   "Left");
+		targetChooser.addObject("Center", "Center");
+		targetChooser.addObject("Right",  "Right");
+		
+		goalChooser.addDefault("High", "High");
+		goalChooser.addObject("Low", "Low");
 
 		SmartDashboard.putData("Auto mode",     autoModeChooser);
 		SmartDashboard.putData("Slot position", laneChooser);
 		SmartDashboard.putData("Defences",      defenceChooser);
 		SmartDashboard.putData("Distance",      distanceChooser);
+		SmartDashboard.putData("Target",        targetChooser);
 		SmartDashboard.putData("Goal",          goalChooser);
 	}
 	
@@ -77,11 +81,20 @@ public class AutoChooser {
 		return (String) distanceChooser.getSelected();
 	}
 
+	
+	/**
+	 * 
+	 * @return The selected target, as a string
+	 */
+	public String getSelectedTarget(){
+		return (String) targetChooser.getSelected();
+	}
+	
 	/**
 	 * 
 	 * @return The selected goal, as a String
 	 */
 	public String getSelectedGoal() {
-		return (String) goalChooser.getSelected();
+		return (String) targetChooser.getSelected();
 	}
 }

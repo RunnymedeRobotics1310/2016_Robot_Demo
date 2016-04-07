@@ -10,8 +10,9 @@ public class CrossLowBarCommand extends CommandGroup {
 
 	public CrossLowBarCommand() {
 		addSequential(new SetArmLevelCommand(ArmLevel.LOW_LEVEL));
-		addSequential(new DriveToProximity(0.5, 0));
-		addSequential(new DriveToDistance(0.5, 0, 110));
-		addSequential(new SetArmLevelCommand(ArmLevel.DRIVE_LEVEL));
+		addSequential(new DriveToProximity(0.7, 0));
+		addSequential(new DriveToDistance(0.7, 0, 30));
+		addParallel(new SetArmLevelCommand(ArmLevel.DRIVE_LEVEL));
+		addSequential(new DriveToDistance(0.7, 0, 90));
 	}
 }

@@ -37,8 +37,8 @@ public class OI {
 		CLIMB(Button.BUTTON7),
 		SCISSOR_RELEASE(Button.BUTTON8),
 		//ROTATE_ARM_MIN_POS(Button.BUTTON9),
-		ROTATE_ARM_PICKUP_POS(Button.BUTTON11),
-		ROTATE_ARM_DRIVE_POS(Button.BUTTON12),
+		ROTATE_ARM_PICKUP_POS(Button.BUTTON12),
+		ROTATE_ARM_DRIVE_POS(Button.BUTTON11),
 		/*ROTATE_ARM_PORTCULLIS_POS(Button.BUTTON12)*/;
 		
 		private Button button;
@@ -139,9 +139,9 @@ public class OI {
 		return operatorStick.getButton(ButtonMap.ROTATE_ARM_DRIVE_POS.getButton());
 	}
 	
-	public boolean getRotateArmPortcullisPosButton() {
-		return operatorStick.getButton(ButtonMap.ROTATE_ARM_PORTCULLIS_POS.getButton());
-	}
+	//public boolean getRotateArmPortcullisPosButton() {
+		//return operatorStick.getButton(ButtonMap.ROTATE_ARM_PORTCULLIS_POS.getButton());
+	//}
 	
 	public double getArmAngle() {
 		/*if (getRotateArmMinPosButton()) {
@@ -153,9 +153,10 @@ public class OI {
 		if (getRotateArmDrivePosButton()) {
 			return RobotMap.ArmLevel.DRIVE_LEVEL.angle;
 		}
-		if (getRotateArmPortcullisPosButton()) {
+		/*if (getRotateArmPortcullisPosButton()) {
 			return RobotMap.ArmLevel.PORTCULLIS_LEVEL.angle;
-		}
+			}
+		*/
 
 		return -1.0;
 	}

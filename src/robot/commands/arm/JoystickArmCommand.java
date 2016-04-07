@@ -32,11 +32,11 @@ public class JoystickArmCommand extends Command {
 	    	}
     	}
     	
-    	// Look for the Portcullis command
+    	/* Look for the Portcullis command
     	if (Robot.oi.getPortcullisOpenButton()) {
     		Scheduler.getInstance().add(new PortcullisOpenCommand());
     	}
-    	
+    	*/
     }
 
     // Make this return true when this Command no longer needs to run execute()

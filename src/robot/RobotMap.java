@@ -8,7 +8,7 @@ package robot;
 public class RobotMap {
     private final static boolean inverted = true;
 
-    public final static double ANALOG_OFFSET = 9;
+    public final static double ANALOG_OFFSET = 310;
     
     public enum ArmLevel {
     	GROUND_LEVEL(0.0),

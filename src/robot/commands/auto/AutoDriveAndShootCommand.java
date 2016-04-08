@@ -7,7 +7,9 @@ import robot.Field.Lane;
 import robot.Field.Slot;
 import robot.Field.Target;
 import robot.RobotMap;
+import robot.RobotMap.ArmLevel;
 import robot.RobotMap.UltrasonicDirection;
+import robot.commands.arm.SetArmLevelCommand;
 import robot.commands.auto.base.DriveToDistance;
 import robot.commands.auto.base.DriveToProximity;
 import robot.commands.auto.base.DriveToUltraDistance;
@@ -49,13 +51,25 @@ public class AutoDriveAndShootCommand extends CommandGroup {
 				addSequential(new DriveToProximity(autoSpeed, angle));
 			} else {
 				addSequential(new RotateToAngleCommand(90, 3));
-				addSequential(new DriveToUltraDistance(autoSpeed, 90, 150, UltrasonicDirection.REAR));
+				addSequential(new DriveToUltraDistance(autoSpeed, 90, 200, UltrasonicDirection.REAR));
 				addSequential(new RotateToAngleCommand(0, 3));
 				addSequential(new DriveToProximity(autoSpeed, 0));
 			}
 
 			addSequential(new WaitCommand(0.5));
 			addSequential(new ShootHighGoalCommand());
+
+			if (target != Target.CENTER) {
+				addSequential(new WaitCommand(0.5));
+				addSequential(new RotateToAngleCommand(90, 3));
+				addSequential(new DriveToUltraDistance(autoSpeed, 90, 10, UltrasonicDirection.REAR));
+				addSequential(new RotateToAngleCommand(0, 3));
+				addSequential(new SetArmLevelCommand(ArmLevel.LOW_LEVEL));
+				//addSequential(new DriveToProximity(0.7, 0));
+				addSequential(new DriveToDistance(autoSpeed, 0, -240));
+
+			}
+
 			return;
 
 		case MOAT:

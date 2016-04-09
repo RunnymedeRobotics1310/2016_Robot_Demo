@@ -27,7 +27,7 @@ public class WindupCommand extends Command {
 	}
 
 	protected void execute() {
-		speedSetPointPercent = 0.1 * (-Robot.oi.getShootSpeed() + 1) + 0.8;
+		speedSetPointPercent = 0.7 * (-Robot.oi.getShootSpeed() + 1) + 0.3;
 		Robot.shooterSubsystem.setShooterSpeed(speedSetPointPercent);
 	}
 

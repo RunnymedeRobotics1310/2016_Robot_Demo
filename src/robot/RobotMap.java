@@ -14,7 +14,7 @@ public class RobotMap {
     	GROUND_LEVEL(70.0),
     	LOWER_LIMIT(95.0),
     	LOW_LEVEL(100.0),
-    	INTAKE_LEVEL(125.0),
+    	INTAKE_LEVEL(135.0),
     	PORTCULLIS_LEVEL(165.0),
     	SHOOT_LEVEL(225.0),
     	DRIVE_LEVEL(250.0),

@@ -24,7 +24,7 @@ public class ArmSubsystem extends R_Subsystem {
 	R_PIDInput armPIDInput = new R_PIDInput() {
 		@Override
 		public double pidGet() {
-			return armEncoder.getAngle()-RobotMap.ArmLevel.LOWER_LIMIT.getAngle() / 
+			return (armEncoder.getAngle()-RobotMap.ArmLevel.LOWER_LIMIT.getAngle()) / 
 					(RobotMap.ArmLevel.UPPER_LIMIT.getAngle()-RobotMap.ArmLevel.LOWER_LIMIT.getAngle());
 		}
 	};
@@ -39,7 +39,7 @@ public class ArmSubsystem extends R_Subsystem {
 		}
 	};
 	
-	R_PIDController armPID = new R_PIDController(2.0, 0.0, 0.0, 0.0, armPIDInput, armPIDOutput);
+	R_PIDController armPID = new R_PIDController(3.0, 0.0, 0.0, 0.0, armPIDInput, armPIDOutput);
 
 	private boolean armDeployed = false;
 
@@ -69,7 +69,7 @@ public class ArmSubsystem extends R_Subsystem {
 		SmartDashboard.putNumber("Arm Encoder Angle", armEncoder.getAngle());
 		SmartDashboard.putBoolean("Arm Max Limit Switch", armUpperLimitSwitch.get());
 		SmartDashboard.putBoolean("Arm Min Limit Switch", armLowerLimitSwitch.get());
-		//SmartDashboard.putData("Arm PID", armPID);
+		SmartDashboard.putData("Arm PID", armPID);
 	}
 
 	/**
@@ -126,9 +126,8 @@ public class ArmSubsystem extends R_Subsystem {
 	}
 
 	public void setArmAngle(double armAngle) {
-
 		// Set the arm to the appropriate angle and hold with a PID.
-		armPID.setSetpoint(armAngle-RobotMap.ArmLevel.LOWER_LIMIT.getAngle() /
+		armPID.setSetpoint((armAngle-RobotMap.ArmLevel.LOWER_LIMIT.getAngle()) /
 				(RobotMap.ArmLevel.UPPER_LIMIT.getAngle()-RobotMap.ArmLevel.LOWER_LIMIT.getAngle()));
 		if (!armPID.isEnabled()) {
 			armPID.enable();

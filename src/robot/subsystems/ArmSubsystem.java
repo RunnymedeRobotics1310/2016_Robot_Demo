@@ -24,7 +24,8 @@ public class ArmSubsystem extends R_Subsystem {
 	R_PIDInput armPIDInput = new R_PIDInput() {
 		@Override
 		public double pidGet() {
-			return armEncoder.getAngle() / RobotMap.ArmLevel.UPPER_LIMIT.getAngle();
+			return armEncoder.getAngle()-RobotMap.ArmLevel.LOWER_LIMIT.getAngle() / 
+					(RobotMap.ArmLevel.UPPER_LIMIT.getAngle()-RobotMap.ArmLevel.LOWER_LIMIT.getAngle());
 		}
 	};
 
@@ -127,7 +128,8 @@ public class ArmSubsystem extends R_Subsystem {
 	public void setArmAngle(double armAngle) {
 
 		// Set the arm to the appropriate angle and hold with a PID.
-		armPID.setSetpoint(armAngle / RobotMap.ArmLevel.UPPER_LIMIT.getAngle());
+		armPID.setSetpoint(armAngle-RobotMap.ArmLevel.LOWER_LIMIT.getAngle() /
+				(RobotMap.ArmLevel.UPPER_LIMIT.getAngle()-RobotMap.ArmLevel.LOWER_LIMIT.getAngle()));
 		if (!armPID.isEnabled()) {
 			armPID.enable();
 		}

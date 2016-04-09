@@ -10,7 +10,6 @@ import robot.oi.OI;
 import robot.pids.GoStraightPID;
 import robot.pids.PivotPID;
 import robot.subsystems.ArmSubsystem;
-import robot.subsystems.CameraSubsystem;
 import robot.subsystems.ChassisSubsystem;
 import robot.subsystems.ClimberSubsystem;
 import robot.subsystems.ShooterSubsystem;
@@ -30,7 +29,7 @@ public class Robot extends IterativeRobot {
 	public static final ShooterSubsystem shooterSubsystem = new ShooterSubsystem();
 	public static final ArmSubsystem armSubsystem = new ArmSubsystem();
 	public static final ClimberSubsystem climberSubsystem = new ClimberSubsystem();
-	public static final CameraSubsystem cameraSubsystem = new CameraSubsystem();
+//	public static final CameraSubsystem cameraSubsystem = new CameraSubsystem();
 
 	public static OI oi;
 
@@ -83,7 +82,7 @@ public class Robot extends IterativeRobot {
         // Add all the subsystems to the subsystem list.
         subsystemList.add(chassisSubsystem);
         subsystemList.add(shooterSubsystem);
-        subsystemList.add(cameraSubsystem);
+//        subsystemList.add(cameraSubsystem);
         subsystemList.add(armSubsystem);
         
         for (R_Subsystem s: subsystemList) {

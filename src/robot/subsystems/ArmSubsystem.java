@@ -55,9 +55,9 @@ public class ArmSubsystem extends R_Subsystem {
 //		if (!getArmLowerLimit()) {
 //			armEncoder.setEncoderAngle(RobotMap.ArmLevel.LOWER_LIMIT.angle);
 //		}
-//		if (!getArmUpperLimit()) {
-//			armEncoder.setEncoderAngle(RobotMap.ArmLevel.UPPER_LIMIT.angle);
-//		}
+		if (!getArmUpperLimit()) {
+			armEncoder.setEncoderAngle(RobotMap.ArmLevel.UPPER_LIMIT.angle);
+		}
 		armPID.calculate();
 	}
 

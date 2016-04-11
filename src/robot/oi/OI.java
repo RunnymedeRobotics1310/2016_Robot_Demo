@@ -27,6 +27,8 @@ public class OI {
 		RESET_GYRO(Button.BACK),
 		CALIBRATE_GYRO(Button.START),
 		CANCEL_COMMAND(Button.X),
+
+
 		
 		//Operator Controls
 		SHOOT_BOULDER(Button.BUTTON1),
@@ -127,9 +129,9 @@ public class OI {
 		return driverStick.getButton(Button.A);
 	}
 	
-	/*public boolean getRotateArmMinPosButton() {
-		return operatorStick.getButton(ButtonMap.ROTATE_ARM_MIN_POS.getButton());
-	}*/
+	//public boolean getRotateArmMinPosButton() {
+	//	return operatorStick.getButton(ButtonMap.ROTATE_ARM_MIN_POS.getButton());
+	//}
 	
 	public boolean getRotateArmLowPosButton() {
 		return operatorStick.getButton(ButtonMap.ROTATE_ARM_PICKUP_POS.getButton());

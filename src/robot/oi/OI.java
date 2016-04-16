@@ -22,8 +22,8 @@ import robot.utils.R_GameControllerFactory;
 
 public class OI {
 	
-	public NetworkTable table;
-	public NetworkTableOI networkTableOI = new NetworkTableOI();
+	private NetworkTable table;
+	private NetworkTableOI networkTableOI = new NetworkTableOI();
 	
 	public OI() {
 		table = NetworkTable.getTable("GRIP/TargetInfo");
@@ -291,6 +291,16 @@ public class OI {
 	public Target getTarget() {
 		return Target.toEnum(autoChooser.getSelectedTarget());
 	}
+
+	
+    public double getVisionTargetCenter() {
+    	double [] xValues = table.getNumberArray("centerX", new double [0]);
+    	if (xValues.length != 1) {
+    		return RobotMap.NO_VISION_TARGET;
+    	}
+    	return xValues[0];
+    }
+
 
 	/**
 	 * Update the periodic running elements of the dashboard

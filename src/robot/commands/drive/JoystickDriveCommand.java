@@ -4,10 +4,10 @@ package robot.commands.drive;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import robot.Robot;
+import robot.RobotMap;
 import robot.commands.auto.base.TurnDriveToDistance;
 import robot.commands.drive.RotateFixedCommand.Direction;
 import robot.oi.OI.Nudge;
-import robot.pids.PivotPID;
 import robot.pids.TurnGoStraightPID;
 import robot.subsystems.ChassisSubsystem.Gear;
 
@@ -16,12 +16,16 @@ import robot.subsystems.ChassisSubsystem.Gear;
  */
 public class JoystickDriveCommand extends Command {
 
+	private static final double IMAGE_CENTER      = RobotMap.CAMERA_PIXEL_WIDTH/2;
+	private static final double DEGREES_PER_PIXEL = 47/RobotMap.CAMERA_PIXEL_WIDTH;
+
 	public JoystickDriveCommand() {
 		requires(Robot.chassisSubsystem);
 	}
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
+
 	}
 
 	// Called repeatedly when this Command is scheduled to run
@@ -81,14 +85,12 @@ public class JoystickDriveCommand extends Command {
 			return;
 		}*/
 		
-		double defaultValue = 0;
-		double width  = Robot.oi.table.getNumber("width", defaultValue);
-		double centerX = Robot.oi.table.getNumber("centerX", defaultValue);
+
+		double targetCenterX = Robot.oi.getVisionTargetCenter();
 		
-		double half = width/2;
-		double centreCoordinate = centerX - half;
-		double degreePerPixel = 47/width;
-		double angle = centreCoordinate * degreePerPixel;
+		double pixelDifference = targetCenterX - IMAGE_CENTER;
+		double angle = pixelDifference * DEGREES_PER_PIXEL;
+		
 		System.out.println("Angle: " + angle);
 		
 		if(Robot.oi.getAlignShotButton()) {

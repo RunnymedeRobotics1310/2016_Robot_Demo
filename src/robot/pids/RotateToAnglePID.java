@@ -6,7 +6,7 @@ import robot.Robot;
 import robot.utils.R_PIDController;
 import robot.utils.R_PIDInput;
 
-public class PivotPID {
+public class RotateToAnglePID {
 
 	/*
 	 * Angle PID Controller
@@ -14,14 +14,14 @@ public class PivotPID {
 	 * The angle PID controller is declared as static so that they can be
 	 * adjusted in the SmartDashboard
 	 */
-	private static R_PIDInput pivotPIDInput = new R_PIDInput() {
+	private static R_PIDInput rotateToAnglePIDInput = new R_PIDInput() {
 		@Override
 		public double pidGet() {
 			return -Robot.chassisSubsystem.getAngleDifference(angleSetpoint) / 180.0;
 		}
 	};
 
-	private static PIDOutput pivotPIDOutput = new PIDOutput() {
+	private static PIDOutput rotateToAnglePIDOutput = new PIDOutput() {
 		@Override
 		public void pidWrite(double output) {
 			pidOutputValue = output;
@@ -32,19 +32,19 @@ public class PivotPID {
 	private static double pidOutputValue = 0.0;
 
 	// TODO Verify this values are correct
-	private static R_PIDController pivotPIDController = new R_PIDController(5.0, 0, 0.0, 1.0, pivotPIDInput,
-			pivotPIDOutput);
+	private static R_PIDController rotateToAnglePIDController = new R_PIDController(5.0, 0, 0.0, 1.0, rotateToAnglePIDInput,
+			rotateToAnglePIDOutput);
 
 	public static void setEnabled(boolean enabled) {
 		if (enabled) {
-			pivotPIDController.enable();
+			rotateToAnglePIDController.enable();
 		} else {
-			pivotPIDController.reset();
+			rotateToAnglePIDController.reset();
 		}
 	}
 
 	public static boolean isEnabled() {
-		return pivotPIDController.isEnabled();
+		return rotateToAnglePIDController.isEnabled();
 	}
 
 	public static double getOutput() {
@@ -56,11 +56,11 @@ public class PivotPID {
 	}
 
 	public static void periodic() {
-		pivotPIDController.calculate();
+		rotateToAnglePIDController.calculate();
 	}
 
 	public static void updateDashboard() {
-		SmartDashboard.putData("PivotPID", pivotPIDController);
+		SmartDashboard.putData("RotateToAnglePID", rotateToAnglePIDController);
 	}
 
 }

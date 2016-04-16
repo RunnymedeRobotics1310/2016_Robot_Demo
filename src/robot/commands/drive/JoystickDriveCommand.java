@@ -5,10 +5,8 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import robot.Robot;
 import robot.RobotMap;
-import robot.commands.auto.base.TurnDriveToDistance;
 import robot.commands.drive.RotateFixedCommand.Direction;
 import robot.oi.OI.Nudge;
-import robot.pids.TurnGoStraightPID;
 import robot.subsystems.ChassisSubsystem.Gear;
 
 /**
@@ -16,8 +14,8 @@ import robot.subsystems.ChassisSubsystem.Gear;
  */
 public class JoystickDriveCommand extends Command {
 
-	private static final double IMAGE_CENTER      = RobotMap.CAMERA_PIXEL_WIDTH/2;
-	private static final double DEGREES_PER_PIXEL = 47/RobotMap.CAMERA_PIXEL_WIDTH;
+	private static final double IMAGE_CENTER      = RobotMap.CAMERA_PIXEL_WIDTH / 2.0;
+	private static final double DEGREES_PER_PIXEL = 47.0 / RobotMap.CAMERA_PIXEL_WIDTH;
 
 	public JoystickDriveCommand() {
 		requires(Robot.chassisSubsystem);
@@ -30,7 +28,7 @@ public class JoystickDriveCommand extends Command {
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		TurnGoStraightPID.updateDashboard();
+
 		double speed = Robot.oi.getSpeed();
 		double turn = Robot.oi.getTurn();
 		double leftSpeed;
@@ -88,14 +86,13 @@ public class JoystickDriveCommand extends Command {
 
 		double targetCenterX = Robot.oi.getVisionTargetCenter();
 		
-		double pixelDifference = targetCenterX - IMAGE_CENTER;
-		double angle = pixelDifference * DEGREES_PER_PIXEL;
+		double pixelDifference = targetCenterX - 103.0;
+		double angleDifference = pixelDifference * DEGREES_PER_PIXEL;
 		
-		System.out.println("Angle: " + angle);
-		
-		if(Robot.oi.getAlignShotButton()) {
-			System.out.println("Pivoting");
-			Scheduler.getInstance().add(new TurnDriveToDistance(0.5,45,0));
+		if(Robot.oi.getAlignShotButton() && targetCenterX != RobotMap.NO_VISION_TARGET) {
+			System.out.println("Pivoting" + " PxDiff " + pixelDifference + " angle: " + Robot.chassisSubsystem.getCurrentAngle() + " angleDif: " + angleDifference);
+			Scheduler.getInstance().add(
+					new RotateToAngleWithPIDCommand(Robot.chassisSubsystem.getCurrentAngle() + angleDifference));
 			return;
 		}
 		 

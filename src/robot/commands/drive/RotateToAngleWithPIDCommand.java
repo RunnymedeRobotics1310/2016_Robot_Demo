@@ -3,25 +3,25 @@ package robot.commands.drive;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import robot.Robot;
-import robot.pids.PivotPID;
+import robot.pids.RotateToAnglePID;
 
 /**
  *
  */
-public class PivotToAngleCommand extends Command {
+public class RotateToAngleWithPIDCommand extends Command {
 
 	double angleSetpoint;
 
-	public PivotToAngleCommand(double angle) {
+	public RotateToAngleWithPIDCommand(double angle) {
 		requires(Robot.chassisSubsystem);
-		this.angleSetpoint = Robot.chassisSubsystem.getCurrentAngle() + angle;
+		this.angleSetpoint = angle;
 	}
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
-		PivotPID.setEnabled(false);
-		PivotPID.setSetpoint(angleSetpoint);
-		PivotPID.setEnabled(true);
+		RotateToAnglePID.setEnabled(false);
+		RotateToAnglePID.setSetpoint(angleSetpoint);
+		RotateToAnglePID.setEnabled(true);
 	}
 
 	// Called repeatedly when this Command is scheduled to run
@@ -29,48 +29,42 @@ public class PivotToAngleCommand extends Command {
 		double leftSpeed;
 		double rightSpeed;
 
-		System.out.println("Setpoint:" + angleSetpoint);
-		System.out.println("Difference:" + -Robot.chassisSubsystem.getAngleDifference(angleSetpoint));
-		System.out.println("PIDOutput:" + PivotPID.getOutput());
-		
-		/*
 		SmartDashboard.putNumber("Angle setpoint", angleSetpoint);
 		SmartDashboard.putNumber("Angle difference", -Robot.chassisSubsystem.getAngleDifference(angleSetpoint));
-		SmartDashboard.putNumber("AnglePIDOutput", PivotPID.getOutput());
-		*/
+		SmartDashboard.putNumber("AnglePIDOutput", RotateToAnglePID.getOutput());
 
-		double turn = PivotPID.getOutput();
+		double turn = RotateToAnglePID.getOutput();
 		
 		if(turn > 0) {
 			leftSpeed = turn;
-			rightSpeed = 0;
-		}
-		else if (turn < 0) {
-			leftSpeed = 0;
 			rightSpeed = -turn;
 		}
-		else {
+		else if (turn < 0) {
 			leftSpeed = turn;
 			rightSpeed = -turn;
 		}
+		else {
+			leftSpeed = 0;
+			rightSpeed = 0;
+		}
 
-		System.out.println("Pivoting");
 		Robot.chassisSubsystem.setSpeed(leftSpeed, rightSpeed);
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
-		double turn = Robot.oi.getTurn();
-		if (Math.abs(turn) < 0.03) {
+		double error =  -Robot.chassisSubsystem.getAngleDifference(angleSetpoint);
+		if (Math.abs(error) < 0.10) {
 			return true;
 		}
+		if (Robot.oi.getNoLongerAlignShotButton()) { return true; }
+		
 		return false;
-
 	}
 
 	// Called once after isFinished returns true
 	protected void end() {
-		PivotPID.setEnabled(false);
+		RotateToAnglePID.setEnabled(false);
 		/*
 		 * Note: added motor stop incase it's not called by a separate command
 		 * as in AutoGoStraightCommand calling GoStraightCommand

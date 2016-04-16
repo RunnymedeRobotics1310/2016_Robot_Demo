@@ -10,7 +10,7 @@ public class RobotMap {
 
     public final static double ANALOG_OFFSET = 310;
     
-    public final static double CAMERA_PIXEL_WIDTH = 320;
+    public final static double CAMERA_PIXEL_WIDTH = 320.0;
     public final static double NO_VISION_TARGET = -1;
     
     public enum ArmLevel {

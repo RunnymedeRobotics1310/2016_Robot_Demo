@@ -319,6 +319,8 @@ public class OI {
 	public void updateDashboard() {
 		SmartDashboard.putString("Driver Controllers", driverStick.toString());
 		SmartDashboard.putString("Operator Controllers", operatorStick.toString());
+		SmartDashboard.putNumber("Vision Target Center", getVisionTargetCenter());
+		SmartDashboard.putBoolean("Target Lock", (getVisionTargetCenter() != RobotMap.NO_VISION_TARGET));
 	}
 	
 }

@@ -8,8 +8,7 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import robot.oi.OI;
 import robot.pids.GoStraightPID;
-import robot.pids.PivotPID;
-import robot.pids.TurnGoStraightPID;
+import robot.pids.RotateToAnglePID;
 import robot.subsystems.ArmSubsystem;
 import robot.subsystems.ChassisSubsystem;
 import robot.subsystems.ClimberSubsystem;
@@ -127,8 +126,7 @@ public class Robot extends IterativeRobot {
         
         // Command PID updates
         GoStraightPID.periodic();
-        TurnGoStraightPID.periodic();
-        PivotPID.periodic();
+        RotateToAnglePID.periodic();
     }
 
     private void updateDashboard() {
@@ -139,6 +137,7 @@ public class Robot extends IterativeRobot {
         oi.updateDashboard();
 
         GoStraightPID.updateDashboard();
+        RotateToAnglePID.updateDashboard();
         // Put the currently scheduled commands on the dashboard
         //SmartDashboard.putData("SchedulerCommands", Scheduler.getInstance());
     }

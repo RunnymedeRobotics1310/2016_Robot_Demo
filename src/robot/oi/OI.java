@@ -1,6 +1,8 @@
+
 package robot.oi;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import robot.Field.Defense;
 import robot.Field.Goal;
@@ -20,6 +22,13 @@ import robot.utils.R_GameControllerFactory;
 
 public class OI {
 	
+	public NetworkTable table;
+	public NetworkTableOI networkTableOI = new NetworkTableOI();
+	
+	public OI() {
+		table = NetworkTable.getTable("GRIP/TargetInfo");
+	}
+	
 	public enum ButtonMap  {
 		//Driver Controls
 		OUTER_INTAKE_BOULDER(Button.LEFT_BUMPER),
@@ -34,7 +43,8 @@ public class OI {
 		SHOOT_BOULDER(Button.BUTTON1),
 		WIND_UP_SHOOTER(Button.BUTTON2),
 		WIND_UP_BANK_SHOT(Button.BUTTON3),
-		//PORTCULLIS_OPEN(Button.BUTTON5),
+		SHOT_ALIGN(Button.BUTTON4),
+		SHOT_NO_LONGER_ALIGN(Button.BUTTON5),
 		ARM_PID_OVERRIDE(Button.BUTTON6),
 		CLIMB(Button.BUTTON7),
 		SCISSOR_RELEASE(Button.BUTTON8),
@@ -92,6 +102,15 @@ public class OI {
 	private boolean operatorStickPreviouslyCentered = false;
 	
 	private AutoChooser autoChooser = new AutoChooser();
+	
+	public boolean getNoLongerAlignShotButton() {
+		return operatorStick.getButton(ButtonMap.SHOT_NO_LONGER_ALIGN.getButton());
+	}
+	
+	public boolean getAlignShotButton() {
+		return operatorStick.getButton(ButtonMap.SHOT_ALIGN.getButton());
+	}
+	
 
 	public boolean getOuterIntakeBoulderButton() {
 		return driverStick.getButton(ButtonMap.OUTER_INTAKE_BOULDER.getButton());

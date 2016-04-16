@@ -4,8 +4,11 @@ package robot.commands.drive;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import robot.Robot;
+import robot.commands.auto.base.TurnDriveToDistance;
 import robot.commands.drive.RotateFixedCommand.Direction;
 import robot.oi.OI.Nudge;
+import robot.pids.PivotPID;
+import robot.pids.TurnGoStraightPID;
 import robot.subsystems.ChassisSubsystem.Gear;
 
 /**
@@ -23,6 +26,7 @@ public class JoystickDriveCommand extends Command {
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
+		TurnGoStraightPID.updateDashboard();
 		double speed = Robot.oi.getSpeed();
 		double turn = Robot.oi.getTurn();
 		double leftSpeed;
@@ -66,6 +70,32 @@ public class JoystickDriveCommand extends Command {
 			Scheduler.getInstance().add(new GoStraightCommand(Robot.chassisSubsystem.getCurrentAngle())); 
 			return;
 		}*/
+		
+		/*double defaultValue = 0;
+		Robot.chassisSubsystem.resetGyroHeading();
+		double angle = Robot.oi.table.getNumber("angle", defaultValue);
+		System.out.println(angle);
+		
+		if(Robot.oi.getAlignShotButton()) {
+			Scheduler.getInstance().add(new PivotToAngleCommand(angle));
+			return;
+		}*/
+		
+		double defaultValue = 0;
+		double width  = Robot.oi.table.getNumber("width", defaultValue);
+		double centerX = Robot.oi.table.getNumber("centerX", defaultValue);
+		
+		double half = width/2;
+		double centreCoordinate = centerX - half;
+		double degreePerPixel = 47/width;
+		double angle = centreCoordinate * degreePerPixel;
+		System.out.println("Angle: " + angle);
+		
+		if(Robot.oi.getAlignShotButton()) {
+			System.out.println("Pivoting");
+			Scheduler.getInstance().add(new TurnDriveToDistance(0.5,45,0));
+			return;
+		}
 		 
 		// Use the driver input to set the speed and direction.
 		if (Math.abs(speed) < 0.03) {

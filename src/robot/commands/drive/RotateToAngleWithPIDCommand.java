@@ -58,7 +58,6 @@ public class RotateToAngleWithPIDCommand extends Command {
 			return true;
 		}
 		if (Robot.oi.getNoLongerAlignShotButton()) { return true; }
-		
 		return false;
 	}
 

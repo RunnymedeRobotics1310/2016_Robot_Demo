@@ -1,8 +1,6 @@
 package robot.utils;
 
 import edu.wpi.first.wpilibj.Joystick;
-import robot.utils.R_GameController.Axis;
-import robot.utils.R_GameController.Button;
 
 public class R_Extreme3DPro_GameController extends R_GameController {
 

@@ -22,11 +22,10 @@ import robot.utils.R_GameControllerFactory;
 
 public class OI {
 	
-	private NetworkTable table;
-	private NetworkTableOI networkTableOI = new NetworkTableOI();
+	private NetworkTable visionTable;
 	
 	public OI() {
-		table = NetworkTable.getTable("GRIP/TargetInfo");
+		visionTable = NetworkTable.getTable("GRIP/TargetInfo");
 	}
 	
 	public enum ButtonMap  {
@@ -36,8 +35,6 @@ public class OI {
 		RESET_GYRO(Button.BACK),
 		CALIBRATE_GYRO(Button.START),
 		CANCEL_COMMAND(Button.X),
-
-
 		
 		//Operator Controls
 		SHOOT_BOULDER(Button.BUTTON1),
@@ -294,7 +291,7 @@ public class OI {
 
 	
     public double getVisionTargetCenter() {
-    	double [] xValues = table.getNumberArray("centerX", new double [0]);
+    	double [] xValues = visionTable.getNumberArray("centerX", new double [0]);
     	if (xValues.length != 1) {
     		return RobotMap.NO_VISION_TARGET;
     	}

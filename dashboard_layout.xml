@@ -1,0 +1,203 @@
+<xml version="1.0">
+<dashboard>
+	<widget field="Angle Rate" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="721"/>
+	</widget>
+	<widget field="Left Motor" type="Speed Controller" class="edu.wpi.first.smartdashboard.livewindow.elements.SpeedController">
+		<location x="202" y="823"/>
+	</widget>
+	<widget field="Right Limit Switch" type="Digital Input" class="edu.wpi.first.smartdashboard.livewindow.elements.DigitalInputDisplay">
+		<location x="0" y="700"/>
+	</widget>
+	<widget field="Right Motor" type="Speed Controller" class="edu.wpi.first.smartdashboard.livewindow.elements.SpeedController">
+		<location x="156" y="776"/>
+	</widget>
+	<widget field="Left Limit Switch" type="Digital Input" class="edu.wpi.first.smartdashboard.livewindow.elements.DigitalInputDisplay">
+		<location x="0" y="679"/>
+	</widget>
+	<widget field="Right Encoder" type="Quadrature Encoder" class="edu.wpi.first.smartdashboard.livewindow.elements.EncoderDisplay">
+		<location x="156" y="677"/>
+	</widget>
+	<widget field="Center Limit Switch" type="Digital Input" class="edu.wpi.first.smartdashboard.livewindow.elements.DigitalInputDisplay">
+		<location x="37" y="21"/>
+	</widget>
+	<widget field="Intake motor" type="Speed Controller" class="edu.wpi.first.smartdashboard.livewindow.elements.SpeedController">
+		<location x="0" y="60"/>
+	</widget>
+	<widget field="Left Encoder" type="Quadrature Encoder" class="edu.wpi.first.smartdashboard.livewindow.elements.EncoderDisplay">
+		<location x="0" y="855"/>
+	</widget>
+	<widget field="RotateToAnglePID" type="PIDController" class="edu.wpi.first.smartdashboard.gui.elements.PIDEditor">
+		<location x="754" y="553"/>
+	</widget>
+	<widget field="Target Lock" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.BooleanBox">
+		<location x="951" y="529"/>
+		<width>165</width>
+		<height>84</height>
+	</widget>
+	<widget field="Vision Target Center" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="1157" y="618"/>
+	</widget>
+	<widget field="TurnAnglePID" type="PIDController" class="edu.wpi.first.smartdashboard.gui.elements.PIDEditor">
+		<location x="692" y="63"/>
+	</widget>
+	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.VideoStreamViewerExtension">
+		<location x="1186" y="18"/>
+		<width>670</width>
+		<height>459</height>
+	</static-widget>
+	<widget field="Rear Ultrasonic Sensor Voltage" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="368" y="515"/>
+	</widget>
+	<widget field="Front Ultrasonic Sensor Voltage" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="368" y="316"/>
+	</widget>
+	<widget field="Target" type="String Chooser" class="edu.wpi.first.smartdashboard.gui.elements.Chooser">
+		<location x="0" y="39"/>
+	</widget>
+	<widget field="Arm Min Limit Switch" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="447" y="494"/>
+	</widget>
+	<widget field="Arm Max Limit Switch" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="441" y="463"/>
+	</widget>
+	<widget field="Rear Ultrasonic Sensor Distance" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="368" y="248"/>
+	</widget>
+	<widget field="Front Ultrasonic Sensor Distance" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="954"/>
+	</widget>
+	<widget field="Number" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="834"/>
+	</widget>
+	<widget field="Encoder Distance" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="203" y="120"/>
+	</widget>
+	<widget field="Proximity Sensor(s) active" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="368" y="649"/>
+	</widget>
+	<widget field="AnglePIDOutput" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="203" y="0"/>
+	</widget>
+	<widget field="Angle difference" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="37" y="0"/>
+	</widget>
+	<widget field="Angle setpoint" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="766"/>
+	</widget>
+	<widget field="Transmission" type="String" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="1400" y="622"/>
+	</widget>
+	<widget field="Shooter Speed PID" type="PIDController" class="edu.wpi.first.smartdashboard.gui.elements.PIDEditor">
+		<location x="199" y="520"/>
+	</widget>
+	<widget field="Intake Speed" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="651" y="432"/>
+	</widget>
+	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.ConnectionIndicator">
+		<location x="4" y="6"/>
+	</static-widget>
+	<widget field="Gyro Angle" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="505" y="174"/>
+	</widget>
+	<widget field="Arm Encoder Voltage" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="451" y="407"/>
+		<width>163</width>
+	</widget>
+	<widget field="Right Encoder Speed" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="215" y="150"/>
+	</widget>
+	<widget field="Gyro Offset" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="505" y="199"/>
+		<width>139</width>
+		<height>20</height>
+	</widget>
+	<widget field="Left Motor PID" type="PIDController" class="edu.wpi.first.smartdashboard.gui.elements.PIDEditor">
+		<location x="4" y="187"/>
+	</widget>
+	<widget field="Operator Controllers" type="String" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="1160" y="523"/>
+		<width>418</width>
+	</widget>
+	<widget field="Distance" type="String Chooser" class="edu.wpi.first.smartdashboard.gui.elements.Chooser">
+		<location x="1044" y="224"/>
+	</widget>
+	<widget field="Goal" type="String Chooser" class="edu.wpi.first.smartdashboard.gui.elements.Chooser">
+		<location x="1109" y="211"/>
+	</widget>
+	<widget field="Gyro" type="Gyro" class="edu.wpi.first.smartdashboard.gui.elements.Compass">
+		<location x="441" y="13"/>
+		<property name="Ring Color" value="51.255.255.255"/>
+	</widget>
+	<widget field="Auto mode" type="String Chooser" class="edu.wpi.first.smartdashboard.gui.elements.Chooser">
+		<location x="764" y="225"/>
+	</widget>
+	<widget field="Raw ultrasonic sensor voltage" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="728" y="18"/>
+	</widget>
+	<widget field="Boulder Loaded" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="654" y="402"/>
+	</widget>
+	<widget field="AnglePID" type="PIDController" class="edu.wpi.first.smartdashboard.gui.elements.PIDEditor">
+		<location x="9" y="522"/>
+	</widget>
+	<widget field="Slot position" type="String Chooser" class="edu.wpi.first.smartdashboard.gui.elements.Chooser">
+		<location x="996" y="186"/>
+	</widget>
+	<widget field="Intake Lock PID Output" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="654" y="377"/>
+	</widget>
+	<widget field="Intake Distance" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="654" y="351"/>
+	</widget>
+	<widget field="Arm Min Height" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="452" y="379"/>
+		<width>162</width>
+	</widget>
+	<widget field="Encoder Speed" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="654" y="522"/>
+		<height>21</height>
+	</widget>
+	<widget field="Shooter Speed" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="654" y="472"/>
+	</widget>
+	<widget field="Intake Lock PID" type="PIDController" class="edu.wpi.first.smartdashboard.gui.elements.PIDEditor">
+		<location x="5" y="356"/>
+	</widget>
+	<widget field="Defences" type="String Chooser" class="edu.wpi.first.smartdashboard.gui.elements.Chooser">
+		<location x="883" y="165"/>
+	</widget>
+	<widget field="Arm Encoder Angle" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="450" y="435"/>
+		<width>164</width>
+	</widget>
+	<widget field="Driver Controllers" type="String" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="1161" y="547"/>
+		<width>418</width>
+	</widget>
+	<widget field="Arm Max Height" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="452" y="352"/>
+	</widget>
+	<widget field="Arm PID" type="PIDController" class="edu.wpi.first.smartdashboard.gui.elements.PIDEditor">
+		<location x="214" y="352"/>
+	</widget>
+	<widget field="Gyro Center" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="501" y="227"/>
+	</widget>
+	<widget field="Ultrasonic Sensor Distance" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="728" y="42"/>
+	</widget>
+	<widget field="Left Encoder Speed" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="3" y="149"/>
+	</widget>
+	<widget field="Right Motor PID" type="PIDController" class="edu.wpi.first.smartdashboard.gui.elements.PIDEditor">
+		<location x="214" y="188"/>
+		<width>138</width>
+	</widget>
+	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.ConnectionIndicator">
+		<location x="4" y="6"/>
+	</static-widget>
+</dashboard>
+<live-window>
+</live-window>
+</xml>

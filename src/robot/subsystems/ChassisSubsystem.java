@@ -99,6 +99,10 @@ public class ChassisSubsystem extends R_Subsystem {
 	public double getCurrentAngle() {
 		return gyro.getAngle();
 	}
+	
+	public double getAngleRate() {
+		return gyro.getRate();
+	}
 
 	public double getAngleDifference(double targetAngle) {
 		return gyro.getAngleDifference(targetAngle);
@@ -278,6 +282,8 @@ public class ChassisSubsystem extends R_Subsystem {
 		SmartDashboard.putNumber("Left Encoder Speed", getLeftEncoderSpeed());
 		SmartDashboard.putNumber("Right Encoder Speed", getRightEncoderSpeed());
 		SmartDashboard.putNumber("Encoder Distance", getEncoderDistance());
+		
+		SmartDashboard.putNumber("Angle Rate", getAngleRate());
 		// SmartDashboard.putData("Ball shifter", ballShifter);
 	}
 }

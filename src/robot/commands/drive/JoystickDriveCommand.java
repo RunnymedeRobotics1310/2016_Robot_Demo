@@ -12,9 +12,8 @@ import robot.subsystems.ChassisSubsystem.Gear;
 
 public class JoystickDriveCommand extends Command {
 
-	private static final double IMAGE_CENTER      = RobotMap.CAMERA_PIXEL_WIDTH / 2.0;
+	private static final double IMAGE_CENTER = RobotMap.CAMERA_PIXEL_WIDTH / 2.0;
 	//Original: 47.0
-	private static final double DEGREES_PER_PIXEL = 0.3074;
 	//0.196875
 
 	public JoystickDriveCommand() {
@@ -85,12 +84,9 @@ public class JoystickDriveCommand extends Command {
 		
 
 		double targetCenterX = Robot.oi.getVisionTargetCenter();
-		double pixelDifference = targetCenterX - 98.0;
-		double angleDifference = pixelDifference * DEGREES_PER_PIXEL;
 		
 		if(Robot.oi.getAlignShotButton() && targetCenterX != RobotMap.NO_VISION_TARGET) {
-			System.out.println("Pivoting" + " PxDiff " + pixelDifference + " angle: " + Robot.chassisSubsystem.getCurrentAngle() + " angleDif: " + angleDifference);
-			Scheduler.getInstance().add(new AlignAndShootHighShotCommand(angleDifference));
+			Scheduler.getInstance().add(new AlignAndShootHighShotCommand(targetCenterX));
 			return;
 		}
 		 

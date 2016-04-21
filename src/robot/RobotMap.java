@@ -12,6 +12,7 @@ public class RobotMap {
     
     public final static double CAMERA_PIXEL_WIDTH = 320.0;
     public final static double NO_VISION_TARGET = -1;
+    public final static double DEGREES_PER_PIXEL = 0.25;
     
     public enum ArmLevel {
     	GROUND_LEVEL(70.0),

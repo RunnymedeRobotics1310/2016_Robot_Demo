@@ -21,7 +21,6 @@ public class RotateToAngleWithPIDCommand extends Command {
 	protected void initialize() {
 		RotateToAnglePID.setEnabled(false);
 		RotateToAnglePID.setSetpoint(angleSetpoint);
-		RotateToAnglePID.setEnabled(true);
 	}
 
 	// Called repeatedly when this Command is scheduled to run
@@ -33,17 +32,25 @@ public class RotateToAngleWithPIDCommand extends Command {
 		SmartDashboard.putNumber("Angle difference", -Robot.chassisSubsystem.getAngleDifference(angleSetpoint));
 		SmartDashboard.putNumber("AnglePIDOutput", RotateToAnglePID.getOutput());
 
-		double turn = RotateToAnglePID.getOutput();
-		
-		if(turn > 0) {
+		double angleDifference = -Robot.chassisSubsystem.getAngleDifference(angleSetpoint);
+		double turn = 0;
+		if (Math.abs(angleDifference) < 10) {
+			RotateToAnglePID.setEnabled(true);
+		}
+
+		if (RotateToAnglePID.isEnabled()) {
+			turn = RotateToAnglePID.getOutput();
+		} else {
+			turn = -0.3 * Math.signum(angleDifference);
+		}
+
+		if (turn > 0) {
 			leftSpeed = turn;
 			rightSpeed = -turn;
-		}
-		else if (turn < 0) {
+		} else if (turn < 0) {
 			leftSpeed = turn;
 			rightSpeed = -turn;
-		}
-		else {
+		} else {
 			leftSpeed = 0;
 			rightSpeed = 0;
 		}
@@ -53,11 +60,13 @@ public class RotateToAngleWithPIDCommand extends Command {
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
-		double error =  -Robot.chassisSubsystem.getAngleDifference(angleSetpoint);
-		if (Math.abs(error) < 0.10) {
+		double error = -Robot.chassisSubsystem.getAngleDifference(angleSetpoint);
+		if (Math.abs(error) < 0.10 && Math.abs(Robot.chassisSubsystem.getAngleRate()) < 1) {
 			return true;
 		}
-		if (Robot.oi.getNoLongerAlignShotButton()) { return true; }
+		if (Robot.oi.getNoLongerAlignShotButton()) {
+			return true;
+		}
 		return false;
 	}
 

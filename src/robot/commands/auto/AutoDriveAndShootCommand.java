@@ -6,6 +6,7 @@ import robot.Field.Goal;
 import robot.Field.Lane;
 import robot.Field.Slot;
 import robot.Field.Target;
+import robot.Robot;
 import robot.RobotMap;
 import robot.RobotMap.ArmLevel;
 import robot.RobotMap.UltrasonicDirection;
@@ -23,6 +24,8 @@ import robot.commands.auto.defenses.CrossRampartsCommand;
 import robot.commands.auto.defenses.CrossRockWallCommand;
 import robot.commands.auto.defenses.CrossRoughTerrainCommand;
 import robot.commands.drive.RotateToAngleCommand;
+import robot.commands.shoot.AlignAndShootHighShotCommand;
+import robot.commands.shoot.AlignAndShootHighShotCommand;
 import robot.commands.shoot.SetupHighShotCommand;
 import robot.commands.shoot.ShootHighGoalCommand;
 import robot.commands.shoot.ShootLowGoalCommand;
@@ -65,7 +68,7 @@ public class AutoDriveAndShootCommand extends CommandGroup {
 				addSequential(new DriveToUltraDistance(autoSpeed, 90, 10, UltrasonicDirection.REAR));
 				addSequential(new RotateToAngleCommand(0, 3));
 				addSequential(new SetArmLevelCommand(ArmLevel.LOW_LEVEL));
-				//addSequential(new DriveToProximity(0.7, 0));
+				// addSequential(new DriveToProximity(0.7, 0));
 				addSequential(new DriveToDistance(autoSpeed, 0, -240));
 
 			}
@@ -151,8 +154,12 @@ public class AutoDriveAndShootCommand extends CommandGroup {
 		// Shoot
 		switch (goal) {
 		case HIGH:
-			addSequential(new SetupHighShotCommand());
-			addSequential(new ShootHighGoalCommand());
+			if (Robot.oi.getVisionTargetCenter() == RobotMap.NO_VISION_TARGET) {
+				addSequential(new SetupHighShotCommand());
+				addSequential(new ShootHighGoalCommand());
+			} else {
+				addSequential(new AlignAndShootHighShotCommand(Robot.oi.getVisionTargetCenter()));
+			}
 			break;
 		case LOW:
 			addSequential(new DriveToDistance(0.4, rampAngle, 30));

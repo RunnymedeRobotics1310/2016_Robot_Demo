@@ -12,9 +12,8 @@ import robot.subsystems.ChassisSubsystem.Gear;
 
 public class JoystickDriveCommand extends Command {
 
-	private static final double IMAGE_CENTER = RobotMap.CAMERA_PIXEL_WIDTH / 2.0;
-	//Original: 47.0
-	//0.196875
+	//Actual FOV Of the Axis Camera M1011: 47.0
+	//Degrees per pixel: 0.196875
 
 	public JoystickDriveCommand() {
 		requires(Robot.chassisSubsystem);

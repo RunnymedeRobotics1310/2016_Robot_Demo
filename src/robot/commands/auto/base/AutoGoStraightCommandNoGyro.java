@@ -2,9 +2,7 @@
 package robot.commands.auto.base;
 
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import robot.Robot;
-import robot.pids.GoStraightPID;
 
 public abstract class AutoGoStraightCommandNoGyro extends Command {
 

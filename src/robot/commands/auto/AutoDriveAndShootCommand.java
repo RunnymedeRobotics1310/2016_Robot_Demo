@@ -25,7 +25,6 @@ import robot.commands.auto.defenses.CrossRockWallCommand;
 import robot.commands.auto.defenses.CrossRoughTerrainCommand;
 import robot.commands.drive.RotateToAngleCommand;
 import robot.commands.shoot.AlignAndShootHighShotCommand;
-import robot.commands.shoot.AlignAndShootHighShotCommand;
 import robot.commands.shoot.SetupHighShotCommand;
 import robot.commands.shoot.ShootHighGoalCommand;
 import robot.commands.shoot.ShootLowGoalCommand;

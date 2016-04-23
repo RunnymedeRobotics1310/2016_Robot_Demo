@@ -3,7 +3,6 @@ package robot.commands.arm;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import robot.Robot;
-import robot.commands.defenses.PortcullisOpenCommand;
 
 public class JoystickArmCommand extends Command {
 

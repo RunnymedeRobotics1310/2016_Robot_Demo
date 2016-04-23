@@ -318,6 +318,7 @@ public class OI {
 		SmartDashboard.putString("Operator Controllers", operatorStick.toString());
 		SmartDashboard.putNumber("Vision Target Center", getVisionTargetCenter());
 		SmartDashboard.putBoolean("Target Lock", (getVisionTargetCenter() != RobotMap.NO_VISION_TARGET));
+		SmartDashboard.putNumber("X-Operator", operatorStick.getAxis(Axis.X));
 	}
 	
 }

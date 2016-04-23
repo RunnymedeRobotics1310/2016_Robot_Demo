@@ -45,7 +45,7 @@ public class AutoDriveAndShootCommand extends CommandGroup {
 
 			addSequential(new CrossLowBarCommand());
 
-			addParallel(new SetupHighShotCommand());
+			//addParallel(new SetupHighShotCommand());
 
 			if (target != Target.CENTER) {
 				addSequential(new DriveToUltraDistance(autoSpeed, 0, 79, UltrasonicDirection.FRONT));
@@ -59,8 +59,15 @@ public class AutoDriveAndShootCommand extends CommandGroup {
 			}
 
 			addSequential(new WaitCommand(0.5));
-			addSequential(new ShootHighGoalCommand());
+			
+			if (Robot.oi.getVisionTargetCenter() == RobotMap.NO_VISION_TARGET) {
+				addSequential(new SetupHighShotCommand());
+				addSequential(new ShootHighGoalCommand());
+			} else {
+				addSequential(new AlignAndShootHighShotCommand());
+			}
 
+			
 			if (target != Target.CENTER) {
 				addSequential(new WaitCommand(0.5));
 				addSequential(new RotateToAngleCommand(90, 3));
@@ -157,7 +164,7 @@ public class AutoDriveAndShootCommand extends CommandGroup {
 				addSequential(new SetupHighShotCommand());
 				addSequential(new ShootHighGoalCommand());
 			} else {
-				addSequential(new AlignAndShootHighShotCommand(Robot.oi.getVisionTargetCenter()));
+				addSequential(new AlignAndShootHighShotCommand());
 			}
 			break;
 		case LOW:

@@ -259,31 +259,35 @@ public class ChassisSubsystem extends R_Subsystem {
 	public void updateDashboard() {
 		SmartDashboard.putData("Left Motor", leftMotor);
 		SmartDashboard.putData("Right Motor", rightMotor);
-		SmartDashboard.putData("Left Limit Switch", leftProximitySensor);
-		SmartDashboard.putData("Center Limit Switch", centerProximitySensor);
-		SmartDashboard.putData("Right Limit Switch", rightProximitySensor);
-		SmartDashboard.putData("Left Encoder", leftEncoder);
-		SmartDashboard.putData("Right Encoder", rightEncoder);
-		SmartDashboard.putData("Left Motor PID", leftMotorPID);
-		SmartDashboard.putData("Right Motor PID", rightMotorPID);
+		
+		SmartDashboard.putBoolean("Left Limit Switch", leftProximitySensor.get());
+		SmartDashboard.putBoolean("Center Limit Switch", centerProximitySensor.get());
+		SmartDashboard.putBoolean("Right Limit Switch", rightProximitySensor.get());
+		
 		SmartDashboard.putData("Gyro", gyro);
-		SmartDashboard.putNumber("Gyro Angle", gyro.getAngle());
-		// SmartDashboard.putNumber("Gyro Center", gyro.getCenter());
-		// SmartDashboard.putNumber("Gyro Offset", gyro.getOffset());
+		
 		SmartDashboard.putNumber("Front Ultrasonic Sensor Distance", frontUltrasonicSensor.getDistance());
 		SmartDashboard.putNumber("Rear Ultrasonic Sensor Distance", rearUltrasonicSensor.getDistance());
-		
+	}
 
+	@Override
+	public void debugDashboard() {
+		SmartDashboard.putData("Left Motor PID", leftMotorPID);
+		SmartDashboard.putData("Right Motor PID", rightMotorPID);
+		
+		SmartDashboard.putNumber("Gyro Angle", gyro.getAngle());
+		SmartDashboard.putNumber("Angle Rate", getAngleRate());
+		
 		SmartDashboard.putNumber("Front Ultrasonic Sensor Voltage", frontUltrasonicSensor.getVoltage());
 		SmartDashboard.putNumber("Rear Ultrasonic Sensor Voltage", rearUltrasonicSensor.getVoltage());
 		
-		// SmartDashboard.putString("Transmission", gear.name());
+		SmartDashboard.putData("Left Encoder", leftEncoder);
+		SmartDashboard.putData("Right Encoder", rightEncoder);
+		
 		SmartDashboard.putNumber("Encoder Speed", getEncoderSpeed());
 		SmartDashboard.putNumber("Left Encoder Speed", getLeftEncoderSpeed());
 		SmartDashboard.putNumber("Right Encoder Speed", getRightEncoderSpeed());
-		SmartDashboard.putNumber("Encoder Distance", getEncoderDistance());
 		
-		SmartDashboard.putNumber("Angle Rate", getAngleRate());
-		// SmartDashboard.putData("Ball shifter", ballShifter);
+		SmartDashboard.putNumber("Encoder Distance", getEncoderDistance());
 	}
 }

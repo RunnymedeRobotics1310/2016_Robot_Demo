@@ -95,6 +95,6 @@ public class AutoChooser {
 	 * @return The selected goal, as a String
 	 */
 	public String getSelectedGoal() {
-		return (String) targetChooser.getSelected();
+		return (String) goalChooser.getSelected();
 	}
 }

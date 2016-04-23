@@ -62,16 +62,6 @@ public class ArmSubsystem extends R_Subsystem {
 		armPID.calculate();
 	}
 
-	@Override
-	public void updateDashboard() {
-		//SmartDashboard.putData("Deploy Motor", armDeployMotor);
-		//SmartDashboard.putNumber("Arm Encoder Voltage", armEncoder.getVoltage());
-		SmartDashboard.putNumber("Arm Encoder Angle", armEncoder.getAngle());
-		SmartDashboard.putBoolean("Arm Max Limit Switch", armUpperLimitSwitch.get());
-		SmartDashboard.putBoolean("Arm Min Limit Switch", armLowerLimitSwitch.get());
-		SmartDashboard.putData("Arm PID", armPID);
-	}
-
 	/**
 	 * 
 	 * @return Whether the arm is currently deployed
@@ -146,5 +136,18 @@ public class ArmSubsystem extends R_Subsystem {
 	 */
 	public void setArmSpeed(double armSpeed) {
 		armDeployMotor.set(armSpeed);
+	}
+
+	@Override
+	public void updateDashboard() {
+		
+	}
+	
+	@Override
+	public void debugDashboard() {
+		SmartDashboard.putNumber("Arm Encoder Angle", armEncoder.getAngle());
+		SmartDashboard.putBoolean("Arm Max Limit Switch", armUpperLimitSwitch.get());
+		SmartDashboard.putBoolean("Arm Min Limit Switch", armLowerLimitSwitch.get());
+		SmartDashboard.putData("Arm PID", armPID);
 	}
 }

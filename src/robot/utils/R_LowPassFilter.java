@@ -62,7 +62,7 @@ public class R_LowPassFilter {
         } else {
         	lastError = x;
         	
-        	System.out.println("Throwing out Ultrasonic value: " + x);
+        	//System.out.println("Throwing out Ultrasonic value: " + x);
         }
 
         return yPrevious;

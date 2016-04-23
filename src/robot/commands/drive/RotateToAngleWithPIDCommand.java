@@ -3,22 +3,28 @@ package robot.commands.drive;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import robot.Robot;
+import robot.RobotMap;
 import robot.pids.RotateToAnglePID;
 
-/**
- *
- */
 public class RotateToAngleWithPIDCommand extends Command {
 
 	double angleSetpoint;
 
-	public RotateToAngleWithPIDCommand(double angle) {
+	public RotateToAngleWithPIDCommand() {
 		requires(Robot.chassisSubsystem);
-		this.angleSetpoint = angle;
 	}
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
+		
+		double pixelDifference = Robot.oi.getVisionTargetCenter() - 83.0;
+		double angleDifference = pixelDifference * RobotMap.DEGREES_PER_PIXEL;
+		
+		this.angleSetpoint = Robot.chassisSubsystem.getCurrentAngle() + angleDifference;
+		
+		System.out.println("Target Locking - " + "Current Angle: " + Robot.chassisSubsystem.getCurrentAngle() + " Pixel Difference: " + pixelDifference + " Angle Difference: " + angleDifference);
+		
+		
 		RotateToAnglePID.setEnabled(false);
 		RotateToAnglePID.setSetpoint(angleSetpoint);
 	}

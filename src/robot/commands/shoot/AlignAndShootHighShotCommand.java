@@ -6,12 +6,12 @@ import robot.RobotMap;
 import robot.commands.drive.RotateToAngleWithPIDCommand;
 
 public class AlignAndShootHighShotCommand extends CommandGroup {
-	public AlignAndShootHighShotCommand(double targetCenterX) {
+	public AlignAndShootHighShotCommand() {
 		
-		double pixelDifference = targetCenterX - 83.0;
+		double pixelDifference = Robot.oi.getVisionTargetCenter() - 83.0;
 		double angleDifference = pixelDifference * RobotMap.DEGREES_PER_PIXEL;
 		
-		addParallel(new RotateToAngleWithPIDCommand(Robot.chassisSubsystem.getCurrentAngle() + angleDifference));
+		addParallel(new RotateToAngleWithPIDCommand());
 		addSequential(new RetractBoulderCommand());
 		addSequential(new WindupCommand());
 		addSequential(new ShootHighGoalCommand());

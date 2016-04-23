@@ -85,7 +85,7 @@ public class JoystickDriveCommand extends Command {
 		double targetCenterX = Robot.oi.getVisionTargetCenter();
 		
 		if(Robot.oi.getAlignShotButton() && targetCenterX != RobotMap.NO_VISION_TARGET) {
-			Scheduler.getInstance().add(new AlignAndShootHighShotCommand(targetCenterX));
+			Scheduler.getInstance().add(new AlignAndShootHighShotCommand());
 			return;
 		}
 		 

@@ -16,7 +16,7 @@ public class ShootHighGoalCommand extends Command {
 
 	@Override
 	protected void initialize() {
-		this.setTimeout(1.5);
+		this.setTimeout(1.0);
 		Robot.shooterSubsystem.startIntakeMotor();
 	}
 	

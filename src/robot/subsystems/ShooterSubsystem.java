@@ -181,13 +181,21 @@ public class ShooterSubsystem extends R_Subsystem {
 
 	@Override
 	public void updateDashboard() {
-		SmartDashboard.putData("Intake Lock PID", intakeLockPID);
-		SmartDashboard.putNumber("Intake Lock PID Output", intakeMotor.get());
-		SmartDashboard.putData("Intake motor", intakeMotor);
 		SmartDashboard.putNumber("Shooter Speed", getShooterSpeed());
 		SmartDashboard.putNumber("Intake Speed", getIntakeSpeed());
-		SmartDashboard.putNumber("Intake Distance", getIntakeDistance());
+		
 		SmartDashboard.putBoolean("Boulder Loaded", isBoulderLoaded());
+	}
+
+	@Override
+	public void debugDashboard() {
+		SmartDashboard.putData("Intake Lock PID", intakeLockPID);
+		SmartDashboard.putNumber("Intake Lock PID Output", intakeMotor.get());
+		
+		SmartDashboard.putData("Intake motor", intakeMotor);
+		
+		SmartDashboard.putNumber("Intake Distance", getIntakeDistance());
+		
 		SmartDashboard.putData("Shooter Speed PID", shooterSpeedPID);
 	}
 }

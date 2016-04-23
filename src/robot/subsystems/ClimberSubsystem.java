@@ -66,6 +66,11 @@ public class ClimberSubsystem extends R_Subsystem {
 
 	@Override
 	public void updateDashboard() {
+	}
+
+
+	@Override
+	public void debugDashboard() {
 		SmartDashboard.putData("Scissor Release Piston", scissorReleasePiston);
 		SmartDashboard.putData("Left Scissor", leftScissorPiston);
 		SmartDashboard.putData("Right Scissor", rightScissorPiston);

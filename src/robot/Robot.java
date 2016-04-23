@@ -24,6 +24,8 @@ import robot.utils.R_Subsystem;
  */
 public class Robot extends IterativeRobot {
 
+	public static boolean debugMode = false;
+	
 	// Declare all subsystems and add them to the list of subsystems
 	public static final ChassisSubsystem chassisSubsystem = new ChassisSubsystem();
 	public static final ShooterSubsystem shooterSubsystem = new ShooterSubsystem();
@@ -133,6 +135,9 @@ public class Robot extends IterativeRobot {
     	// update all subsystems and the OI dashboard items.
         for (R_Subsystem r: subsystemList) {
         	r.updateDashboard();
+        	if (debugMode) {
+        		r.debugDashboard();
+        	}
         }
         oi.updateDashboard();
 

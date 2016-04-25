@@ -5,6 +5,9 @@ import robot.RobotMap.ArmLevel;
 import robot.commands.arm.SetArmLevelCommand;
 import robot.commands.auto.base.DriveToDistance;
 
+/**
+ *	This CommandGroup contains the routine required to cross the Rough Terrain.
+ */
 public class CrossRoughTerrainCommand extends CommandGroup {
 
 	public CrossRoughTerrainCommand() {

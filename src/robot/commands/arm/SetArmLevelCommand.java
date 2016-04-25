@@ -8,6 +8,10 @@ public class SetArmLevelCommand extends Command {
 
 	ArmLevel level;
 
+	/**
+	 * This command sets the arm to predetermined levels.
+	 * @param level {@link ArmLevel} value.
+	 */
 	public SetArmLevelCommand(ArmLevel level) {
 		requires(Robot.armSubsystem);
 		this.level = level;

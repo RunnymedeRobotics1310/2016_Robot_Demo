@@ -7,9 +7,6 @@ import robot.Robot;
  */
 public class DriveToDistance extends AutoGoStraightCommand {
 
-	/**
-	 * The distance to drive to.
-	 */
 	private double distanceSetpoint;
 
 	private double speedSetpoint;

@@ -7,6 +7,9 @@ import robot.commands.auto.base.DriveToDistance;
 import robot.commands.auto.base.DriveToProximity;
 import robot.commands.auto.base.WaitCommand;
 
+/**
+ *	This CommandGroup contains the routine required to cross the Chavel de Frise.
+ */
 public class CrossChavelDeFriseCommand extends CommandGroup {
 
 	public CrossChavelDeFriseCommand() {

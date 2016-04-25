@@ -31,7 +31,6 @@ public class Robot extends IterativeRobot {
 	public static final ShooterSubsystem shooterSubsystem = new ShooterSubsystem();
 	public static final ArmSubsystem armSubsystem = new ArmSubsystem();
 	public static final ClimberSubsystem climberSubsystem = new ClimberSubsystem();
-//	public static final CameraSubsystem cameraSubsystem = new CameraSubsystem();
 
 	public static OI oi;
 
@@ -51,19 +50,12 @@ public class Robot extends IterativeRobot {
         updateDashboard();
     }
 
-    /**
-     * This function is called periodically during autonomous
-     */
     public void autonomousPeriodic() {
         Scheduler.getInstance().run();
     	subsystemPeriodic();
     	updateDashboard();
     }
 	
-	/**
-     * This function is called when the disabled button is hit.
-     * You can use it to reset subsystems before shutting down.
-     */
     public void disabledInit(){
     	updateDashboard();
     }
@@ -73,10 +65,6 @@ public class Robot extends IterativeRobot {
     	updateDashboard();
 	}
 
-    /**
-     * This function is run when the robot is first started up and should be
-     * used for any initialization code.
-     */
     public void robotInit() {
     	
     	oi = new OI();
@@ -84,7 +72,6 @@ public class Robot extends IterativeRobot {
         // Add all the subsystems to the subsystem list.
         subsystemList.add(chassisSubsystem);
         subsystemList.add(shooterSubsystem);
-//        subsystemList.add(cameraSubsystem);
         subsystemList.add(armSubsystem);
         
         for (R_Subsystem s: subsystemList) {
@@ -99,28 +86,24 @@ public class Robot extends IterativeRobot {
         // teleop starts running. If you want the autonomous to 
         // continue until interrupted by another command, remove
         // this line or comment it out.
-        if (autonomousCommand != null) autonomousCommand.cancel();
+        if (autonomousCommand != null) {
+        	autonomousCommand.cancel();
+        }
         updateDashboard();
     }
     
-    /**
-     * This function is called periodically during operator control
-     */
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
     	subsystemPeriodic();
     	updateDashboard();
     }
     
-    /**
-     * This function is called periodically during test mode
-     */
     public void testPeriodic() {
         LiveWindow.run();
     }
     
     private void subsystemPeriodic() {
-    	// update all subsystem runtime data.
+    	// Update all subsystem runtime data.
         for (R_Subsystem r: subsystemList) {
         	r.periodic();
         }
@@ -132,7 +115,7 @@ public class Robot extends IterativeRobot {
     }
 
     private void updateDashboard() {
-    	// update all subsystems and the OI dashboard items.
+    	// Update all subsystems and the OI dashboard items.
         for (R_Subsystem r: subsystemList) {
         	r.updateDashboard();
         	if (debugMode) {

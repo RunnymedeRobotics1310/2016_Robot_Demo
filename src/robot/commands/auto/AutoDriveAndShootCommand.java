@@ -9,7 +9,7 @@ import robot.Field.Target;
 import robot.Robot;
 import robot.RobotMap;
 import robot.RobotMap.ArmLevel;
-import robot.RobotMap.UltrasonicDirection;
+import robot.RobotMap.UltrasonicPosition;
 import robot.commands.arm.SetArmLevelCommand;
 import robot.commands.auto.base.DriveToDistance;
 import robot.commands.auto.base.DriveToProximity;
@@ -31,6 +31,15 @@ import robot.commands.shoot.ShootLowGoalCommand;
 
 public class AutoDriveAndShootCommand extends CommandGroup {
 
+	/**
+	 * The autonomous in all it's glory. The autonomous decides what to do
+	 * based on the given circumstances.
+	 * @param slot {@link Slot} value.
+	 * @param defense {@link Defense} value.
+	 * @param lane {@link Lane} value.
+	 * @param target {@link Target} value.
+	 * @param goal {@link Goal} value.
+	 */
 	public AutoDriveAndShootCommand(Slot slot, Defense defense, Lane lane, Target target, Goal goal) {
 		double waitTime = 4.0;
 		double autoSpeed = 0.7;
@@ -48,12 +57,12 @@ public class AutoDriveAndShootCommand extends CommandGroup {
 			//addParallel(new SetupHighShotCommand());
 
 			if (target != Target.CENTER) {
-				addSequential(new DriveToUltraDistance(autoSpeed, 0, 79, UltrasonicDirection.FRONT));
+				addSequential(new DriveToUltraDistance(autoSpeed, 0, 79, UltrasonicPosition.FRONT));
 				addSequential(new RotateToAngleCommand(angle, 3));
 				addSequential(new DriveToProximity(autoSpeed, angle));
 			} else {
 				addSequential(new RotateToAngleCommand(90, 3));
-				addSequential(new DriveToUltraDistance(autoSpeed, 90, 200, UltrasonicDirection.REAR));
+				addSequential(new DriveToUltraDistance(autoSpeed, 90, 200, UltrasonicPosition.REAR));
 				addSequential(new RotateToAngleCommand(0, 3));
 				addSequential(new DriveToProximity(autoSpeed, 0));
 			}
@@ -71,7 +80,7 @@ public class AutoDriveAndShootCommand extends CommandGroup {
 			if (target != Target.CENTER) {
 				addSequential(new WaitCommand(0.5));
 				addSequential(new RotateToAngleCommand(90, 3));
-				addSequential(new DriveToUltraDistance(autoSpeed, 90, 10, UltrasonicDirection.REAR));
+				addSequential(new DriveToUltraDistance(autoSpeed, 90, 10, UltrasonicPosition.REAR));
 				addSequential(new RotateToAngleCommand(0, 3));
 				addSequential(new SetArmLevelCommand(ArmLevel.LOW_LEVEL));
 				// addSequential(new DriveToProximity(0.7, 0));
@@ -127,7 +136,7 @@ public class AutoDriveAndShootCommand extends CommandGroup {
 			}
 
 			// addSequential(new DriveToDistance(autoSpeed, 90, 45));
-			addSequential(new DriveToUltraDistance(autoSpeed, 90, distance, RobotMap.UltrasonicDirection.REAR));
+			addSequential(new DriveToUltraDistance(autoSpeed, 90, distance, RobotMap.UltrasonicPosition.REAR));
 
 			// Rotate to 0 degrees, because that's what we always do.
 			addSequential(new RotateToAngleCommand(0, waitTime));
@@ -135,7 +144,7 @@ public class AutoDriveAndShootCommand extends CommandGroup {
 
 		if (target != Target.CENTER) {
 
-			addSequential(new DriveToUltraDistance(autoSpeed, 0, 33, RobotMap.UltrasonicDirection.FRONT));
+			addSequential(new DriveToUltraDistance(autoSpeed, 0, 33, RobotMap.UltrasonicPosition.FRONT));
 
 			// addSequential(new DriveToCenterProximity(autoSpeed, 0));
 			// addSequential(new DriveToDistance(autoSpeed, 0, -16));

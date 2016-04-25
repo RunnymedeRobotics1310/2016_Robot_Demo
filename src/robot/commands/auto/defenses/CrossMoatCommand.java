@@ -7,6 +7,10 @@ import robot.commands.auto.base.DriveToDistance;
 import robot.commands.drive.ShiftGearCommand;
 import robot.subsystems.ChassisSubsystem.Gear;
 
+/**
+ *	This CommandGroup contains the routine required to cross the Moat.
+ */
+
 public class CrossMoatCommand extends CommandGroup {
 
 	public CrossMoatCommand() {

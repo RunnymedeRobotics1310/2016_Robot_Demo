@@ -10,19 +10,76 @@ public class RobotMap {
 
     public final static double ANALOG_OFFSET = 310;
     
+    /**
+     * Number of pixels per row (width part of the camera's resolution).
+     */
     public final static double CAMERA_PIXEL_WIDTH = 320.0;
+    /**
+     * Constant indicating that a target couldn't be found.
+     */
     public final static double NO_VISION_TARGET = -1;
+    /**
+     * Number of degrees in each camera pixel. (Horizontal FOV of the camera).
+     */
     public final static double DEGREES_PER_PIXEL = 0.25;
     
+    /**
+     *	Enum containing all predetermined levels for the arm.
+     * <li>{@link #GROUND_LEVEL}</li>
+     * <li>{@link #LOWER_LIMIT}</li>
+     * <li>{@link #LOW_LEVEL}</li>
+     * <li>{@link #INTAKE_LEVEL}</li>
+     * <li>{@link #PORTCULLIS_LEVEL}</li>
+     * <li>{@link #SHOOT_LEVEL}</li>
+     * <li>{@link #DRIVE_LEVEL}</li>
+     * <li>{@link #BANK_SHOT_LEVEL}</li>
+     */
     public enum ArmLevel {
+    	/**
+    	 * This level is set to be 70.0 degrees.
+    	 */
     	GROUND_LEVEL(70.0),
+    	/**
+    	 * This level is set to be 95.0 degrees. The physical location of the
+    	 * lower hall effect sensor.
+    	 */
     	LOWER_LIMIT(95.0),
+    	/**
+    	 * This level is set to be 125.0 degrees, the lowest we allow the robot
+    	 * to be manually set to.
+    	 */
     	LOW_LEVEL(125.0),
+    	/**
+    	 * This level is set to be 135.0 degrees. This is the level used for
+    	 * intaking.
+    	 */
     	INTAKE_LEVEL(135.0),
+    	/**
+    	 * This level is set to be 165.0 degrees. This level easily lifts the
+    	 * port cullis.
+    	 */
     	PORTCULLIS_LEVEL(165.0),
+    	/**
+    	 * This level is set to be 225.0 degrees. This level puts the arm at a
+    	 * position where it doesn't interfere with the high goal shooter.
+    	 */
     	SHOOT_LEVEL(225.0),
+    	/**
+    	 * This level is set to be 300.0 degrees. This level puts the arm at a
+    	 * position where it is safe from crashing onto other things while
+    	 * driving.
+    	 */
     	DRIVE_LEVEL(300.0),
+    	/**
+    	 * This level is set to be 328.0 degrees. This level puts the arm at a
+    	 * position where a boulder can be bounced off the arm while climbing
+    	 * in order to make a last-minute high goal.
+    	 */
     	BANK_SHOT_LEVEL(328.0),
+    	/**
+    	 * This level is set to be 350.0 degrees. The physical location of the
+    	 * upper hall effect sensor.
+    	 */
     	UPPER_LIMIT(350.0);
     	
     	public final double angle;
@@ -31,11 +88,18 @@ public class RobotMap {
     		this.angle = angle;
     	}
     	
+    	/**
+    	 * 
+    	 * @return Angle held by this enum constant.
+    	 */
     	public double getAngle() {
     		return this.angle;
     	}
     }
     
+    /**
+     *	Enum containing a list of all the motors in the robot.
+     */
     public enum MotorMap {
         LEFT_MOTOR      (0,  RobotMap.inverted),
         RIGHT_MOTOR     (1, !RobotMap.inverted),
@@ -46,15 +110,24 @@ public class RobotMap {
         LEFT_WINCH      (7,  RobotMap.inverted),
         RIGHT_WINCH     (6, !RobotMap.inverted);
 
+    	/**
+    	 * Port the motor's speed controller is plugged into.
+    	 */
         public final int port;
+        /**
+         * Boolean indicating whether the motor is inverted.
+         */
         public final boolean inverted;
-
+        
         MotorMap(int port, boolean invertedState) {
             this.port = port;
             this.inverted = invertedState;
         }
     }
     
+    /**
+     * Enum containing a list of all the sensors on the robot.
+     */
     public enum SensorMap {
     	// Analog Ports
     	GYRO                      (0),
@@ -78,6 +151,9 @@ public class RobotMap {
         }
     }
     
+    /**
+     * Enum containing a list of all the encoders on the robot.
+     */
     public enum EncoderMap {
     	LEFT (0, 1, 9000.0, 22000.0, 96.84, !RobotMap.inverted),
     	RIGHT(2, 3, 9000.0, 22000.0, 96.84,  RobotMap.inverted),
@@ -103,6 +179,9 @@ public class RobotMap {
     	}
     }
     
+    /**
+     * Enum containing a list of all the components of the pneumatic system.
+     */
     public enum Pneumatics{
     	BALLSHIFTER   			(0),
     	SHOOTER_RAIL 			(2),
@@ -117,11 +196,13 @@ public class RobotMap {
  
     	Pneumatics (int pcmPort){
     		this.pcmPort = pcmPort;
-    	
     	} 
     }
     
-    public enum UltrasonicDirection {
+    /**
+     * Enum containing the positions of the ultrasonic sensors in the robot.
+     */
+    public enum UltrasonicPosition {
     	FRONT, REAR;
     }
 }

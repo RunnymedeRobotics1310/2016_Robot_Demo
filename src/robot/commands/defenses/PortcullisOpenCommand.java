@@ -5,10 +5,10 @@ import robot.Robot;
 
 /** 
  * The PortcullisOpen Command assumes that the robot is up against and touching the
- * portcullis before executing the command.
+ * Portcullis before executing the command.
  * <p>
- * When opening the portcullis, the drive base needs to back up slightly and then go forward in order
- * to allow the portcullis to open
+ * When opening the Portcullis, the drive base needs to back up slightly and then go forward in order
+ * to allow the Portcullis to open
  */
 public class PortcullisOpenCommand extends Command {
 

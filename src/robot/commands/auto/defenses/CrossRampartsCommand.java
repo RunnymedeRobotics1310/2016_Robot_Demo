@@ -6,6 +6,9 @@ import robot.commands.arm.SetArmLevelCommand;
 import robot.commands.auto.base.DriveToDistance;
 import robot.commands.drive.RotateToAngleCommand;
 
+/**
+ *	This CommandGroup contains the routine required to cross the Ramparts.
+ */
 public class CrossRampartsCommand extends CommandGroup {
 
 	public CrossRampartsCommand() {

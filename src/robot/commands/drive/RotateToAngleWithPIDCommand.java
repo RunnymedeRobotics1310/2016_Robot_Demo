@@ -6,6 +6,11 @@ import robot.Robot;
 import robot.RobotMap;
 import robot.pids.RotateToAnglePID;
 
+/**
+ * This command is used for rotating the robot to a vision target. It will
+ * rotate the robot until the vision target is at the center of the camera's
+ * FOV.
+ */
 public class RotateToAngleWithPIDCommand extends Command {
 
 	double angleSetpoint;
@@ -16,15 +21,15 @@ public class RotateToAngleWithPIDCommand extends Command {
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
-		
+
 		double pixelDifference = Robot.oi.getVisionTargetCenter() - 83.0;
 		double angleDifference = pixelDifference * RobotMap.DEGREES_PER_PIXEL;
-		
+
 		this.angleSetpoint = Robot.chassisSubsystem.getCurrentAngle() + angleDifference;
-		
-		System.out.println("Target Locking - " + "Current Angle: " + Robot.chassisSubsystem.getCurrentAngle() + " Pixel Difference: " + pixelDifference + " Angle Difference: " + angleDifference);
-		
-		
+
+		System.out.println("Target Locking - " + "Current Angle: " + Robot.chassisSubsystem.getCurrentAngle()
+				+ " Pixel Difference: " + pixelDifference + " Angle Difference: " + angleDifference);
+
 		RotateToAnglePID.setEnabled(false);
 		RotateToAnglePID.setSetpoint(angleSetpoint);
 	}

@@ -12,6 +12,9 @@ import robot.utils.R_SafetyVictor;
 import robot.utils.R_Subsystem;
 import robot.utils.R_Victor;
 
+/**
+ * This subsystem has control over all arm related functions of the robot.
+ */
 public class ArmSubsystem extends R_Subsystem {
 
 	DigitalInput armUpperLimitSwitch = new DigitalInput(RobotMap.SensorMap.ARM_UPPER_LIMIT.port);

@@ -2,6 +2,10 @@ package robot.utils;
 
 import edu.wpi.first.wpilibj.Joystick;
 
+/**
+ * This class an implementatation of the {@link R_GameController} class for the
+ * Logitech Extreme3D Pro joystick.
+ */
 public class R_Extreme3DPro_GameController extends R_GameController {
 
 	private final Joystick joystick;
@@ -69,10 +73,12 @@ public class R_Extreme3DPro_GameController extends R_GameController {
 	}
 
 	@Override
-	// There is only one stick on this controller.  Assume that
+	// There is only one stick on this controller. Assume that
 	// it is the left stick.
 	public double getAxis(Stick stick, Axis axis) {
-		if (stick == Stick.RIGHT) { return 0; }
+		if (stick == Stick.RIGHT) {
+			return 0;
+		}
 		return getAxis(axis);
 	}
 

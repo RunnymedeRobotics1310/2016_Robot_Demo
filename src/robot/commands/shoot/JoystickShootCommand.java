@@ -6,6 +6,10 @@ import robot.Robot;
 import robot.oi.OI;
 import robot.subsystems.ShooterSubsystem;
 
+/**
+ * Default command for the {@link robot.subsystems.ShooterSubsystem
+ * ShoterSubsystem}. This command manages all of shooter's and intake's actions.
+ */
 public class JoystickShootCommand extends Command {
 
 	ShooterSubsystem shooterSubsystem = Robot.shooterSubsystem;
@@ -42,7 +46,7 @@ public class JoystickShootCommand extends Command {
 		}
 
 		// The High Goal shooter button is used for both starting the
-		// high goal spinner.  The trigger is used to shoot.
+		// high goal spinner. The trigger is used to shoot.
 		//
 		// If the ball is not yet retracted, then set up for a shot by
 		// retracting the ball and starting the shooter.
@@ -85,7 +89,7 @@ public class JoystickShootCommand extends Command {
 			if (shooterSubsystem.isBoulderRetracted()) {
 				shooterSubsystem.setBoulderRetracted(false);
 				Scheduler.getInstance().add(new ShootHighGoalCommand());
-				
+
 				return;
 			}
 		}

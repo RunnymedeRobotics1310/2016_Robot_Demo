@@ -12,6 +12,10 @@ import robot.utils.R_PIDInput;
 import robot.utils.R_Subsystem;
 import robot.utils.R_Victor;
 
+
+/**
+ * This subsystem has control over all shooting functions of the robot.
+ */
 public class ShooterSubsystem extends R_Subsystem {
 
 	public enum IntakeReverseSpeed {

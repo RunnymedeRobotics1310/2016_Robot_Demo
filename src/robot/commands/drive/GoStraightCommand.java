@@ -6,7 +6,7 @@ import robot.Robot;
 import robot.pids.GoStraightPID;
 
 /**
- *
+ * This command drives the robot forwards, at the specified angle.
  */
 public class GoStraightCommand extends Command {
 
@@ -18,6 +18,7 @@ public class GoStraightCommand extends Command {
 	}
 
 	// Called just before this Command runs the first time
+	@Override
 	protected void initialize() {
 		GoStraightPID.setEnabled(false);
 		GoStraightPID.setSetpoint(angleSetpoint);
@@ -25,8 +26,8 @@ public class GoStraightCommand extends Command {
 	}
 
 	// Called repeatedly when this Command is scheduled to run
+	@Override
 	protected void execute() {
-		
 		double speed = Robot.oi.getSpeed();
 		double leftSpeed;
 		double rightSpeed;
@@ -38,24 +39,28 @@ public class GoStraightCommand extends Command {
 		double turn = GoStraightPID.getOutput();
 
 		// Reverse the direction of the turn when going backwards
-		if (speed < 0) { turn = -turn; }
+		if (speed < 0) {
+			turn = -turn;
+		}
 
 		// If the speed is zero, then just pivot in place
 		// The speed of the turn is set to 1/4 of the full value for all pivots.
 		if (Math.abs(speed) < 0.03) {
-			leftSpeed  =  turn * 0.25;
+			leftSpeed = turn * 0.25;
 			rightSpeed = -turn * 0.25;
 		} else {
-			
-			// If the speed is more than zero, then slow down one side of the robot
-			leftSpeed  = (turn < 0) ? speed * (1 + turn) : speed;
-			rightSpeed = (turn < 0) ? speed              : speed * (1 - turn);
+
+			// If the speed is more than zero, then slow down one side of the
+			// robot
+			leftSpeed = (turn < 0) ? speed * (1 + turn) : speed;
+			rightSpeed = (turn < 0) ? speed : speed * (1 - turn);
 		}
 
 		Robot.chassisSubsystem.setSpeed(leftSpeed, rightSpeed);
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
+	@Override
 	protected boolean isFinished() {
 		double turn = Robot.oi.getTurn();
 		if (Math.abs(turn) > 0.03) {
@@ -66,12 +71,14 @@ public class GoStraightCommand extends Command {
 	}
 
 	// Called once after isFinished returns true
+	@Override
 	protected void end() {
 		GoStraightPID.setEnabled(false);
 	}
 
 	// Called when another command which requires one or more of the same
 	// subsystems is scheduled to run
+	@Override
 	protected void interrupted() {
 	}
 }

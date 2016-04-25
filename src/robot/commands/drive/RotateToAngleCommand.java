@@ -5,6 +5,10 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import robot.Robot;
 
+/**
+ * This command rotates the robot to the specified angle. The angle is relative
+ * to the gyroscope's "0 degrees" angle.
+ */
 public class RotateToAngleCommand extends Command {
 
 	private double targetAngle;

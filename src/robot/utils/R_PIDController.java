@@ -9,10 +9,10 @@ import edu.wpi.first.wpilibj.tables.ITable;
 import edu.wpi.first.wpilibj.tables.ITableListener;
 
 /**
- * Class implements a PID Control Loop.
+ * This class implements a PID Control Loop.
  *
  * Creates a separate thread which reads the given PIDSource and takes care of
- * the integral calculations, as well as writing the given PIDOutput
+ * the integral calculations, as well as writing the given PIDOutput.
  */
 public class R_PIDController implements PIDInterface, LiveWindowSendable {
 

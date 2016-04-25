@@ -6,6 +6,9 @@ import robot.Robot;
 import robot.utils.R_PIDController;
 import robot.utils.R_PIDInput;
 
+/**
+ * This class contains the PID that camera vision uses to control the robot.
+ */
 public class GoStraightPID {
 
 	/*

@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.Joystick.RumbleType;
  * triggers on the front side.
  * 
  * Each type of GameController has different button mappings. The
- * GameControllerFactory will return a GameController of the correct type.
+ * {@link R_GameControllerFactory} will return a GameController of the correct type.
  * 
  */
 public abstract class R_GameController {

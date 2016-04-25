@@ -6,6 +6,9 @@ import robot.Robot;
 import robot.utils.R_PIDController;
 import robot.utils.R_PIDInput;
 
+/**
+ * This class contains the PID that is used to rotate to specific gyro angles.
+ */
 public class RotateToAnglePID {
 
 	/*
@@ -32,8 +35,8 @@ public class RotateToAnglePID {
 	private static double pidOutputValue = 0.0;
 
 	// TODO Verify this values are correct
-	private static R_PIDController rotateToAnglePIDController = new R_PIDController(2.0, 0.1, 0.0, 1.0, rotateToAnglePIDInput,
-			rotateToAnglePIDOutput);
+	private static R_PIDController rotateToAnglePIDController = new R_PIDController(2.0, 0.1, 0.0, 1.0,
+			rotateToAnglePIDInput, rotateToAnglePIDOutput);
 
 	public static void setEnabled(boolean enabled) {
 		if (enabled) {

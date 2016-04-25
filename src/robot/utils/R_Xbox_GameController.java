@@ -2,6 +2,10 @@ package robot.utils;
 
 import edu.wpi.first.wpilibj.Joystick;
 
+/**
+ * This class an implementatation of the {@link R_GameController} class for the
+ * Microsoft Xbox 360 and Microsoft Xbox One gamepads.
+ */
 public class R_Xbox_GameController extends R_GameController {
 
 	private final Joystick joystick;

@@ -1,4 +1,3 @@
-
 package robot.oi;
 
 import edu.wpi.first.wpilibj.command.Command;
@@ -20,8 +19,7 @@ import robot.utils.R_GameController.Stick;
 import robot.utils.R_GameController.Trigger;
 import robot.utils.R_GameControllerFactory;
 
-public class OI {
-	
+public class OI {	
 	private NetworkTable visionTable;
 	
 	public OI() {

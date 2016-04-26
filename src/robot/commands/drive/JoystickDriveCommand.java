@@ -4,9 +4,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import robot.Robot;
 import robot.RobotMap;
-import robot.commands.drive.RotateFixedCommand.Direction;
 import robot.commands.shoot.AlignAndShootHighShotCommand;
-import robot.oi.OI.Nudge;
 import robot.subsystems.ChassisSubsystem.Gear;
 
 /**
@@ -54,17 +52,7 @@ public class JoystickDriveCommand extends Command {
 			Robot.chassisSubsystem.setGear(Gear.LOW);
 		}
 
-		// Nudge the robot to the left or right based on the operator input.
-		// If the driver is turning the robot then ignore the nudge command.
-		// Pass the speed of the robot to the nudge command.
-		Nudge nudge = Robot.oi.getNudge();
-		if (Math.abs(turn) < 0.03 && nudge != Nudge.NONE) {
-			if (Robot.oi.getNudge() == Nudge.LEFT) {
-				Scheduler.getInstance().add(new RotateFixedCommand(Direction.LEFT));
-			} else {
-				Scheduler.getInstance().add(new RotateFixedCommand(Direction.RIGHT));
-			}
-		}
+		
 
 		/**
 		 * If the user is not turning, then follow the gyro using the GoStraight
@@ -87,8 +75,13 @@ public class JoystickDriveCommand extends Command {
 
 		double targetCenterX = Robot.oi.getVisionTargetCenter();
 
-		if (Robot.oi.getAlignShotButton() && targetCenterX != RobotMap.NO_VISION_TARGET) {
-			Scheduler.getInstance().add(new AlignAndShootHighShotCommand());
+		if (Robot.oi.getAutoAlignShotButton() && targetCenterX != RobotMap.NO_VISION_TARGET) {
+			Scheduler.getInstance().add(new AlignAndShootHighShotCommand(TargetingMode.VISION));
+			return;
+		}
+		
+		if (Robot.oi.getManualAlignShotButton()) {
+			Scheduler.getInstance().add(new AlignAndShootHighShotCommand(TargetingMode.JOYSTICK));
 			return;
 		}
 

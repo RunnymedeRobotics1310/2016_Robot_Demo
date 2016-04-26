@@ -24,9 +24,11 @@ public class Field {
 		private final String stringValue;
 
 		/**
-		 * Converts a string to a value of this enum (if the string contains a 
+		 * Converts a string to a value of this enum (if the string contains a
 		 * valid enum type).
-		 * @param stringValue String to convert to this enum.
+		 * 
+		 * @param stringValue
+		 *            String to convert to this enum.
 		 * @return Goal constant.
 		 */
 		public static Goal toEnum(String stringValue) {
@@ -41,7 +43,7 @@ public class Field {
 	}
 
 	/**
-	 * Enum containing the three different tower targets. The targets are at 
+	 * Enum containing the three different tower targets. The targets are at
 	 * specific distances from the left wall.
 	 * <li>{@link #LEFT}</li>
 	 * <li>{@link #CENTER}</li>
@@ -53,11 +55,13 @@ public class Field {
 		 */
 		LEFT("Left", 60),
 		/**
-		 * Center tower target. This target is 152 inches away from the left wall.
+		 * Center tower target. This target is 152 inches away from the left
+		 * wall.
 		 */
 		CENTER("Center", 152),
 		/**
-		 * Right tower target. This target is 235 inches away from the left wall.
+		 * Right tower target. This target is 235 inches away from the left
+		 * wall.
 		 */
 		RIGHT("Right", 235);
 
@@ -70,9 +74,11 @@ public class Field {
 		}
 
 		/**
-		 * Converts a string to a value of this enum (if the string contains a 
+		 * Converts a string to a value of this enum (if the string contains a
 		 * valid enum type).
-		 * @param stringValue String to convert to this enum.
+		 * 
+		 * @param stringValue
+		 *            String to convert to this enum.
 		 * @return Target constant.
 		 */
 		public static Target toEnum(String stringValue) {
@@ -84,22 +90,34 @@ public class Field {
 			System.out.println("Target value (" + stringValue + ") is not a valid target string");
 			return null;
 		}
-		
+
 		/**
 		 * 
-		 * @return Required distance from the left wall to arrive at this target.
+		 * @return Required distance from the left wall to arrive at this
+		 *         target.
 		 */
-		public int getRequiredDistance(){
+		public int getRequiredDistance() {
 			return this.requiredDistance;
 		}
 	}
-	
+
 	/**
 	 * Enum containing the "lanes". A "lane" is how far the robot will travel
 	 * after crossing a defense.
+	 * <li>{@link #CLOSE}</li>
+	 * <li>{@link #FAR}</li>
 	 */
 	public enum Lane {
+		/**
+		 * Close turn. The robot will turn and drive up to the batter as soon as
+		 * it crosses a defense.
+		 */
 		CLOSE("Close"),
+
+		/**
+		 * Far turn. The robot will turn after driving a few extra inches. This
+		 * option is usally safer.
+		 */
 		FAR("Far");
 
 		private final String stringValue;
@@ -109,9 +127,11 @@ public class Field {
 		}
 
 		/**
-		 * Converts a string to a value of this enum (if the string contains a 
+		 * Converts a string to a value of this enum (if the string contains a
 		 * valid enum type).
-		 * @param stringValue String to convert to this enum.
+		 * 
+		 * @param stringValue
+		 *            String to convert to this enum.
 		 * @return Lane constant.
 		 */
 		public static Lane toEnum(String stringValue) {
@@ -132,7 +152,7 @@ public class Field {
 	 * <li>{@link #TWO}</li>
 	 * <li>{@link #THREE}</li>
 	 * <li>{@link #FOUR}</li>
-	 * <li>{@link #FIVE}</li> 
+	 * <li>{@link #FIVE}</li>
 	 */
 	public enum Slot {
 		/**
@@ -166,9 +186,11 @@ public class Field {
 		}
 
 		/**
-		 * Converts a string to a value of this enum (if the string contains a 
+		 * Converts a string to a value of this enum (if the string contains a
 		 * valid enum type).
-		 * @param stringValue String to convert to this enum.
+		 * 
+		 * @param stringValue
+		 *            String to convert to this enum.
 		 * @return Target constant.
 		 */
 		public static Slot toEnum(int intValue) {
@@ -245,9 +267,11 @@ public class Field {
 		}
 
 		/**
-		 * Converts a string to a value of this enum (if the string contains a 
+		 * Converts a string to a value of this enum (if the string contains a
 		 * valid enum type).
-		 * @param stringValue String to convert to this enum.
+		 * 
+		 * @param stringValue
+		 *            String to convert to this enum.
 		 * @return Target constant.
 		 */
 		public static Defense toEnum(String stringValue) {
@@ -259,6 +283,46 @@ public class Field {
 			System.out.println("Defense value (" + stringValue + ") is not a valid defense string");
 			return null;
 		}
+	}
 
+	/**
+	 * Enum containing all of the auto modes.
+	 * <li>{@link #SINGLE_BOULDER}</li>
+	 * <li>{@link #TWO_BOULDER}</li>
+	 */
+	public enum AutoMode {
+		/**
+		 * Single boulder auto. This auto does the normal patter of crossing a
+		 * defense, and scoring.
+		 */
+		SINGLE_BOULDER("Single Boulder"),
+		/**
+		 * Two boulder auto. This auto starts at the
+		 */
+		TWO_BOULDER("Two Boulder");
+		
+		private final String stringValue;
+
+		AutoMode(String stringValue) {
+			this.stringValue = stringValue;
+		}
+
+		/**
+		 * Converts a string to a value of this enum (if the string contains a
+		 * valid enum type).
+		 * 
+		 * @param stringValue
+		 *            String to convert to this enum.
+		 * @return Target constant.
+		 */
+		public static AutoMode toEnum(String stringValue) {
+			for (AutoMode autoMode : AutoMode.values()) {
+				if (autoMode.stringValue.equals(stringValue)) {
+					return autoMode;
+				}
+			}
+			System.out.println("Defense value (" + stringValue + ") is not a valid defense string");
+			return null;
+		}
 	}
 }

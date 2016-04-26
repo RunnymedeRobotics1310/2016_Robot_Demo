@@ -14,15 +14,24 @@ import robot.pids.RotateToAnglePID;
 public class RotateToAngleWithPIDCommand extends Command {
 
 	double angleSetpoint;
+	TargetingMode targetingMode;
 
-	public RotateToAngleWithPIDCommand() {
+	public RotateToAngleWithPIDCommand(TargetingMode targetingMode) {
 		requires(Robot.chassisSubsystem);
+		
+		this.targetingMode = targetingMode;
 	}
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
-
-		double pixelDifference = Robot.oi.getVisionTargetCenter() - 83.0;
+		
+		double pixelDifference;
+		if (targetingMode == TargetingMode.VISION) {
+			pixelDifference = Robot.oi.getVisionTargetCenter() - 83.0;
+		} else {
+			pixelDifference = Robot.oi.getJoystickTargetCenter() - 83.0;
+		}
+		
 		double angleDifference = pixelDifference * RobotMap.DEGREES_PER_PIXEL;
 
 		this.angleSetpoint = Robot.chassisSubsystem.getCurrentAngle() + angleDifference;
@@ -73,9 +82,6 @@ public class RotateToAngleWithPIDCommand extends Command {
 	protected boolean isFinished() {
 		double error = -Robot.chassisSubsystem.getAngleDifference(angleSetpoint);
 		if (Math.abs(error) < 0.10 && Math.abs(Robot.chassisSubsystem.getAngleRate()) < 1) {
-			return true;
-		}
-		if (Robot.oi.getNoLongerAlignShotButton()) {
 			return true;
 		}
 		return false;

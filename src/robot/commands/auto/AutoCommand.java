@@ -192,6 +192,8 @@ public class AutoCommand extends CommandGroup {
 			// 95% CHANCE THAT THIS WILL NOT WORK, COMPLETELY UNTESTED!!!!
 			addSequential(new DriveToDistance(autoSpeed, 90.0, 80.0));
 			addParallel(new SetArmLevelCommand(ArmLevel.LOW_LEVEL));
+			// drive through the low bar.
+			addSequential(new CrossLowBarCommand());
 			addSequential(new PickupBoulderCommand());
 			addSequential(new RotateToAngleCommand(270.0, 3.0));
 			addSequential(new DriveToUltraDistance(autoSpeed, 0.0, 79.0, UltrasonicPosition.FRONT));

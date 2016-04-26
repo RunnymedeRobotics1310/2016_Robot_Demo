@@ -30,7 +30,6 @@ public class JoystickShootCommand extends Command {
 		// (do nothing if we already have a ball)
 
 		if (oi.getOuterIntakeBoulderButton()) {
-
 			if (!shooterSubsystem.isBoulderLoaded()) {
 				shooterSubsystem.setBoulderRetracted(false);
 				Scheduler.getInstance().add(new PickupBoulderCommand());

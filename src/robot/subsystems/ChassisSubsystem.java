@@ -36,6 +36,8 @@ public class ChassisSubsystem extends R_Subsystem {
 
 	Solenoid ballShifter = new Solenoid(RobotMap.Pneumatics.BALLSHIFTER.pcmPort);
 
+	boolean autoTargeting = false;
+	
 	public enum Gear {
 		LOW, HIGH;
 	}
@@ -254,6 +256,12 @@ public class ChassisSubsystem extends R_Subsystem {
 		gyro.calibrate();
 	}
 
+	public void startAutoTargeting() { autoTargeting = true; }
+	
+	public void endAutoTargeting() { autoTargeting = false; }
+	
+	public boolean isAutoTargeting() { return autoTargeting; }
+	
 	@Override
 	public void updateDashboard() {
 		SmartDashboard.putData("Left Motor", leftMotor);

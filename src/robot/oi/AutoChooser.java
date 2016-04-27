@@ -47,7 +47,7 @@ public class AutoChooser {
 		goalChooser.addObject("Low", "Low");
 		
 		autoModeChooser.addDefault("Single Boulder", "Single Boulder");
-		autoModeChooser.addDefault("Two Boulder", "Two Boulder");
+		autoModeChooser.addObject("Two Boulder", "Two Boulder");
 
 		SmartDashboard.putData("Auto command",     	autoCommandChooser);
 		SmartDashboard.putData("Slot position", 	laneChooser);

@@ -42,6 +42,7 @@ public class ShootHighGoalCommand extends Command {
 		if (Robot.shooterSubsystem.getRailPosition()) {
 			Robot.shooterSubsystem.setRailPosition(false);
 		}
+		Robot.chassisSubsystem.endAutoTargeting();
 	}
 
 	// Called when another command which requires one or more of the same

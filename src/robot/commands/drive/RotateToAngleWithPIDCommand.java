@@ -41,6 +41,7 @@ public class RotateToAngleWithPIDCommand extends Command {
 
 		RotateToAnglePID.setEnabled(false);
 		RotateToAnglePID.setSetpoint(angleSetpoint);
+		Robot.chassisSubsystem.startAutoTargeting();
 	}
 
 	// Called repeatedly when this Command is scheduled to run
@@ -80,6 +81,9 @@ public class RotateToAngleWithPIDCommand extends Command {
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
+		
+		if (!Robot.chassisSubsystem.isAutoTargeting()) { return true; }
+		
 		double error = -Robot.chassisSubsystem.getAngleDifference(angleSetpoint);
 		if (Math.abs(error) < 0.10 && Math.abs(Robot.chassisSubsystem.getAngleRate()) < 1) {
 			return true;
@@ -95,6 +99,7 @@ public class RotateToAngleWithPIDCommand extends Command {
 		 * as in AutoGoStraightCommand calling GoStraightCommand
 		 */
 		Robot.chassisSubsystem.setSpeed(0, 0);
+		Robot.chassisSubsystem.endAutoTargeting();
 	}
 
 	// Called when another command which requires one or more of the same

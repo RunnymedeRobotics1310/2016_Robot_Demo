@@ -11,17 +11,26 @@ import robot.subsystems.ShooterSubsystem.IntakeReverseSpeed;
  * The retract boulder command has a complex set of movements to ensure the
  * boulder is sitting away from the shooter wheel before the wheel starts
  * spinning.
+ * </p>
  * <p>
- * Step 1: spin the shooter motor in reverse so that the boulder is touching the
- * intake motors. Step 2: retract the boulder using the intake motors. Step 3:
- * lock the intake rollers in place and stop the shooter motor from spinning in
- * reverse.
+ * <p>
+ * <strong>Step 1:</strong> spin the shooter motor in reverse so that the
+ * boulder is touching the intake motors.<strong>
+ * </p>
+ * <p>
+ * Step 2:</strong> retract the boulder using the intake motors.<strong>
+ * </p>
+ * <p>
+ * Step 3:</strong> lock the intake rollers in place and stop the shooter motor
+ * from spinning in reverse.
+ * </p>
+ * </p>
  *
  */
 public class RetractBoulderCommand extends Command {
 
 	private static boolean ARM_FULLY_UP = true;
-	
+
 	private boolean cancelButton = false;
 	private boolean lockDelayStarted = false;
 	private boolean retractStarted = false;
@@ -37,12 +46,13 @@ public class RetractBoulderCommand extends Command {
 		requires(Robot.armSubsystem);
 	}
 
+	// Called just before this Command runs the first time
 	protected void initialize() {
 		Robot.shooterSubsystem.startShooterMotorReverse();
 	}
 
+	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-
 		// Start reversing the intake some time after the shooter starts
 		// reversing
 		if (!retractStarted) {
@@ -63,8 +73,8 @@ public class RetractBoulderCommand extends Command {
 		}
 	}
 
+	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
-
 		// If the cancel button is pressed, then end
 		if (Robot.oi.getCancel()) {
 			cancelButton = true;
@@ -91,8 +101,8 @@ public class RetractBoulderCommand extends Command {
 		return false;
 	}
 
+	// Called once after isFinished returns true
 	protected void end() {
-
 		Robot.shooterSubsystem.stopShooterMotor();
 
 		if (cancelButton) {
@@ -105,6 +115,8 @@ public class RetractBoulderCommand extends Command {
 
 	}
 
+	// Called when another command which requires one or more of the same
+	// subsystems is scheduled to run
 	protected void interrupted() {
 	}
 }

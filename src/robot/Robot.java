@@ -16,6 +16,16 @@ import robot.subsystems.ShooterSubsystem;
 import robot.utils.R_Subsystem;
 
 /**
+*   _________  _______   ________  _____ ______            _____  ________    _____  ________     
+*  |\___   ___\\  ___ \ |\   __  \|\   _ \  _   \         / __  \|\_____  \  / __  \|\   __  \    
+*  \|___ \  \_\ \   __/|\ \  \|\  \ \  \\\__\ \  \       |\/_|\  \|____|\ /_|\/_|\  \ \  \|\  \   
+*       \ \  \ \ \  \_|/_\ \   __  \ \  \\|__| \  \      \|/ \ \  \    \|\  \|/ \ \  \ \  \\\  \  
+*        \ \  \ \ \  \_|\ \ \  \ \  \ \  \    \ \  \          \ \  \  __\_\  \   \ \  \ \  \\\  \ 
+*         \ \__\ \ \_______\ \__\ \__\ \__\    \ \__\          \ \__\|\_______\   \ \__\ \_______\
+*          \|__|  \|_______|\|__|\|__|\|__|     \|__|           \|__|\|_______|    \|__|\|_______|                                                                      
+*/
+
+/**
  * The VM is configured to automatically run this class, and to call the
  * functions corresponding to each mode, as described in the IterativeRobot
  * documentation. If you change the name of this class or the package after
@@ -25,125 +35,108 @@ import robot.utils.R_Subsystem;
 public class Robot extends IterativeRobot {
 
 	public static boolean debugMode = false;
-	
+
 	// Declare all subsystems and add them to the list of subsystems
 	public static final ChassisSubsystem chassisSubsystem = new ChassisSubsystem();
 	public static final ShooterSubsystem shooterSubsystem = new ShooterSubsystem();
 	public static final ArmSubsystem armSubsystem = new ArmSubsystem();
 	public static final ClimberSubsystem climberSubsystem = new ClimberSubsystem();
-//	public static final CameraSubsystem cameraSubsystem = new CameraSubsystem();
 
 	public static OI oi;
 
 	public static ArrayList<R_Subsystem> subsystemList = new ArrayList<>();
-	
+
 	Command autonomousCommand;
-	
-    public void autonomousInit() {
-    	
-        autonomousCommand = oi.getAutoCommand();
-        
-        chassisSubsystem.resetGyroHeading();
-        
-        // schedule the autonomous command
-        Scheduler.getInstance().add(autonomousCommand);
-        
-        updateDashboard();
-    }
 
-    /**
-     * This function is called periodically during autonomous
-     */
-    public void autonomousPeriodic() {
-        Scheduler.getInstance().run();
-    	subsystemPeriodic();
-    	updateDashboard();
-    }
-	
-	/**
-     * This function is called when the disabled button is hit.
-     * You can use it to reset subsystems before shutting down.
-     */
-    public void disabledInit(){
-    	updateDashboard();
-    }
+	public void autonomousInit() {
 
-    public void disabledPeriodic() {
-		Scheduler.getInstance().run();
-    	updateDashboard();
+		autonomousCommand = oi.getAutoCommand();
+
+		chassisSubsystem.resetGyroHeading();
+
+		// schedule the autonomous command
+		Scheduler.getInstance().add(autonomousCommand);
+
+		updateDashboard();
 	}
 
-    /**
-     * This function is run when the robot is first started up and should be
-     * used for any initialization code.
-     */
-    public void robotInit() {
-    	
-    	oi = new OI();
+	public void autonomousPeriodic() {
+		Scheduler.getInstance().run();
+		subsystemPeriodic();
+		updateDashboard();
+	}
 
-        // Add all the subsystems to the subsystem list.
-        subsystemList.add(chassisSubsystem);
-        subsystemList.add(shooterSubsystem);
-//        subsystemList.add(cameraSubsystem);
-        subsystemList.add(armSubsystem);
-        
-        for (R_Subsystem s: subsystemList) {
-        	s.init();
-        }
+	public void disabledInit() {
+		updateDashboard();
+	}
 
-        updateDashboard();
-    }
+	public void disabledPeriodic() {
+		Scheduler.getInstance().run();
+		updateDashboard();
+	}
 
-    public void teleopInit() {
+	public void robotInit() {
+
+		oi = new OI();
+
+		// Add all the subsystems to the subsystem list.
+		subsystemList.add(chassisSubsystem);
+		subsystemList.add(shooterSubsystem);
+		subsystemList.add(armSubsystem);
+
+		for (R_Subsystem s : subsystemList) {
+			s.init();
+		}
+
+		updateDashboard();
+	}
+
+	public void teleopInit() {
 		// This makes sure that the autonomous stops running when
-        // teleop starts running. If you want the autonomous to 
-        // continue until interrupted by another command, remove
-        // this line or comment it out.
-        if (autonomousCommand != null) autonomousCommand.cancel();
-        updateDashboard();
-    }
-    
-    /**
-     * This function is called periodically during operator control
-     */
-    public void teleopPeriodic() {
-        Scheduler.getInstance().run();
-    	subsystemPeriodic();
-    	updateDashboard();
-    }
-    
-    /**
-     * This function is called periodically during test mode
-     */
-    public void testPeriodic() {
-        LiveWindow.run();
-    }
-    
-    private void subsystemPeriodic() {
-    	// update all subsystem runtime data.
-        for (R_Subsystem r: subsystemList) {
-        	r.periodic();
-        }
-        oi.periodic();
-        
-        // Command PID updates
-        GoStraightPID.periodic();
-        RotateToAnglePID.periodic();
-    }
+		// teleop starts running. If you want the autonomous to
+		// continue until interrupted by another command, remove
+		// this line or comment it out.
+		if (autonomousCommand != null) {
+			autonomousCommand.cancel();
+		}
+		updateDashboard();
+	}
 
-    private void updateDashboard() {
-    	// update all subsystems and the OI dashboard items.
-        for (R_Subsystem r: subsystemList) {
-        	r.updateDashboard();
-        	if (debugMode) {
-        		r.debugDashboard();
-        	}
-        }
-        oi.updateDashboard();
+	public void teleopPeriodic() {
+		Scheduler.getInstance().run();
+		subsystemPeriodic();
+		updateDashboard();
+	}
 
-        GoStraightPID.updateDashboard();
-        RotateToAnglePID.updateDashboard();
-        // Put the currently scheduled commands on the dashboard
-        //SmartDashboard.putData("SchedulerCommands", Scheduler.getInstance());
-    }
+	public void testPeriodic() {
+		LiveWindow.run();
+	}
+
+	private void subsystemPeriodic() {
+		// Update all subsystem runtime data.
+		for (R_Subsystem r : subsystemList) {
+			r.periodic();
+		}
+		oi.periodic();
+
+		// Command PID updates
+		GoStraightPID.periodic();
+		RotateToAnglePID.periodic();
+	}
+
+	private void updateDashboard() {
+		// Update all subsystems and the OI dashboard items.
+		for (R_Subsystem r : subsystemList) {
+			r.updateDashboard();
+			if (debugMode) {
+				r.debugDashboard();
+			}
+		}
+		oi.updateDashboard();
+
+		GoStraightPID.updateDashboard();
+		RotateToAnglePID.updateDashboard();
+		// Put the currently scheduled commands on the dashboard
+		// SmartDashboard.putData("SchedulerCommands", Scheduler.getInstance());
+	}
 }

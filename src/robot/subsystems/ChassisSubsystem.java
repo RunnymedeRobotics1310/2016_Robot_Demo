@@ -15,6 +15,9 @@ import robot.utils.R_Subsystem;
 import robot.utils.R_Ultrasonic;
 import robot.utils.R_Victor;
 
+/**
+ * This subsystem has control over all drive train functions of the robot.
+ */
 public class ChassisSubsystem extends R_Subsystem {
 
 	R_Victor leftMotor = new R_Victor(RobotMap.MotorMap.LEFT_MOTOR);
@@ -23,9 +26,9 @@ public class ChassisSubsystem extends R_Subsystem {
 	DigitalInput leftProximitySensor = new DigitalInput(RobotMap.SensorMap.LEFT_PROXIMITY_SENSOR.port);
 	DigitalInput centerProximitySensor = new DigitalInput(RobotMap.SensorMap.UPPER_PROXIMITY_SENSOR.port);
 	DigitalInput rightProximitySensor = new DigitalInput(RobotMap.SensorMap.RIGHT_PROXIMITY_SENSOR.port);
-	
+
 	R_Ultrasonic frontUltrasonicSensor = new R_Ultrasonic(RobotMap.SensorMap.FRONT_ULTRASONIC.port);
-	
+
 	Encoder leftEncoder = new Encoder(RobotMap.EncoderMap.LEFT.ch1, RobotMap.EncoderMap.LEFT.ch2);
 	Encoder rightEncoder = new Encoder(RobotMap.EncoderMap.RIGHT.ch1, RobotMap.EncoderMap.RIGHT.ch2);
 
@@ -81,7 +84,6 @@ public class ChassisSubsystem extends R_Subsystem {
 	}
 
 	public void setSpeed(double leftSpeed, double rightSpeed) {
-
 		leftMotorPID.setSetpoint(leftSpeed);
 		rightMotorPID.setSetpoint(rightSpeed);
 
@@ -91,15 +93,12 @@ public class ChassisSubsystem extends R_Subsystem {
 		if (!rightMotorPID.isEnabled()) {
 			rightMotorPID.enable();
 		}
-
-		// leftMotor.set(leftSpeed);
-		// rightMotor.set(rightSpeed);
 	}
 
 	public double getCurrentAngle() {
 		return gyro.getAngle();
 	}
-	
+
 	public double getAngleRate() {
 		return gyro.getRate();
 	}
@@ -123,7 +122,7 @@ public class ChassisSubsystem extends R_Subsystem {
 	public double getRearUltrasonicDistance() {
 		return this.rearUltrasonicSensor.getDistance();
 	}
-	
+
 	public double getFrontUltrasonicDistance() {
 		return this.frontUltrasonicSensor.getDistance();
 	}
@@ -259,13 +258,13 @@ public class ChassisSubsystem extends R_Subsystem {
 	public void updateDashboard() {
 		SmartDashboard.putData("Left Motor", leftMotor);
 		SmartDashboard.putData("Right Motor", rightMotor);
-		
+
 		SmartDashboard.putBoolean("Left Limit Switch", leftProximitySensor.get());
 		SmartDashboard.putBoolean("Center Limit Switch", centerProximitySensor.get());
 		SmartDashboard.putBoolean("Right Limit Switch", rightProximitySensor.get());
-		
+
 		SmartDashboard.putData("Gyro", gyro);
-		
+
 		SmartDashboard.putNumber("Front Ultrasonic Sensor Distance", frontUltrasonicSensor.getDistance());
 		SmartDashboard.putNumber("Rear Ultrasonic Sensor Distance", rearUltrasonicSensor.getDistance());
 	}
@@ -274,20 +273,20 @@ public class ChassisSubsystem extends R_Subsystem {
 	public void debugDashboard() {
 		SmartDashboard.putData("Left Motor PID", leftMotorPID);
 		SmartDashboard.putData("Right Motor PID", rightMotorPID);
-		
+
 		SmartDashboard.putNumber("Gyro Angle", gyro.getAngle());
 		SmartDashboard.putNumber("Angle Rate", getAngleRate());
-		
+
 		SmartDashboard.putNumber("Front Ultrasonic Sensor Voltage", frontUltrasonicSensor.getVoltage());
 		SmartDashboard.putNumber("Rear Ultrasonic Sensor Voltage", rearUltrasonicSensor.getVoltage());
-		
+
 		SmartDashboard.putData("Left Encoder", leftEncoder);
 		SmartDashboard.putData("Right Encoder", rightEncoder);
-		
+
 		SmartDashboard.putNumber("Encoder Speed", getEncoderSpeed());
 		SmartDashboard.putNumber("Left Encoder Speed", getLeftEncoderSpeed());
 		SmartDashboard.putNumber("Right Encoder Speed", getRightEncoderSpeed());
-		
+
 		SmartDashboard.putNumber("Encoder Distance", getEncoderDistance());
 	}
 }

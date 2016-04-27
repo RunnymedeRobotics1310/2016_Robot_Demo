@@ -10,16 +10,17 @@ public class AutoChooser {
 		DRIVE_AND_SHOOT;
 	}
 	
-	SendableChooser autoModeChooser = new SendableChooser();
+	SendableChooser autoCommandChooser = new SendableChooser();
 	SendableChooser laneChooser = new SendableChooser();
 	SendableChooser defenceChooser = new SendableChooser();
 	SendableChooser distanceChooser = new SendableChooser();
 	SendableChooser targetChooser = new SendableChooser();
 	SendableChooser goalChooser = new SendableChooser();
+	SendableChooser autoModeChooser = new SendableChooser();
 
 	public AutoChooser() {
-		autoModeChooser.addDefault("Drive and Shoot",  "Drive and Shoot");
-		autoModeChooser.addObject("Do nothing", "Do Nothing");
+		autoCommandChooser.addDefault("Drive and Shoot",  "Drive and Shoot");
+		autoCommandChooser.addObject("Do nothing", "Do Nothing");
 
 		laneChooser.addDefault("1", 1);
 		laneChooser.addObject("2", 2);
@@ -44,17 +45,17 @@ public class AutoChooser {
 		
 		goalChooser.addDefault("High", "High");
 		goalChooser.addObject("Low", "Low");
+		
+		autoModeChooser.addDefault("Single Boulder", "Single Boulder");
+		autoModeChooser.addDefault("Two Boulder", "Two Boulder");
 
-		SmartDashboard.putData("Auto mode",     autoModeChooser);
-		SmartDashboard.putData("Slot position", laneChooser);
-		SmartDashboard.putData("Defences",      defenceChooser);
-		SmartDashboard.putData("Distance",      distanceChooser);
-		SmartDashboard.putData("Target",        targetChooser);
-		SmartDashboard.putData("Goal",          goalChooser);
-	}
-	
-	public String getAutoMode() {
-		return (String) autoModeChooser.getSelected();
+		SmartDashboard.putData("Auto command",     	autoCommandChooser);
+		SmartDashboard.putData("Slot position", 	laneChooser);
+		SmartDashboard.putData("Defences",      	defenceChooser);
+		SmartDashboard.putData("Distance",      	distanceChooser);
+		SmartDashboard.putData("Target",        	targetChooser);
+		SmartDashboard.putData("Goal",          	goalChooser);
+		SmartDashboard.putData("Auto mode",     	autoModeChooser);
 	}
 
 	/**
@@ -96,5 +97,21 @@ public class AutoChooser {
 	 */
 	public String getSelectedGoal() {
 		return (String) goalChooser.getSelected();
+	}
+	
+	/**
+	 * 
+	 * @return The selected goal, as a String
+	 */
+	public String getSelectedAutoCommand() {
+		return (String) autoCommandChooser.getSelected();
+	}
+	
+	/**
+	 * 
+	 * @return The selected auto goal, as a String
+	 */
+	public String getSelectedAutoMode() {
+		return (String) autoModeChooser.getSelected();
 	}
 }

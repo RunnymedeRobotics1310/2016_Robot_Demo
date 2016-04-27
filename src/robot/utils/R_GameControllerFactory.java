@@ -2,6 +2,10 @@ package robot.utils;
 
 import edu.wpi.first.wpilibj.Joystick;
 
+/**
+ * This class will attempt to detect the controller(s) plugged into the
+ * DriverStatation and assign the proper {@link R_GameController}.
+ */
 public class R_GameControllerFactory {
 
 	public static R_GameController getGameController(int port) {

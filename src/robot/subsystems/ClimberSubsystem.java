@@ -9,6 +9,9 @@ import robot.commands.climber.JoystickClimberCommand;
 import robot.utils.R_Subsystem;
 import robot.utils.R_Victor;
 
+/**
+ * This subsystem has control over all climbing functions of the robot.
+ */
 public class ClimberSubsystem extends R_Subsystem {
 
 	R_Victor leftWinchMotor = new R_Victor(RobotMap.MotorMap.LEFT_WINCH);

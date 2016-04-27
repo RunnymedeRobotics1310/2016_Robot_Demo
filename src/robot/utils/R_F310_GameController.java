@@ -2,6 +2,10 @@ package robot.utils;
 
 import edu.wpi.first.wpilibj.Joystick;
 
+/**
+ * This class an implementatation of the {@link R_GameController} class for the
+ * Logitech F310 Gamepad.
+ */
 public class R_F310_GameController extends R_GameController {
 
 	private enum JoystickMode {

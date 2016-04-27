@@ -1,4 +1,3 @@
-
 package robot.commands.auto.base;
 
 import edu.wpi.first.wpilibj.command.Command;
@@ -6,8 +5,14 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import robot.Robot;
 import robot.pids.GoStraightPID;
 
+/**
+ * Base class for all autonomous drive commands.
+ */
 public abstract class AutoGoStraightCommand extends Command {
 
+	/**
+	 * Direction to drive the robot at.
+	 */
 	public enum Direction {
 		FORWARD, BACKWARD;
 	}
@@ -15,17 +20,27 @@ public abstract class AutoGoStraightCommand extends Command {
 	private double angleSetpoint;
 	private double speedSetpoint;
 
+	/**
+	 * Setup for autonomous driving.
+	 * @param angle Angle to drive at.
+	 */
 	public AutoGoStraightCommand(double angle) {
 		requires(Robot.chassisSubsystem);
 		this.angleSetpoint = angle;
 	}
 
+	/**
+	 * Sets the speed and direction to drive at.
+	 * @param speed Speed at which to drive.
+	 * @param direction {@link Direction}
+	 */
 	public void setSpeed(double speed, Direction direction) {
 		double absoluteSpeed = Math.abs(speed);
 		this.speedSetpoint = (direction == Direction.FORWARD) ? absoluteSpeed : -absoluteSpeed;
 	}
 
 	// Called just before this Command runs the first time
+	@Override
 	protected void initialize() {
 		GoStraightPID.setEnabled(false);
 		GoStraightPID.setSetpoint(angleSetpoint);
@@ -33,6 +48,7 @@ public abstract class AutoGoStraightCommand extends Command {
 	}
 
 	// Called repeatedly when this Command is scheduled to run
+	@Override
 	protected void execute() {
 
 		double speed = speedSetpoint;
@@ -74,13 +90,15 @@ public abstract class AutoGoStraightCommand extends Command {
 	}
 
 	// Called once after isFinished returns true
-	public void end() {
+	@Override
+	protected void end() {
 		GoStraightPID.setEnabled(false);
 		Robot.chassisSubsystem.setSpeed(0, 0);
 	}
 
 	// Called when another command which requires one or more of the same
 	// subsystems is scheduled to run
+	@Override
 	protected void interrupted() {
 	}
 

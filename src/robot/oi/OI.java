@@ -1,17 +1,16 @@
-
 package robot.oi;
 
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import robot.Field.AutoMode;
 import robot.Field.Defense;
 import robot.Field.Goal;
 import robot.Field.Lane;
 import robot.Field.Slot;
 import robot.Field.Target;
 import robot.RobotMap;
-import robot.commands.auto.AutoDriveAndShootCommand;
-import robot.commands.auto.base.DriveToProximity;
+import robot.commands.auto.AutoCommand;
 import robot.utils.R_Extreme3DPro_GameController;
 import robot.utils.R_GameController;
 import robot.utils.R_GameController.Axis;
@@ -20,8 +19,7 @@ import robot.utils.R_GameController.Stick;
 import robot.utils.R_GameController.Trigger;
 import robot.utils.R_GameControllerFactory;
 
-public class OI {
-	
+public class OI {	
 	private NetworkTable visionTable;
 	
 	public OI() {
@@ -40,15 +38,13 @@ public class OI {
 		SHOOT_BOULDER(Button.BUTTON1),
 		WIND_UP_SHOOTER(Button.BUTTON2),
 		WIND_UP_BANK_SHOT(Button.BUTTON3),
-		SHOT_ALIGN(Button.BUTTON4),
-		SHOT_NO_LONGER_ALIGN(Button.BUTTON5),
+		AUTO_SHOT_ALIGN(Button.BUTTON4),
+		MANUAL_SHOT_ALIGN(Button.BUTTON5),
 		ARM_PID_OVERRIDE(Button.BUTTON6),
 		CLIMB(Button.BUTTON7),
 		SCISSOR_RELEASE(Button.BUTTON8),
-		//ROTATE_ARM_MIN_POS(Button.BUTTON9),
 		ROTATE_ARM_PICKUP_POS(Button.BUTTON12),
-		ROTATE_ARM_DRIVE_POS(Button.BUTTON11),
-		/*ROTATE_ARM_PORTCULLIS_POS(Button.BUTTON12)*/;
+		ROTATE_ARM_DRIVE_POS(Button.BUTTON11);
 		
 		private Button button;
 
@@ -100,12 +96,12 @@ public class OI {
 	
 	private AutoChooser autoChooser = new AutoChooser();
 	
-	public boolean getNoLongerAlignShotButton() {
-		return operatorStick.getButton(ButtonMap.SHOT_NO_LONGER_ALIGN.getButton());
+	public boolean getAutoAlignShotButton() {
+		return operatorStick.getButton(ButtonMap.AUTO_SHOT_ALIGN.getButton());
 	}
 	
-	public boolean getAlignShotButton() {
-		return operatorStick.getButton(ButtonMap.SHOT_ALIGN.getButton());
+	public boolean getManualAlignShotButton() {
+		return operatorStick.getButton(ButtonMap.MANUAL_SHOT_ALIGN.getButton());
 	}
 	
 
@@ -145,10 +141,6 @@ public class OI {
 		return driverStick.getButton(Button.A);
 	}
 	
-	//public boolean getRotateArmMinPosButton() {
-	//	return operatorStick.getButton(ButtonMap.ROTATE_ARM_MIN_POS.getButton());
-	//}
-	
 	public boolean getRotateArmLowPosButton() {
 		return operatorStick.getButton(ButtonMap.ROTATE_ARM_PICKUP_POS.getButton());
 	}
@@ -157,24 +149,13 @@ public class OI {
 		return operatorStick.getButton(ButtonMap.ROTATE_ARM_DRIVE_POS.getButton());
 	}
 	
-	//public boolean getRotateArmPortcullisPosButton() {
-		//return operatorStick.getButton(ButtonMap.ROTATE_ARM_PORTCULLIS_POS.getButton());
-	//}
-	
 	public double getArmAngle() {
-		/*if (getRotateArmMinPosButton()) {
-			return RobotMap.ArmLevel.GROUND_LEVEL.angle;
-		}*/
 		if (getRotateArmLowPosButton()) {
 			return RobotMap.ArmLevel.LOW_LEVEL.angle;
 		}
 		if (getRotateArmDrivePosButton()) {
 			return RobotMap.ArmLevel.DRIVE_LEVEL.angle;
 		}
-		/*if (getRotateArmPortcullisPosButton()) {
-			return RobotMap.ArmLevel.PORTCULLIS_LEVEL.angle;
-			}
-		*/
 
 		return -1.0;
 	}
@@ -187,11 +168,6 @@ public class OI {
 	public boolean getArmPIDOverride() {
 		return operatorStick.getButton(ButtonMap.ARM_PID_OVERRIDE.getButton());
 	}
-
-	
-	/*public boolean getPortcullisOpenButton() {
-		return operatorStick.getButton(ButtonMap.PORTCULLIS_OPEN.getButton());
-	}*/
 	
 	public boolean getClimbButton() {
 		return operatorStick.getButton(ButtonMap.CLIMB.getButton()); 
@@ -213,20 +189,6 @@ public class OI {
 	
 	public double getPOV() {
 		return driverStick.getPOVAngle();
-	}
-	
-	public Nudge getNudge() {
-		if (operatorStickPreviouslyCentered) {
-			if (operatorStick.getAxis(Axis.X) < -.5) {
-				operatorStickPreviouslyCentered = false;
-				return Nudge.LEFT;
-			}
-			if (operatorStick.getAxis(Axis.X) > .5) {
-				operatorStickPreviouslyCentered = false;
-				return Nudge.RIGHT;
-			}
-		}
-		return Nudge.NONE;
 	}
 	
 	public boolean getRotateLeft() {
@@ -255,15 +217,12 @@ public class OI {
 	}
 	
 	public Command getAutoCommand() {
-
 		// Main Auto Mode
-		switch (autoChooser.getAutoMode()) {
+		switch (autoChooser.getSelectedAutoCommand()) {
 		case "Do Nothing":
 			return null;
 		case "Drive and Shoot":
-			return new AutoDriveAndShootCommand(getSlot(), getDefense(), getLane(), getTarget(), getGoal());
-		case "Drive to Proximity":
-			return new DriveToProximity(0.5, 0);
+			return new AutoCommand(getSlot(), getDefense(), getLane(), getTarget(), getGoal(), getAutoMode());
 		default:
 			return null;
 		}
@@ -288,6 +247,10 @@ public class OI {
 	public Target getTarget() {
 		return Target.toEnum(autoChooser.getSelectedTarget());
 	}
+	
+    public AutoMode getAutoMode(){
+    	return AutoMode.toEnum(autoChooser.getSelectedAutoMode());
+    }
 
 	
     public double getVisionTargetCenter() {
@@ -297,7 +260,11 @@ public class OI {
     	}
     	return xValues[0];
     }
-
+     
+   
+    public double getJoystickTargetCenter() {
+    	return operatorStick.getAxis(Axis.X);
+    }
 
 	/**
 	 * Update the periodic running elements of the dashboard

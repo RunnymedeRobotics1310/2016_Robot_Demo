@@ -3,6 +3,10 @@ package robot.commands.climber;
 import edu.wpi.first.wpilibj.command.Command;
 import robot.Robot;
 
+/**
+ * Default command for the {@link robot.subsystems.ClimberSubsystem
+ * ClimberSubsystem}. This command manages all of the climbers's actions.
+ */
 public class JoystickClimberCommand extends Command {
 
 	private boolean climberReleased;
@@ -13,6 +17,7 @@ public class JoystickClimberCommand extends Command {
 	}
 
 	// Called just before this Command runs the first time
+	@Override
 	protected void initialize() {
 		Robot.climberSubsystem.winchOff();
 		Robot.climberSubsystem.scissorDown();
@@ -22,8 +27,8 @@ public class JoystickClimberCommand extends Command {
 	}
 
 	// Called repeatedly when this Command is scheduled to run
+	@Override
 	protected void execute() {
-
 		if (!this.isTimedOut()) {
 			return;
 		}
@@ -37,7 +42,7 @@ public class JoystickClimberCommand extends Command {
 			}
 			return;
 		}
-		
+
 		// On the first time the button is pressed, deploy the scissor.
 		if (!scissorUp) {
 			if (Robot.oi.getClimbButton()) {
@@ -52,27 +57,29 @@ public class JoystickClimberCommand extends Command {
 		if (Robot.oi.getScissorReleaseButton()) {
 			Robot.climberSubsystem.scissorDown();
 		}
-		
+
 		if (Robot.oi.getClimbButton()) {
 			Robot.climberSubsystem.winchOn();
 			return;
 		}
-		
-		Robot.climberSubsystem.winchOff();
 
+		Robot.climberSubsystem.winchOff();
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
+	@Override
 	protected boolean isFinished() {
 		return false;
 	}
 
 	// Called once after isFinished returns true
+	@Override
 	protected void end() {
 	}
 
 	// Called when another command which requires one or more of the same
 	// subsystems is scheduled to run
+	@Override
 	protected void interrupted() {
 	}
 }

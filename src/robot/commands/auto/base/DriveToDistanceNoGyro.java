@@ -3,7 +3,7 @@ package robot.commands.auto.base;
 import robot.Robot;
 
 /**
- * Drives to a specified distance using encoder counts.
+ * This command drives to a specified distance using encoder counts.
  */
 public class DriveToDistanceNoGyro extends AutoGoStraightCommandNoGyro {
 

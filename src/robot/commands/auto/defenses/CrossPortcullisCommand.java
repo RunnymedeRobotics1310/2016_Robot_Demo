@@ -6,6 +6,10 @@ import robot.commands.arm.SetArmLevelCommand;
 import robot.commands.auto.base.DriveToDistance;
 import robot.commands.auto.base.DriveToProximity;
 
+/**
+ *	This CommandGroup contains the routine required to cross the Portcullis.
+ */
+
 public class CrossPortcullisCommand extends CommandGroup {
 
 	public CrossPortcullisCommand() {

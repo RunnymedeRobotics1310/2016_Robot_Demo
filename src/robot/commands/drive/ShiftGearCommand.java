@@ -4,6 +4,10 @@ import edu.wpi.first.wpilibj.command.Command;
 import robot.Robot;
 import robot.subsystems.ChassisSubsystem.Gear;
 
+/**
+ * This command is used for shifting gears. Low gear makes the robot a "tank".
+ * High gear gives the robot amazing mobility. 
+ */
 public class ShiftGearCommand extends Command {
 
 	private final Gear GEAR;

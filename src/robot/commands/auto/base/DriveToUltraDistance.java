@@ -1,22 +1,21 @@
 package robot.commands.auto.base;
 
 import robot.Robot;
-import robot.RobotMap.UltrasonicDirection;
+import robot.RobotMap.UltrasonicPosition;
 
+/**
+ * This command drives the robot to the specified distance. The distance is
+ * measured using either of the ultrasonic sensors on the robot.
+ */
 public class DriveToUltraDistance extends AutoGoStraightCommand {
 
-	/**
-	 * The distance to drive to.
-	 */
 	private double distanceSetpoint;
 
 	private double speedSetpoint;
 	
-	private UltrasonicDirection direction;
+	private UltrasonicPosition direction;
 
 	/**
-	 * The constructor for a new DriveToDistance command.
-	 * 
 	 * @param speed
 	 *            The speed at which to drive.
 	 * @param angle
@@ -24,14 +23,14 @@ public class DriveToUltraDistance extends AutoGoStraightCommand {
 	 * @param distance
 	 *            The distance to drive to.
 	 */
-	public DriveToUltraDistance(double speed, double angle, double distance, UltrasonicDirection direction) {
+	public DriveToUltraDistance(double speed, double angle, double distance, UltrasonicPosition direction) {
 		super(angle);
 		this.speedSetpoint = speed;
 		this.distanceSetpoint = distance;
-		
 		this.direction = direction;
 	}
 
+	@Override
 	protected void initialize() {
 		super.initialize();
 		Robot.chassisSubsystem.resetUltrasonicSensorFilter();
@@ -63,6 +62,7 @@ public class DriveToUltraDistance extends AutoGoStraightCommand {
 	}
 
 	// Called once after isFinished returns true
+	@Override
 	protected boolean isFinished() {
 		// Stop 4" early because it takes the robot 12 inches to stop.
 		switch (direction) {

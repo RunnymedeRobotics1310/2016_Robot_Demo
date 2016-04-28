@@ -34,7 +34,7 @@ import robot.utils.R_Subsystem;
  */
 public class Robot extends IterativeRobot {
 
-	public static boolean debugMode = false;
+	public static boolean debugMode = true;
 
 	// Declare all subsystems and add them to the list of subsystems
 	public static final ChassisSubsystem chassisSubsystem = new ChassisSubsystem();

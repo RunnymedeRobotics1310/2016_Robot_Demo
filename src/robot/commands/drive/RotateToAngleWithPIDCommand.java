@@ -88,11 +88,17 @@ public class RotateToAngleWithPIDCommand extends Command {
 		if (Math.abs(error) < 0.10 && Math.abs(Robot.chassisSubsystem.getAngleRate()) < 1) {
 			return true;
 		}
+		if(Robot.oi.getCancel()) {
+			return true;
+		}
 		return false;
 	}
 
 	// Called once after isFinished returns true
 	protected void end() {
+		
+		System.out.println("Finished Target Lock");
+		
 		RotateToAnglePID.setEnabled(false);
 		/*
 		 * Note: added motor stop incase it's not called by a separate command

@@ -80,7 +80,7 @@ public class RobotMap {
     	 * This level is set to be 350.0 degrees. The physical location of the
     	 * upper hall effect sensor.
     	 */
-    	UPPER_LIMIT(350.0);
+    	UPPER_LIMIT(355.0);
     	
     	public final double angle;
     	

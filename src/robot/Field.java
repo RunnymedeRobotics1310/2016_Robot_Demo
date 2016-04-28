@@ -58,7 +58,7 @@ public class Field {
 		 * Center tower target. This target is 152 inches away from the left
 		 * wall.
 		 */
-		CENTER("Center", 152),
+		CENTER("Center", 145),
 		/**
 		 * Right tower target. This target is 235 inches away from the left
 		 * wall.

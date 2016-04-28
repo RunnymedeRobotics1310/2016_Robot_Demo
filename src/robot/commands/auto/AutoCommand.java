@@ -77,9 +77,11 @@ public class AutoCommand extends CommandGroup {
 				addSequential(new WaitCommand(0.5));
 
 				if (Robot.oi.getVisionTargetCenter() == RobotMap.NO_VISION_TARGET) {
+					System.out.println("Not using Target Lock");
 					addSequential(new SetupHighShotCommand());
 					addSequential(new ShootHighGoalCommand());
 				} else {
+					System.out.println("Using Target Lock");
 					addSequential(new AlignAndShootHighShotCommand(TargetingMode.VISION));
 				}
 

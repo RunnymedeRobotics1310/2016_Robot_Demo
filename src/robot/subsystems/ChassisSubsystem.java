@@ -37,7 +37,7 @@ public class ChassisSubsystem extends R_Subsystem {
 	Solenoid ballShifter = new Solenoid(RobotMap.Pneumatics.BALLSHIFTER.pcmPort);
 
 	boolean autoTargeting = false;
-	
+
 	public enum Gear {
 		LOW, HIGH;
 	}
@@ -185,7 +185,7 @@ public class ChassisSubsystem extends R_Subsystem {
 
 		// Check that the speed is greater than the limit for the
 		// low gear.
-		if (Math.abs(getEncoderSpeed()) > 25.0) {
+		if (Math.abs(getEncoderSpeed()) > 25.0 && ballShifter.get()) {
 			ballShifter.set(false);
 			System.out.println("High Gear");
 		}
@@ -256,12 +256,18 @@ public class ChassisSubsystem extends R_Subsystem {
 		gyro.calibrate();
 	}
 
-	public void startAutoTargeting() { autoTargeting = true; }
-	
-	public void endAutoTargeting() { autoTargeting = false; }
-	
-	public boolean isAutoTargeting() { return autoTargeting; }
-	
+	public void startAutoTargeting() {
+		autoTargeting = true;
+	}
+
+	public void endAutoTargeting() {
+		autoTargeting = false;
+	}
+
+	public boolean isAutoTargeting() {
+		return autoTargeting;
+	}
+
 	@Override
 	public void updateDashboard() {
 		SmartDashboard.putData("Left Motor", leftMotor);
@@ -279,6 +285,8 @@ public class ChassisSubsystem extends R_Subsystem {
 
 	@Override
 	public void debugDashboard() {
+		SmartDashboard.putString("Gear", ballShifter.get() ? "Low Gear" : "High Gear");
+		
 		SmartDashboard.putData("Left Motor PID", leftMotorPID);
 		SmartDashboard.putData("Right Motor PID", rightMotorPID);
 
@@ -291,9 +299,8 @@ public class ChassisSubsystem extends R_Subsystem {
 		SmartDashboard.putData("Left Encoder", leftEncoder);
 		SmartDashboard.putData("Right Encoder", rightEncoder);
 
-		SmartDashboard.putNumber("Encoder Speed", getEncoderSpeed());
-		SmartDashboard.putNumber("Left Encoder Speed", getLeftEncoderSpeed());
-		SmartDashboard.putNumber("Right Encoder Speed", getRightEncoderSpeed());
+		SmartDashboard.putNumber("Left Encoder Speed", getLeftEncoderSpeed() / 12);
+		SmartDashboard.putNumber("Right Encoder Speed", getRightEncoderSpeed() / 12);
 
 		SmartDashboard.putNumber("Encoder Distance", getEncoderDistance());
 	}

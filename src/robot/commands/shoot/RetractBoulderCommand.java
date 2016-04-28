@@ -90,7 +90,8 @@ public class RetractBoulderCommand extends Command {
 		} else {
 			// Start the lock delay after shutting off the intake motor.
 			// Give the motor a chance to stop before trying to lock it.
-			if (Robot.shooterSubsystem.getIntakeDistance() < -230) {
+			
+			if (Robot.shooterSubsystem.getIntakeDistance() < -230.0) {
 				Robot.shooterSubsystem.stopIntakeMotor();
 				setTimeout(timeSinceInitialized() + 0.3);
 				lockDelayStarted = true;
@@ -108,6 +109,7 @@ public class RetractBoulderCommand extends Command {
 		if (cancelButton) {
 			Robot.shooterSubsystem.stopIntakeMotor();
 			Robot.shooterSubsystem.setBoulderRetracted(false);
+			Robot.shooterSubsystem.setRailPosition(false);
 		} else {
 			Robot.shooterSubsystem.lockIntakeMotor();
 			Robot.shooterSubsystem.setBoulderRetracted(true);

@@ -42,7 +42,7 @@ public class ArmSubsystem extends R_Subsystem {
 		}
 	};
 	
-	R_PIDController armPID = new R_PIDController(3.0, 0.0, 0.0, 0.0, armPIDInput, armPIDOutput);
+	R_PIDController armPID = new R_PIDController(1.5, 0.0, 0.0, 0.0, armPIDInput, armPIDOutput);
 
 	private boolean armDeployed = false;
 

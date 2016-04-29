@@ -21,7 +21,7 @@ public class RobotMap {
     /**
      * Number of degrees in each camera pixel. (Horizontal FOV of the camera).
      */
-    public final static double DEGREES_PER_PIXEL = 0.25;
+    public final static double DEGREES_PER_PIXEL = 0.22;
     
     /**
      *	Enum containing all predetermined levels for the arm.

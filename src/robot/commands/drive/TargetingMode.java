@@ -1,5 +1,5 @@
 package robot.commands.drive;
 
 public enum TargetingMode {
-	VISION, JOYSTICK;
+	VISION, AUTO, JOYSTICK;
 }

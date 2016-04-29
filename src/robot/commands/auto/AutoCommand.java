@@ -24,8 +24,8 @@ import robot.commands.auto.defenses.CrossPortcullisCommand;
 import robot.commands.auto.defenses.CrossRampartsCommand;
 import robot.commands.auto.defenses.CrossRockWallCommand;
 import robot.commands.auto.defenses.CrossRoughTerrainCommand;
+import robot.commands.drive.MatchPeriod;
 import robot.commands.drive.RotateToAngleCommand;
-import robot.commands.drive.TargetingMode;
 import robot.commands.shoot.AlignAndShootHighShotCommand;
 import robot.commands.shoot.PickupBoulderCommand;
 import robot.commands.shoot.SetupHighShotCommand;
@@ -53,7 +53,7 @@ public class AutoCommand extends CommandGroup {
 		double waitTime = 4.0;
 		double autoSpeed = 0.7;
 		double rampAngle = 60;
-		double angle  = (target == Target.LEFT) ? rampAngle : 360 - rampAngle;
+		double angle = (target == Target.LEFT) ? rampAngle : 360 - rampAngle;
 
 		if (autoMode == AutoMode.SINGLE_BOULDER) {
 			switch (defense) {
@@ -64,7 +64,7 @@ public class AutoCommand extends CommandGroup {
 				// addParallel(new SetupHighShotCommand());
 
 				if (target != Target.CENTER) {
-					addSequential(new DriveToUltraDistance(autoSpeed, 0, 79, UltrasonicPosition.FRONT));
+					addSequential(new DriveToUltraDistance(autoSpeed, 0, 63, UltrasonicPosition.FRONT));
 					addSequential(new RotateToAngleCommand(angle, 3));
 					addSequential(new DriveToProximity(autoSpeed, angle));
 				} else {
@@ -74,16 +74,9 @@ public class AutoCommand extends CommandGroup {
 					addSequential(new DriveToProximity(autoSpeed, 0));
 				}
 
-				addSequential(new WaitCommand(0.5));
+				addSequential(new WaitCommand(1.0));
 
-				if (Robot.oi.getVisionTargetCenter() == RobotMap.NO_VISION_TARGET) {
-					System.out.println("Not using Target Lock");
-					addSequential(new SetupHighShotCommand());
-					addSequential(new ShootHighGoalCommand());
-				} else {
-					System.out.println("Using Target Lock");
-					addSequential(new AlignAndShootHighShotCommand(TargetingMode.VISION));
-				}
+				addSequential(new AlignAndShootHighShotCommand(MatchPeriod.AUTO));
 
 				if (target != Target.CENTER) {
 					addSequential(new WaitCommand(0.5));
@@ -190,7 +183,7 @@ public class AutoCommand extends CommandGroup {
 			// position to cross the low bar.
 			addSequential(new DriveToUltraDistance(autoSpeed, 0.0, 0.0, UltrasonicPosition.REAR));
 			addSequential(new RotateToAngleCommand(90.0, 3.0));
-			//TODO: Figure out the actual distance that we need to travel.
+			// TODO: Figure out the actual distance that we need to travel.
 			// 95% CHANCE THAT THIS WILL NOT WORK, COMPLETELY UNTESTED!!!!
 			addSequential(new DriveToDistance(autoSpeed, 90.0, 80.0));
 			addParallel(new SetArmLevelCommand(ArmLevel.LOW_LEVEL));
@@ -210,7 +203,7 @@ public class AutoCommand extends CommandGroup {
 			addSequential(new SetupHighShotCommand());
 			addSequential(new ShootHighGoalCommand());
 		} else {
-			addSequential(new AlignAndShootHighShotCommand(TargetingMode.VISION));
+			addSequential(new AlignAndShootHighShotCommand(MatchPeriod.AUTO));
 		}
 	}
 }

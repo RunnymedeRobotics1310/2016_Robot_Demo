@@ -35,7 +35,7 @@ public class RotateToAnglePID {
 	private static double pidOutputValue = 0.0;
 
 	// TODO Verify this values are correct
-	private static R_PIDController rotateToAnglePIDController = new R_PIDController(2.0, 0.1, 0.0, 1.0,
+	private static R_PIDController rotateToAnglePIDController = new R_PIDController(3, 0.2, 0.0, 1.0,
 			rotateToAnglePIDInput, rotateToAnglePIDOutput);
 
 	public static void setEnabled(boolean enabled) {

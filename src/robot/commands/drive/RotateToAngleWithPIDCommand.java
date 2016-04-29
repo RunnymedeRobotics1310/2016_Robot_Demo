@@ -15,21 +15,37 @@ public class RotateToAngleWithPIDCommand extends Command {
 
 	double angleSetpoint;
 	TargetingMode targetingMode;
+	
+	MatchPeriod period;
 
-	public RotateToAngleWithPIDCommand(TargetingMode targetingMode) {
+	public RotateToAngleWithPIDCommand(MatchPeriod period) {
 		requires(Robot.chassisSubsystem);
 		
-		this.targetingMode = targetingMode;
+		this.period = period;
 	}
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
 		
-		double pixelDifference;
-		if (targetingMode == TargetingMode.VISION) {
-			pixelDifference = Robot.oi.getVisionTargetCenter() - 83.0;
+		if (period == MatchPeriod.TELEOP) {
+			this.targetingMode = Robot.oi.getVisionTargetCenter() == RobotMap.NO_VISION_TARGET ? TargetingMode.JOYSTICK : TargetingMode.VISION;	
 		} else {
-			pixelDifference = Robot.oi.getJoystickTargetCenter() - 83.0;
+			this.targetingMode = Robot.oi.getVisionTargetCenter() == RobotMap.NO_VISION_TARGET ? TargetingMode.AUTO : TargetingMode.VISION;
+		}
+		double pixelDifference;
+		
+		
+		switch (targetingMode) {
+		case AUTO:
+			return;
+		case JOYSTICK:
+			pixelDifference = Robot.oi.getJoystickTargetCenter() - 100;
+			break;
+		case VISION:
+			pixelDifference = Robot.oi.getVisionTargetCenter() - 100;
+			break;
+		default:
+			pixelDifference = 0;
 		}
 		
 		double angleDifference = pixelDifference * RobotMap.DEGREES_PER_PIXEL;
@@ -83,6 +99,8 @@ public class RotateToAngleWithPIDCommand extends Command {
 	protected boolean isFinished() {
 		
 		if (!Robot.chassisSubsystem.isAutoTargeting()) { return true; }
+		
+		if (targetingMode == TargetingMode.AUTO) {return true;}
 		
 		double error = -Robot.chassisSubsystem.getAngleDifference(angleSetpoint);
 		if (Math.abs(error) < 0.10 && Math.abs(Robot.chassisSubsystem.getAngleRate()) < 1) {

@@ -29,7 +29,7 @@ public class RotateToAngleCommand extends Command {
 
 		double angleDifference = Robot.chassisSubsystem.getAngleDifference(this.targetAngle);
 
-		leftSpeed = (angleDifference > 0) ? initSpeed : -initSpeed;
+		leftSpeed = (angleDifference > 0.0) ? initSpeed : -initSpeed;
 		rightSpeed = -leftSpeed;
 
 		Robot.chassisSubsystem.setSpeed(leftSpeed, rightSpeed);
@@ -44,15 +44,15 @@ public class RotateToAngleCommand extends Command {
 
 		double speed = initSpeed;
 
-		if (Math.abs(angleDifference) < 20) {
-			speed *= .5;
-		} else if (Math.abs(angleDifference) < 10) {
-			speed *= .3;
-		} else if (Math.abs(angleDifference) < 5) {
-			speed *= .1;
+		if (Math.abs(angleDifference) < 20.0) {
+			speed *= 0.5;
+		} else if (Math.abs(angleDifference) < 10.0) {
+			speed *= 0.3;
+		} else if (Math.abs(angleDifference) < 5.0) {
+			speed *= 0.1;
 		}
 
-		leftSpeed = (angleDifference > 0) ? speed : -speed;
+		leftSpeed = (angleDifference > 00) ? speed : -speed;
 
 		rightSpeed = -leftSpeed;
 
@@ -63,16 +63,15 @@ public class RotateToAngleCommand extends Command {
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
-	    System.out.println("rotate finished");
 		if (Math.abs(Robot.oi.getSpeed()) > 0.05 || Math.abs(Robot.oi.getTurn()) > 0.05) {
 			return true;
-		} else if (Robot.oi.getPOV() != -1) {
+		} else if (Robot.oi.getPOV() != -1.0) {
 			Scheduler.getInstance().add(new RotateToAngleCommand(Robot.oi.getPOV(), 3.0));
 			return true;
 		}
 		double angleDifference = Robot.chassisSubsystem.getAngleDifference(this.targetAngle);
 
-		if (Math.abs(angleDifference) < 3) {
+		if (Math.abs(angleDifference) < 3.0) {
 			return true;
 		} else {
 			return this.isTimedOut();
@@ -82,7 +81,7 @@ public class RotateToAngleCommand extends Command {
 	// Called once after isFinished returns true
 	protected void end() {
 		// stop motors
-		Robot.chassisSubsystem.setSpeed(0, 0);
+		Robot.chassisSubsystem.setSpeed(0.0, 0.0);
 	}
 
 	// Called when another command which requires one or more of the same

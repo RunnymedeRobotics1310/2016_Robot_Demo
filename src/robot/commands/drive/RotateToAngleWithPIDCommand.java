@@ -39,13 +39,13 @@ public class RotateToAngleWithPIDCommand extends Command {
 		case AUTO:
 			return;
 		case JOYSTICK:
-			pixelDifference = Robot.oi.getJoystickTargetCenter() - 100;
+			pixelDifference = Robot.oi.getJoystickTargetCenter() - 102.0;
 			break;
 		case VISION:
-			pixelDifference = Robot.oi.getVisionTargetCenter() - 100;
+			pixelDifference = Robot.oi.getVisionTargetCenter() - 102.0;
 			break;
 		default:
-			pixelDifference = 0;
+			pixelDifference = 0.0;
 		}
 		
 		double angleDifference = pixelDifference * RobotMap.DEGREES_PER_PIXEL;
@@ -70,8 +70,8 @@ public class RotateToAngleWithPIDCommand extends Command {
 		SmartDashboard.putNumber("AnglePIDOutput", RotateToAnglePID.getOutput());
 
 		double angleDifference = -Robot.chassisSubsystem.getAngleDifference(angleSetpoint);
-		double turn = 0;
-		if (Math.abs(angleDifference) < 10) {
+		double turn = 0.0;
+		if (Math.abs(angleDifference) < 10.0) {
 			RotateToAnglePID.setEnabled(true);
 		}
 
@@ -81,15 +81,15 @@ public class RotateToAngleWithPIDCommand extends Command {
 			turn = -0.3 * Math.signum(angleDifference);
 		}
 
-		if (turn > 0) {
+		if (turn > 0.0) {
 			leftSpeed = turn;
 			rightSpeed = -turn;
-		} else if (turn < 0) {
+		} else if (turn < 0.0) {
 			leftSpeed = turn;
 			rightSpeed = -turn;
 		} else {
-			leftSpeed = 0;
-			rightSpeed = 0;
+			leftSpeed = 0.0;
+			rightSpeed = 0.0;
 		}
 
 		Robot.chassisSubsystem.setSpeed(leftSpeed, rightSpeed);
@@ -103,7 +103,7 @@ public class RotateToAngleWithPIDCommand extends Command {
 		if (targetingMode == TargetingMode.AUTO) {return true;}
 		
 		double error = -Robot.chassisSubsystem.getAngleDifference(angleSetpoint);
-		if (Math.abs(error) < 0.10 && Math.abs(Robot.chassisSubsystem.getAngleRate()) < 1) {
+		if (Math.abs(error) < 0.10 && Math.abs(Robot.chassisSubsystem.getAngleRate()) < 1.0) {
 			return true;
 		}
 		if(Robot.oi.getCancel()) {
@@ -122,7 +122,7 @@ public class RotateToAngleWithPIDCommand extends Command {
 		 * Note: added motor stop incase it's not called by a separate command
 		 * as in AutoGoStraightCommand calling GoStraightCommand
 		 */
-		Robot.chassisSubsystem.setSpeed(0, 0);
+		Robot.chassisSubsystem.setSpeed(0.0, 0.0);
 		Robot.chassisSubsystem.endAutoTargeting();
 	}
 

@@ -64,14 +64,14 @@ public class AutoCommand extends CommandGroup {
 				// addParallel(new SetupHighShotCommand());
 
 				if (target != Target.CENTER) {
-					addSequential(new DriveToUltraDistance(autoSpeed, 0, 63, UltrasonicPosition.FRONT));
-					addSequential(new RotateToAngleCommand(angle, 3));
+					addSequential(new DriveToUltraDistance(autoSpeed, 0.0, 63.0, UltrasonicPosition.FRONT));
+					addSequential(new RotateToAngleCommand(angle, 3.0));
 					addSequential(new DriveToProximity(autoSpeed, angle));
 				} else {
-					addSequential(new RotateToAngleCommand(90, 3));
-					addSequential(new DriveToUltraDistance(autoSpeed, 90, 200, UltrasonicPosition.REAR));
-					addSequential(new RotateToAngleCommand(0, 3));
-					addSequential(new DriveToProximity(autoSpeed, 0));
+					addSequential(new RotateToAngleCommand(90.0, 3.0));
+					addSequential(new DriveToUltraDistance(autoSpeed, 90.0, 200.0, UltrasonicPosition.REAR));
+					addSequential(new RotateToAngleCommand(0.0, 3.0));
+					addSequential(new DriveToProximity(autoSpeed, 0.0));
 				}
 
 				addSequential(new WaitCommand(1.0));
@@ -80,12 +80,12 @@ public class AutoCommand extends CommandGroup {
 
 				if (target != Target.CENTER) {
 					addSequential(new WaitCommand(0.5));
-					addSequential(new RotateToAngleCommand(90, 3));
-					addSequential(new DriveToUltraDistance(autoSpeed, 90, 10, UltrasonicPosition.REAR));
-					addSequential(new RotateToAngleCommand(0, 3));
+					addSequential(new RotateToAngleCommand(90.0, 3.0));
+					addSequential(new DriveToUltraDistance(autoSpeed, 90.0, 10.0, UltrasonicPosition.REAR));
+					addSequential(new RotateToAngleCommand(0.0, 3));
 					addSequential(new SetArmLevelCommand(ArmLevel.LOW_LEVEL));
 					// addSequential(new DriveToProximity(0.7, 0));
-					addSequential(new DriveToDistance(autoSpeed, 0, -240));
+					addSequential(new DriveToDistance(autoSpeed, 0.0, -240.0));
 				}
 				return;
 			case MOAT:
@@ -141,12 +141,12 @@ public class AutoCommand extends CommandGroup {
 
 			if (target != Target.CENTER) {
 
-				addSequential(new DriveToUltraDistance(autoSpeed, 0, 33, RobotMap.UltrasonicPosition.FRONT));
+				addSequential(new DriveToUltraDistance(autoSpeed, 0.0, 33.0, RobotMap.UltrasonicPosition.FRONT));
 
 				// addSequential(new DriveToCenterProximity(autoSpeed, 0));
 				// addSequential(new DriveToDistance(autoSpeed, 0, -16));
 			} else {
-				addSequential(new DriveToProximity(autoSpeed - 0.3, 0));
+				addSequential(new DriveToProximity(autoSpeed - 0.3, 0.0));
 			}
 
 			switch (target) {
@@ -159,7 +159,7 @@ public class AutoCommand extends CommandGroup {
 				break;
 			case RIGHT:
 				addSequential(new RotateToAngleCommand(360 - rampAngle, waitTime));
-				addSequential(new DriveToProximity(autoSpeed - 0.4, 360 - rampAngle));
+				addSequential(new DriveToProximity(autoSpeed - 0.4, 360.0 - rampAngle));
 				break;
 			}
 
@@ -169,7 +169,7 @@ public class AutoCommand extends CommandGroup {
 				chooseHighGoalType();
 				break;
 			case LOW:
-				addSequential(new DriveToDistance(0.4, rampAngle, 30));
+				addSequential(new DriveToDistance(0.4, rampAngle, 30.0));
 				addSequential(new ShootLowGoalCommand());
 				break;
 			}

@@ -56,8 +56,8 @@ public class RetractBoulderCommand extends Command {
 		// Start reversing the intake some time after the shooter starts
 		// reversing
 		if (!retractStarted) {
-			if (timeSinceInitialized() > 0.5) {
-				System.out.println("Start retraction - shooter ran backwards for 0.5s");
+			if (timeSinceInitialized() > 0.75) {
+				System.out.println("Start retraction - shooter ran backwards for 0.75s");
 				Robot.shooterSubsystem.resetIntakeEncoder();
 				Robot.shooterSubsystem.setIntakeMotorReverse(IntakeReverseSpeed.LOW);
 				if (armPosition == ARM_FULLY_UP) {

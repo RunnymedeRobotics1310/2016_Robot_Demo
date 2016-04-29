@@ -8,7 +8,7 @@ package robot;
 public class RobotMap {
     private final static boolean inverted = true;
 
-    public final static double ANALOG_OFFSET = 310;
+    public final static double ANALOG_OFFSET = 310.0;
     
     /**
      * Number of pixels per row (width part of the camera's resolution).
@@ -17,11 +17,12 @@ public class RobotMap {
     /**
      * Constant indicating that a target couldn't be found.
      */
-    public final static double NO_VISION_TARGET = -1;
+    public final static double NO_VISION_TARGET = -1.0;
     /**
      * Number of degrees in each camera pixel. (Horizontal FOV of the camera).
      */
     public final static double DEGREES_PER_PIXEL = 0.22;
+    
     
     /**
      *	Enum containing all predetermined levels for the arm.

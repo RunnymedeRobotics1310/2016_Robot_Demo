@@ -90,8 +90,8 @@ public class JoystickDriveCommand extends Command {
 			leftSpeed = turn / 2.0;
 			rightSpeed = -turn / 2.0;
 		} else {
-			leftSpeed = (turn < 0) ? speed * (1 + turn) : speed;
-			rightSpeed = (turn < 0) ? speed : speed * (1 - turn);
+			leftSpeed = (turn < 0.0) ? speed * (1.0 + turn) : speed;
+			rightSpeed = (turn < 0.0) ? speed : speed * (1.0 - turn);
 		}
 
 		Robot.chassisSubsystem.setSpeed(leftSpeed, rightSpeed);

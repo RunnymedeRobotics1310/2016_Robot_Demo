@@ -48,7 +48,11 @@ public class RetractBoulderCommand extends Command {
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
+		System.out.println("initializing..");
+		retractStarted = false;
+		lockDelayStarted = false;
 		Robot.shooterSubsystem.startShooterMotorReverse();
+		Robot.shooterSubsystem.resetIntakeEncoder();
 	}
 
 	// Called repeatedly when this Command is scheduled to run
@@ -56,9 +60,10 @@ public class RetractBoulderCommand extends Command {
 		// Start reversing the intake some time after the shooter starts
 		// reversing
 		if (!retractStarted) {
-			if (timeSinceInitialized() > 0.75) {
-				System.out.println("Start retraction - shooter ran backwards for 0.75s");
+			if (timeSinceInitialized() > 2.0) {
+				System.out.println("1");
 				Robot.shooterSubsystem.resetIntakeEncoder();
+				System.out.println("2");
 				Robot.shooterSubsystem.setIntakeMotorReverse(IntakeReverseSpeed.LOW);
 				if (armPosition == ARM_FULLY_UP) {
 					System.out.println("Bank Shot Setup");
@@ -67,7 +72,9 @@ public class RetractBoulderCommand extends Command {
 				} else {
 					Robot.armSubsystem.setArmAngle(RobotMap.ArmLevel.SHOOT_LEVEL.getAngle());
 				}
+				System.out.println("3");
 				Robot.shooterSubsystem.stopShooterMotor();
+    			System.out.println("4");
 				retractStarted = true;
 			}
 		}
@@ -92,6 +99,7 @@ public class RetractBoulderCommand extends Command {
 			// Give the motor a chance to stop before trying to lock it.
 			
 			if (Robot.shooterSubsystem.getIntakeDistance() < -230.0) {
+				System.out.println("Stopping intake motor" + Robot.shooterSubsystem.getIntakeDistance());
 				Robot.shooterSubsystem.stopIntakeMotor();
 				setTimeout(timeSinceInitialized() + 0.3);
 				lockDelayStarted = true;

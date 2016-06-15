@@ -34,7 +34,7 @@ public class R_Ultrasonic extends AnalogInput {
 		// (y - b)/m = x
 		// return (super.getVoltage() - 0.0393) / 0.0094;
 
-		return super.getVoltage() * 81.246 - 2.3838;
+		return super.getVoltage() * 81.246 + 1.3838;
 	}
 
 	/**

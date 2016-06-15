@@ -1,6 +1,7 @@
 package robot.commands.shoot;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
+import robot.commands.auto.base.WaitCommand;
 import robot.commands.drive.MatchPeriod;
 import robot.commands.drive.RotateToAngleWithPIDCommand;
 
@@ -10,9 +11,11 @@ import robot.commands.drive.RotateToAngleWithPIDCommand;
  */
 public class AlignAndShootHighShotCommand extends CommandGroup {
 	public AlignAndShootHighShotCommand(MatchPeriod period) {
-		addParallel(new RotateToAngleWithPIDCommand(period));
+		addSequential(new RotateToAngleWithPIDCommand(period));
 		addSequential(new RetractBoulderCommand());
 		addSequential(new WindupCommand());
+		addSequential(new RotateToAngleWithPIDCommand(period));
+		addSequential(new WaitCommand(0.25));
 		addSequential(new ShootHighGoalCommand());
 	}
 }

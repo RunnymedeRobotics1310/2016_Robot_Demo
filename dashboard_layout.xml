@@ -1,5 +1,23 @@
 <xml version="1.0">
 <dashboard>
+	<widget field="Left Motor" type="Speed Controller" class="edu.wpi.first.smartdashboard.livewindow.elements.SpeedController">
+		<location x="426" y="306"/>
+	</widget>
+	<widget field="Right Motor" type="Speed Controller" class="edu.wpi.first.smartdashboard.livewindow.elements.SpeedController">
+		<location x="0" y="879"/>
+	</widget>
+	<widget field="Right Encoder" type="Quadrature Encoder" class="edu.wpi.first.smartdashboard.livewindow.elements.EncoderDisplay">
+		<location x="0" y="780"/>
+	</widget>
+	<widget field="Intake motor" type="Speed Controller" class="edu.wpi.first.smartdashboard.livewindow.elements.SpeedController">
+		<location x="0" y="691"/>
+	</widget>
+	<widget field="Left Encoder" type="Quadrature Encoder" class="edu.wpi.first.smartdashboard.livewindow.elements.EncoderDisplay">
+		<location x="0" y="592"/>
+	</widget>
+	<widget field="Gear" type="String" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="85"/>
+	</widget>
 	<widget field="Arm Min Limit Switch" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.BooleanBox">
 		<location x="830" y="260"/>
 	</widget>
@@ -117,7 +135,7 @@
 		<location x="1678" y="461"/>
 	</widget>
 	<widget field="Auto mode" type="String Chooser" class="edu.wpi.first.smartdashboard.gui.elements.Chooser">
-		<location x="1244" y="463"/>
+		<location x="1733" y="463"/>
 	</widget>
 	<widget field="AnglePID" type="PIDController" class="edu.wpi.first.smartdashboard.gui.elements.PIDEditor">
 		<location x="5" y="435"/>
@@ -211,28 +229,13 @@
 		<height>59</height>
 	</static-widget>
 	<widget field="Auto command" type="String Chooser" class="edu.wpi.first.smartdashboard.gui.elements.Chooser">
-		<location x="1268" y="472"/>
-	</widget>
-	<widget field="Left Motor" type="Speed Controller" class="edu.wpi.first.smartdashboard.livewindow.elements.SpeedController">
-		<location x="422" y="573"/>
+		<location x="1249" y="470"/>
 	</widget>
 	<widget field="Arm Min Height" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
 		<location x="0" y="947"/>
 	</widget>
-	<widget field="Right Motor" type="Speed Controller" class="edu.wpi.first.smartdashboard.livewindow.elements.SpeedController">
-		<location x="0" y="900"/>
-	</widget>
-	<widget field="Right Encoder" type="Quadrature Encoder" class="edu.wpi.first.smartdashboard.livewindow.elements.EncoderDisplay">
-		<location x="0" y="780"/>
-	</widget>
 	<widget field="Arm Max Height" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
 		<location x="0" y="759"/>
-	</widget>
-	<widget field="Intake motor" type="Speed Controller" class="edu.wpi.first.smartdashboard.livewindow.elements.SpeedController">
-		<location x="0" y="691"/>
-	</widget>
-	<widget field="Left Encoder" type="Quadrature Encoder" class="edu.wpi.first.smartdashboard.livewindow.elements.EncoderDisplay">
-		<location x="0" y="592"/>
 	</widget>
 	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.VideoStreamViewerExtension">
 		<location x="1243" y="3"/>
@@ -247,6 +250,4 @@
 </dashboard>
 <live-window>
 </live-window>
-	<hidden field="Gyro Offset"/>
-	<hidden field="Angle difference"/>
 </xml>

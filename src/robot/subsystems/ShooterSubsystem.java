@@ -155,7 +155,7 @@ public class ShooterSubsystem extends R_Subsystem {
 	}
 
 	public void startShooterMotorReverse() {
-		shooterMotor.set(-0.5);
+		shooterMotor.set(-1.00);
 	}
 
 	public void setShooterSpeed(double speedSetPoint) {

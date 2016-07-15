@@ -51,150 +51,118 @@ public class AutoCommand extends CommandGroup {
 	 */
 	public AutoCommand(Slot slot, Defense defense, Lane lane, Target target, Goal goal, AutoMode autoMode) {
 		double waitTime = 4.0;
-		double autoSpeed = 0.7;
+		double autoSpeed = 0.6;
 		double rampAngle = 60;
 		double angle = (target == Target.LEFT) ? rampAngle : 360 - rampAngle;
 
-		if (autoMode == AutoMode.SINGLE_BOULDER) {
-			switch (defense) {
-			case LOW_BAR:
+		switch (defense) {
+		case LOW_BAR:
 
-				addSequential(new CrossLowBarCommand());
+			addSequential(new CrossLowBarCommand());
 
-				// addParallel(new SetupHighShotCommand());
-
-				if (target != Target.CENTER) {
-					addSequential(new DriveToUltraDistance(autoSpeed, 0.0, 63.0, UltrasonicPosition.FRONT));
-					addSequential(new RotateToAngleCommand(angle, 3.0));
-					addSequential(new DriveToProximity(autoSpeed, angle));
-				} else {
-					addSequential(new RotateToAngleCommand(90.0, 3.0));
-					addSequential(new DriveToUltraDistance(autoSpeed, 90.0, 200.0, UltrasonicPosition.REAR));
-					addSequential(new RotateToAngleCommand(0.0, 3.0));
-					addSequential(new DriveToProximity(autoSpeed, 0.0));
-				}
-
-				addSequential(new WaitCommand(1.0));
-
-				addSequential(new AlignAndShootHighShotCommand(MatchPeriod.AUTO));
-
-				if (target != Target.CENTER) {
-					addSequential(new WaitCommand(0.5));
-					addSequential(new RotateToAngleCommand(90.0, 3.0));
-					addSequential(new DriveToUltraDistance(autoSpeed, 90.0, 10.0, UltrasonicPosition.REAR));
-					addSequential(new RotateToAngleCommand(0.0, 3));
-					addSequential(new SetArmLevelCommand(ArmLevel.LOW_LEVEL));
-					// addSequential(new DriveToProximity(0.7, 0));
-					addSequential(new DriveToDistance(autoSpeed, 0.0, -240.0));
-				}
-				return;
-			case MOAT:
-				addSequential(new CrossMoatCommand());
-				break;
-			case RAMPARTS:
-				addSequential(new CrossRampartsCommand());
-				break;
-			case ROCK_WALL:
-				addSequential(new CrossRockWallCommand());
-				break;
-			case ROUGH_TERRAIN:
-				addSequential(new CrossRoughTerrainCommand());
-				break;
-			case PORTCULLIS:
-				addSequential(new CrossPortcullisCommand());
-				break;
-			case CHEVAL_DE_FRISE:
-				addSequential(new CrossChavelDeFriseCommand());
-				break;
-			}
-
-			// If the far lane is selected, go for another 50 inches.
-			if (lane == Lane.FAR) {
-				addSequential(new DriveToDistance(autoSpeed, 0.0, 50.0));
-			}
-
-			// If the slot is 4 and the Goal is center, then the robot is
-			// already lined up.
-			if (!(slot == Slot.FOUR && target == Target.CENTER)) {
-
-				// Rotate to 90 degrees, because that's what we always do.
-				addSequential(new RotateToAngleCommand(90.0, waitTime));
-
-				// If the ultrasonic distance is not within threshold then
-				// wait until the path is clear and then continue.
-				addSequential(new WaitUntilPathClear(waitTime, slot));
-
-				double distance = target.getRequiredDistance();
-
-				// If the slot is FIVE, then we will be going backwards and so
-				// we need to stop sooner, so tweak the distance.
-				if (slot == Slot.FIVE) {
-					distance += 15;
-				}
-
-				// addSequential(new DriveToDistance(autoSpeed, 90, 45));
-				addSequential(new DriveToUltraDistance(autoSpeed, 90.0, distance, RobotMap.UltrasonicPosition.REAR));
-
-				// Rotate to 0 degrees, because that's what we always do.
-				addSequential(new RotateToAngleCommand(0.0, waitTime));
-			}
+			// addParallel(new SetupHighShotCommand());
 
 			if (target != Target.CENTER) {
-
-				addSequential(new DriveToUltraDistance(autoSpeed, 0.0, 33.0, RobotMap.UltrasonicPosition.FRONT));
-
-				// addSequential(new DriveToCenterProximity(autoSpeed, 0));
-				// addSequential(new DriveToDistance(autoSpeed, 0, -16));
+				addSequential(new DriveToUltraDistance(autoSpeed, 0.0, 67.0, UltrasonicPosition.FRONT));
+				addSequential(new RotateToAngleCommand(angle, 3.0));
+				addSequential(new DriveToProximity(autoSpeed, angle));
 			} else {
-				addSequential(new DriveToProximity(autoSpeed - 0.3, 0.0));
+				addSequential(new RotateToAngleCommand(90.0, 3.0));
+				addSequential(new DriveToUltraDistance(autoSpeed, 90.0, 200.0, UltrasonicPosition.REAR));
+				addSequential(new RotateToAngleCommand(0.0, 3.0));
+				addSequential(new DriveToProximity(autoSpeed, 0.0));
 			}
 
-			switch (target) {
-			case LEFT:
-				addSequential(new RotateToAngleCommand(rampAngle, waitTime));
-				addSequential(new DriveToProximity(autoSpeed - 0.4, rampAngle));
-				break;
-			case CENTER:
-				// Do nothing.
-				break;
-			case RIGHT:
-				addSequential(new RotateToAngleCommand(360 - rampAngle, waitTime));
-				addSequential(new DriveToProximity(autoSpeed - 0.4, 360.0 - rampAngle));
-				break;
-			}
+			addSequential(new WaitCommand(1.0));
 
-			// Shoot
-			switch (goal) {
-			case HIGH:
-				chooseHighGoalType();
-				break;
-			case LOW:
-				addSequential(new DriveToDistance(0.4, rampAngle, 30.0));
-				addSequential(new ShootLowGoalCommand());
-				break;
-			}
+			addSequential(new AlignAndShootHighShotCommand(MatchPeriod.AUTO));
+			return;
+		case MOAT:
+			addSequential(new CrossMoatCommand());
+			break;
+		case RAMPARTS:
+			addSequential(new CrossRampartsCommand());
+			break;
+		case ROCK_WALL:
+			addSequential(new CrossRockWallCommand());
+			break;
+		case ROUGH_TERRAIN:
+			addSequential(new CrossRoughTerrainCommand());
+			break;
+		case PORTCULLIS:
+			addSequential(new CrossPortcullisCommand());
+			break;
+		case CHEVAL_DE_FRISE:
+			addSequential(new CrossChavelDeFriseCommand());
+			break;
 		}
 
-		else if (autoMode == AutoMode.TWO_BOULDER) {
+		// If the far lane is selected, go for another 50 inches.
+		if (lane == Lane.FAR)
+
+		{
+			addSequential(new DriveToDistance(autoSpeed, 0.0, 50.0));
+		}
+
+		// If the slot is 4 and the Goal is center, then the robot is
+		// already lined up.
+		if (!(slot == Slot.FOUR && target == Target.CENTER)) {
+
+			// Rotate to 90 degrees, because that's what we always do.
+			addSequential(new RotateToAngleCommand(90.0, waitTime));
+
+			// If the ultrasonic distance is not within threshold then
+			// wait until the path is clear and then continue.
+			addSequential(new WaitUntilPathClear(waitTime, slot));
+
+			double distance = target.getRequiredDistance();
+
+			// If the slot is FIVE, then we will be going backwards and so
+			// we need to stop sooner, so tweak the distance.
+			if (slot == Slot.FIVE) {
+				distance += 15;
+			}
+
+			// addSequential(new DriveToDistance(autoSpeed, 90, 45));
+			addSequential(new DriveToUltraDistance(autoSpeed, 90.0, distance, RobotMap.UltrasonicPosition.REAR));
+
+			// Rotate to 0 degrees, because that's what we always do.
+			addSequential(new RotateToAngleCommand(0.0, waitTime));
+		}
+
+		if (target != Target.CENTER) {
+
+			addSequential(new DriveToUltraDistance(autoSpeed, 0.0, 33.0, RobotMap.UltrasonicPosition.FRONT));
+
+			// addSequential(new DriveToCenterProximity(autoSpeed, 0));
+			// addSequential(new DriveToDistance(autoSpeed, 0, -16));
+		} else {
 			addSequential(new DriveToProximity(autoSpeed, 0.0));
+		}
+
+		switch (target) {
+		case LEFT:
+			addSequential(new RotateToAngleCommand(rampAngle, waitTime));
+			addSequential(new DriveToProximity(autoSpeed - 0.4, rampAngle));
+			break;
+		case CENTER:
+			// Do nothing.
+			break;
+		case RIGHT:
+			addSequential(new RotateToAngleCommand(360 - rampAngle, waitTime));
+			addSequential(new DriveToProximity(autoSpeed - 0.4, 360.0 - rampAngle));
+			break;
+		}
+
+		// Shoot
+		switch (goal) {
+		case HIGH:
 			chooseHighGoalType();
-			// TODO: Prove the following theory: If the robot takes 4.0 inches
-			// to stop, driving to 6.0 inches should leave us at the right
-			// position to cross the low bar.
-			addSequential(new DriveToUltraDistance(autoSpeed, 0.0, 0.0, UltrasonicPosition.REAR));
-			addSequential(new RotateToAngleCommand(90.0, 3.0));
-			// TODO: Figure out the actual distance that we need to travel.
-			// 95% CHANCE THAT THIS WILL NOT WORK, COMPLETELY UNTESTED!!!!
-			addSequential(new DriveToDistance(autoSpeed, 90.0, 80.0));
-			addParallel(new SetArmLevelCommand(ArmLevel.LOW_LEVEL));
-			// drive through the low bar.
-			addSequential(new CrossLowBarCommand());
-			addSequential(new PickupBoulderCommand());
-			addSequential(new RotateToAngleCommand(270.0, 3.0));
-			addSequential(new DriveToUltraDistance(autoSpeed, 0.0, 79.0, UltrasonicPosition.FRONT));
-			addSequential(new RotateToAngleCommand(angle, 3.0));
-			addSequential(new DriveToProximity(autoSpeed, angle));
-			chooseHighGoalType();
+			break;
+		case LOW:
+			addSequential(new DriveToDistance(0.4, rampAngle, 30.0));
+			addSequential(new ShootLowGoalCommand());
+			break;
 		}
 	}
 

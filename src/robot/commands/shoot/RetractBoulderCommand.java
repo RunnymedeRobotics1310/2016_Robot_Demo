@@ -60,7 +60,7 @@ public class RetractBoulderCommand extends Command {
 		// Start reversing the intake some time after the shooter starts
 		// reversing
 		if (!retractStarted) {
-			if (timeSinceInitialized() > 2.0) {
+			if (timeSinceInitialized() > 0.5) {
 				System.out.println("1");
 				Robot.shooterSubsystem.resetIntakeEncoder();
 				System.out.println("2");

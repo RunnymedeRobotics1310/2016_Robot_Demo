@@ -14,8 +14,6 @@ public class AlignAndShootHighShotCommand extends CommandGroup {
 		addSequential(new RotateToAngleWithPIDCommand(period));
 		addSequential(new RetractBoulderCommand());
 		addSequential(new WindupCommand());
-		addSequential(new RotateToAngleWithPIDCommand(period));
-		addSequential(new WaitCommand(0.25));
 		addSequential(new ShootHighGoalCommand());
 	}
 }

@@ -22,7 +22,7 @@ public class WindupCommand extends Command {
 		// Low speed = 80rps - OI input = +1.0
 		// High speed = 95rps - OI input = -1.0
 
-		speedSetPointPercent = 0.1 * (-Robot.oi.getShootSpeed() + 1) + 0.8;
+		speedSetPointPercent = 0.1 * (-Robot.oi.getShootSpeed() + 1) + 0.75;
 
 		if (Robot.shooterSubsystem.isBoulderRetracted()) {
 			Robot.shooterSubsystem.setShooterSpeed(speedSetPointPercent);
@@ -33,7 +33,7 @@ public class WindupCommand extends Command {
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		speedSetPointPercent = 0.1 * (-Robot.oi.getShootSpeed() + 1) + 0.8;
+		speedSetPointPercent = 0.1 * (-Robot.oi.getShootSpeed() + 1) + 0.75;
 		Robot.shooterSubsystem.setShooterSpeed(speedSetPointPercent);
 	}
 

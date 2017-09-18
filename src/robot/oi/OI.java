@@ -1,16 +1,8 @@
 package robot.oi;
 
-import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import robot.Field.AutoMode;
-import robot.Field.Defense;
-import robot.Field.Goal;
-import robot.Field.Lane;
-import robot.Field.Slot;
-import robot.Field.Target;
 import robot.RobotMap;
-import robot.commands.auto.AutoCommand;
 import robot.utils.R_Extreme3DPro_GameController;
 import robot.utils.R_GameController;
 import robot.utils.R_GameController.Axis;
@@ -26,26 +18,37 @@ public class OI {
 		visionTable = NetworkTable.getTable("GRIP/TargetInfo");
 	}
 	
+	/** Drive things to fix: 
+	 * -Outer_Intake_Boulder: Intake goes too low/out of range. Doesn't stop after triggering sensor 
+	 * -Port over the rest of shooter functionality & bind to convenient buttons
+	 **/
 	public enum ButtonMap  {
-		//Driver Controls
-		OUTER_INTAKE_BOULDER(Button.LEFT_BUMPER),
-		EXTAKE_BOULDER(Button.B),
+		
+		//REMOTE 1
 		RESET_GYRO(Button.BACK),
 		CALIBRATE_GYRO(Button.START),
-		CANCEL_COMMAND(Button.X),
+		SHOOT_BOULDER(Button.B),
 		
-		//Operator Controls
-		SHOOT_BOULDER(Button.BUTTON1),
-		WIND_UP_SHOOTER(Button.BUTTON2),
+		// Intake Commands
+		OUTER_INTAKE_BOULDER(Button.LEFT_BUMPER),
+		EXTAKE_BOULDER(Button.RIGHT_BUMPER),
+		WIND_UP_SHOOTER(Button.A),
+		ROTATE_ARM_PICKUP_POS(Button.X),
+		ROTATE_ARM_UPPER_POS(Button.Y),
+
+		// cancels and unjams
+		CANCEL_COMMAND(Button.BACK),
+		
+		//REMOTE 2
+		
+
 		WIND_UP_BANK_SHOT(Button.BUTTON3),
 		AUTO_SHOT_ALIGN(Button.BUTTON4),
 		MANUAL_SHOT_ALIGN(Button.BUTTON5),
 		ARM_PID_OVERRIDE(Button.BUTTON6),
-		CLIMB(Button.BUTTON7),
-		SCISSOR_RELEASE(Button.BUTTON8),
-		ROTATE_ARM_PICKUP_POS(Button.BUTTON12),
-		ROTATE_ARM_DRIVE_POS(Button.BUTTON11),
-		ROTATE_ARM_UPPER_POS(Button.BUTTON10);
+		
+		ROTATE_ARM_DRIVE_POS(Button.BUTTON11);
+		
 		
 		private Button button;
 
@@ -93,9 +96,6 @@ public class OI {
 	private R_GameController driverStick = R_GameControllerFactory.getGameController(0);
 	private R_Extreme3DPro_GameController operatorStick = new R_Extreme3DPro_GameController(1);
 	
-	private boolean operatorStickPreviouslyCentered = false;
-	
-	private AutoChooser autoChooser = new AutoChooser();
 	
 	public boolean getAutoAlignShotButton() {
 		return operatorStick.getButton(ButtonMap.AUTO_SHOT_ALIGN.getButton());
@@ -139,11 +139,11 @@ public class OI {
 	}
 	
 	public boolean getBallStuckButton() {
-		return driverStick.getButton(Button.A);
+		return operatorStick.getButton(Button.A);
 	}
 	
 	public boolean getRotateArmLowPosButton() {
-		return operatorStick.getButton(ButtonMap.ROTATE_ARM_PICKUP_POS.getButton());
+		return driverStick.getButton(ButtonMap.ROTATE_ARM_PICKUP_POS.getButton());
 	}
 	
 	public boolean getRotateArmDrivePosButton() {
@@ -151,7 +151,7 @@ public class OI {
 	}
 	
 	public boolean getRotateArmUpperPosButton() {
-		return operatorStick.getButton(ButtonMap.ROTATE_ARM_UPPER_POS.getButton());
+		return driverStick.getButton(ButtonMap.ROTATE_ARM_UPPER_POS.getButton());
 	}
 	
 	public double getArmAngle() {
@@ -175,14 +175,6 @@ public class OI {
 	
 	public boolean getArmPIDOverride() {
 		return operatorStick.getButton(ButtonMap.ARM_PID_OVERRIDE.getButton());
-	}
-	
-	public boolean getClimbButton() {
-		return operatorStick.getButton(ButtonMap.CLIMB.getButton()); 
-	}
-	
-	public boolean getScissorReleaseButton() {
-		return operatorStick.getButton(ButtonMap.SCISSOR_RELEASE.getButton()); 
 	}
 	
 	public double getSpeed() {
@@ -224,43 +216,6 @@ public class OI {
 		return driverStick.getButton(ButtonMap.CALIBRATE_GYRO.getButton());
 	}
 	
-	public Command getAutoCommand() {
-		// Main Auto Mode
-		switch (autoChooser.getSelectedAutoCommand()) {
-		case "Do Nothing":
-			return null;
-		case "Drive and Shoot":
-			return new AutoCommand(getSlot(), getDefense(), getLane(), getTarget(), getGoal(), getAutoMode());
-		default:
-			return null;
-		}
-	}
-	
-	public Defense getDefense() {
-		return Defense.toEnum(autoChooser.getSelectedDefence());
-	}
-
-	public Slot getSlot() {
-		return Slot.toEnum(autoChooser.getSelectedSlot());
-	}
-	
-	public Lane getLane() {
-		return Lane.toEnum(autoChooser.getSelectedDistance());
-	}
-
-	public Goal getGoal() {
-		return Goal.toEnum(autoChooser.getSelectedGoal());
-	}
-	
-	public Target getTarget() {
-		return Target.toEnum(autoChooser.getSelectedTarget());
-	}
-	
-    public AutoMode getAutoMode(){
-    	return AutoMode.toEnum(autoChooser.getSelectedAutoMode());
-    }
-
-	
     public double getVisionTargetCenter() {
     	double [] xValues = visionTable.getNumberArray("centerX", new double [0]);
     	if (xValues.length != 1) {
@@ -281,7 +236,6 @@ public class OI {
 	 */
 	public void periodic() {
 		if (Math.abs(operatorStick.getAxis(Axis.X)) < 0.5) {
-			operatorStickPreviouslyCentered = true;
 		}
 	}
 

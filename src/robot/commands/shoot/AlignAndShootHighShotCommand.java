@@ -1,7 +1,6 @@
 package robot.commands.shoot;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
-import robot.commands.auto.base.WaitCommand;
 import robot.commands.drive.MatchPeriod;
 import robot.commands.drive.RotateToAngleWithPIDCommand;
 

@@ -11,7 +11,6 @@ import robot.pids.GoStraightPID;
 import robot.pids.RotateToAnglePID;
 import robot.subsystems.ArmSubsystem;
 import robot.subsystems.ChassisSubsystem;
-import robot.subsystems.ClimberSubsystem;
 import robot.subsystems.ShooterSubsystem;
 import robot.utils.R_Subsystem;
 
@@ -40,7 +39,6 @@ public class Robot extends IterativeRobot {
 	public static final ChassisSubsystem chassisSubsystem = new ChassisSubsystem();
 	public static final ShooterSubsystem shooterSubsystem = new ShooterSubsystem();
 	public static final ArmSubsystem armSubsystem = new ArmSubsystem();
-	public static final ClimberSubsystem climberSubsystem = new ClimberSubsystem();
 
 	public static OI oi;
 
@@ -50,7 +48,6 @@ public class Robot extends IterativeRobot {
 
 	public void autonomousInit() {
 
-		autonomousCommand = oi.getAutoCommand();
 
 		chassisSubsystem.resetGyroHeading();
 

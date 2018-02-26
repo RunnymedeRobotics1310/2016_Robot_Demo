@@ -1,6 +1,5 @@
 package robot.oi;
 
-import edu.wpi.first.wpilibj.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import robot.RobotMap;
 import robot.utils.R_Extreme3DPro_GameController;
@@ -11,11 +10,9 @@ import robot.utils.R_GameController.Stick;
 import robot.utils.R_GameController.Trigger;
 import robot.utils.R_GameControllerFactory;
 
-public class OI {	
-	private NetworkTable visionTable;
+public class OI {
 	
 	public OI() {
-		visionTable = NetworkTable.getTable("GRIP/TargetInfo");
 	}
 	
 	/** Drive things to fix: 
@@ -33,9 +30,6 @@ public class OI {
 		OUTER_INTAKE_BOULDER(Button.LEFT_BUMPER),
 		EXTAKE_BOULDER(Button.RIGHT_BUMPER),
 		WIND_UP_SHOOTER(Button.A),
-		ROTATE_ARM_PICKUP_POS(Button.X),
-		ROTATE_ARM_UPPER_POS(Button.Y),
-
 		// cancels and unjams
 		CANCEL_COMMAND(Button.BACK),
 		
@@ -131,47 +125,20 @@ public class OI {
 	}
 	
 	public boolean getWindUpShooterButton() {
-		return operatorStick.getButton(ButtonMap.WIND_UP_SHOOTER.getButton());
+		return driverStick.getButton(ButtonMap.WIND_UP_SHOOTER.getButton());
 	}
 	
 	public boolean getShootButton() {
-		return operatorStick.getButton(ButtonMap.SHOOT_BOULDER.getButton());
+		return driverStick.getButton(ButtonMap.SHOOT_BOULDER.getButton());
 	}
 	
 	public boolean getBallStuckButton() {
 		return operatorStick.getButton(Button.A);
 	}
 	
-	public boolean getRotateArmLowPosButton() {
-		return driverStick.getButton(ButtonMap.ROTATE_ARM_PICKUP_POS.getButton());
-	}
-	
 	public boolean getRotateArmDrivePosButton() {
 		return operatorStick.getButton(ButtonMap.ROTATE_ARM_DRIVE_POS.getButton());
 	}
-	
-	public boolean getRotateArmUpperPosButton() {
-		return driverStick.getButton(ButtonMap.ROTATE_ARM_UPPER_POS.getButton());
-	}
-	
-	public double getArmAngle() {
-		if (getRotateArmLowPosButton()) {
-			return RobotMap.ArmLevel.LOW_LEVEL.angle;
-		}
-		if (getRotateArmDrivePosButton()) {
-			return RobotMap.ArmLevel.DRIVE_LEVEL.angle;
-		}
-		if(getRotateArmUpperPosButton()) {
-			return RobotMap.ArmLevel.UPPER_LIMIT.angle;
-		}
-
-		return -1.0;
-	}
-	
-	public double getArmSpeed() {
-		return operatorStick.getAxis(Axis.Y) * operatorStick.getAxis(Axis.Y) * operatorStick.getAxis(Axis.Y);
-	}
-
 	
 	public boolean getArmPIDOverride() {
 		return operatorStick.getButton(ButtonMap.ARM_PID_OVERRIDE.getButton());
@@ -215,14 +182,6 @@ public class OI {
 	public boolean getGyroCalibrate() {
 		return driverStick.getButton(ButtonMap.CALIBRATE_GYRO.getButton());
 	}
-	
-    public double getVisionTargetCenter() {
-    	double [] xValues = visionTable.getNumberArray("centerX", new double [0]);
-    	if (xValues.length != 1) {
-    		return RobotMap.NO_VISION_TARGET;
-    	}
-    	return xValues[0];
-    }
      
    
     public double getJoystickTargetCenter() {
@@ -245,8 +204,6 @@ public class OI {
 	public void updateDashboard() {
 		SmartDashboard.putString("Driver Controllers", driverStick.toString());
 		SmartDashboard.putString("Operator Controllers", operatorStick.toString());
-		SmartDashboard.putNumber("Vision Target Center", getVisionTargetCenter());
-		SmartDashboard.putBoolean("Target Lock", (getVisionTargetCenter() != RobotMap.NO_VISION_TARGET));
 		SmartDashboard.putNumber("X-Operator", operatorStick.getAxis(Axis.X));
 	}
 	

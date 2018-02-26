@@ -137,11 +137,11 @@ public class RobotMap {
     	FRONT_ULTRASONIC		  (3),
     	
     	// Digital Ports
-    	SHOOTER_SPEED_ENCODER     (6),
+    	SHOOTER_SPEED_ENCODER     (9),
     	LEFT_PROXIMITY_SENSOR     (7),
-    	RIGHT_PROXIMITY_SENSOR    (8),
-    	UPPER_PROXIMITY_SENSOR    (9),
-    	BOULDER_PROXIMITY_SENSOR  (10),
+    	RIGHT_PROXIMITY_SENSOR    (6),
+    	UPPER_PROXIMITY_SENSOR    (10),
+    	BOULDER_PROXIMITY_SENSOR  (8),
     	ARM_LOWER_LIMIT           (12),
     	ARM_UPPER_LIMIT           (11);
     	

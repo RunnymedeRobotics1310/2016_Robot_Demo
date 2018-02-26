@@ -5,8 +5,6 @@ import edu.wpi.first.wpilibj.PIDOutput;
 import edu.wpi.first.wpilibj.PIDSource;
 import edu.wpi.first.wpilibj.PIDSourceType;
 import edu.wpi.first.wpilibj.livewindow.LiveWindowSendable;
-import edu.wpi.first.wpilibj.tables.ITable;
-import edu.wpi.first.wpilibj.tables.ITableListener;
 
 /**
  * This class implements a PID Control Loop.
@@ -14,6 +12,7 @@ import edu.wpi.first.wpilibj.tables.ITableListener;
  * Creates a separate thread which reads the given PIDSource and takes care of
  * the integral calculations, as well as writing the given PIDOutput.
  */
+@SuppressWarnings("deprecation")
 public class R_PIDController implements PIDInterface, LiveWindowSendable {
 
 	public static final double kDefaultPeriod = .05;
@@ -124,11 +123,7 @@ public class R_PIDController implements PIDInterface, LiveWindowSendable {
 			}
 
 		}
-		
-		if (table != null) {
-			table.putNumber("error", getError());
-			table.putNumber("output", Math.round(get()*1000.0)/1000.0);
-		}
+	
 
 	}
 
@@ -145,11 +140,7 @@ public class R_PIDController implements PIDInterface, LiveWindowSendable {
 		m_I = i;
 		m_D = d;
 
-		if (table != null) {
-			table.putNumber("p", p);
-			table.putNumber("i", i);
-			table.putNumber("d", d);
-		}
+
 	}
 
 	/**
@@ -167,12 +158,6 @@ public class R_PIDController implements PIDInterface, LiveWindowSendable {
 		m_D = d;
 		m_F = f;
 
-		if (table != null) {
-			table.putNumber("p", p);
-			table.putNumber("i", i);
-			table.putNumber("d", d);
-			table.putNumber("f", f);
-		}
 	}
 
 	/**
@@ -240,8 +225,6 @@ public class R_PIDController implements PIDInterface, LiveWindowSendable {
 			m_setpoint = setpoint;
 		}
 
-		if (table != null)
-			table.putNumber("setpoint", m_setpoint);
 	}
 
 	/**
@@ -288,9 +271,6 @@ public class R_PIDController implements PIDInterface, LiveWindowSendable {
 	public synchronized void enable() {
 		m_enabled = true;
 
-		if (table != null) {
-			table.putBoolean("enabled", true);
-		}
 	}
 
 	/**
@@ -300,9 +280,6 @@ public class R_PIDController implements PIDInterface, LiveWindowSendable {
 	public synchronized void disable() {
 		m_enabled = false;
 
-		if (table != null) {
-			table.putBoolean("enabled", false);
-		}
 	}
 
 	/**
@@ -332,60 +309,11 @@ public class R_PIDController implements PIDInterface, LiveWindowSendable {
 		m_result = 0;
 	}
 
-	@Override
-	public String getSmartDashboardType() {
-		return "PIDController";
-	}
-
-	private final ITableListener listener = new ITableListener() {
-		@Override
-		public void valueChanged(ITable table, String key, Object value, boolean isNew) {
-			if (key.equals("p") || key.equals("i") || key.equals("d") || key.equals("f")) {
-				if (getP() != table.getNumber("p", 0.0) || getI() != table.getNumber("i", 0.0)
-						|| getD() != table.getNumber("d", 0.0) || getF() != table.getNumber("f", 0.0))
-					setPID(table.getNumber("p", 0.0), table.getNumber("i", 0.0), table.getNumber("d", 0.0),
-							table.getNumber("f", 0.0));
-			} else if (key.equals("setpoint")) {
-				if (getSetpoint() != ((Double) value).doubleValue())
-					setSetpoint(((Double) value).doubleValue());
-			} else if (key.equals("enabled")) {
-				if (isEnabled() != ((Boolean) value).booleanValue()) {
-					if (((Boolean) value).booleanValue()) {
-						enable();
-					} else {
-						disable();
-					}
-				}
-			}
-		}
-	};
-	private ITable table;
-
-	@Override
-	public void initTable(ITable table) {
-		if (this.table != null)
-			this.table.removeTableListener(listener);
-		this.table = table;
-		if (table != null) {
-			table.putNumber("p", getP());
-			table.putNumber("i", getI());
-			table.putNumber("d", getD());
-			table.putNumber("f", getF());
-			table.putNumber("setpoint", getSetpoint());
-			table.putBoolean("enabled", isEnabled());
-			table.putNumber("error", getError());
-			table.putNumber("output", Math.round(get()*1000.0)/1000.0);
-			table.addTableListener(listener, false);
-		}
-	}
 
 	/**
 	 * {@inheritDoc}
 	 */
-	@Override
-	public ITable getTable() {
-		return table;
-	}
+
 
 	/**
 	 * {@inheritDoc}

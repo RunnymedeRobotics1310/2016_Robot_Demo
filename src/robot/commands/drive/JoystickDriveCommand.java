@@ -73,8 +73,8 @@ public class JoystickDriveCommand extends Command {
 		 * PivotToAngleCommand(angle)); return; }
 		 */
 
-		double targetCenterX = Robot.oi.getVisionTargetCenter();
 
+		double targetCenterX = 0;
 		if (Robot.oi.getAutoAlignShotButton() && targetCenterX != RobotMap.NO_VISION_TARGET) {
 			Scheduler.getInstance().add(new AlignAndShootHighShotCommand(MatchPeriod.TELEOP));
 			return;

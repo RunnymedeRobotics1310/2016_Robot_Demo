@@ -25,17 +25,7 @@ public class JoystickArmCommand extends Command {
     	if (Robot.oi.getCancel()){
     		Scheduler.getInstance().add(new ArmIntakeReverseCommand());
     	}
-    	
-    	if (Robot.oi.getArmPIDOverride()) {
-    		Robot.armSubsystem.disableArmPID();
-        	Robot.armSubsystem.setArmSpeed(Robot.oi.getArmSpeed());
-    	}
-    	
-    	else {
-	    	if (Robot.oi.getArmAngle() >= 0.0) {
-	    		Robot.armSubsystem.setArmAngle(Robot.oi.getArmAngle());
-	    	}
-    	}
+   
     	
     	/* Look for the Portcullis command
     	if (Robot.oi.getPortcullisOpenButton()) {

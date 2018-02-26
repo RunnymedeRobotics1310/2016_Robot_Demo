@@ -10,6 +10,7 @@ import robot.utils.R_GameController.Stick;
 import robot.utils.R_GameController.Trigger;
 import robot.utils.R_GameControllerFactory;
 
+@SuppressWarnings("unused")
 public class OI {
 	
 	public OI() {

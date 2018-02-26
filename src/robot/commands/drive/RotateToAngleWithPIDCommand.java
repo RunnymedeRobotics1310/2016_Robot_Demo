@@ -11,6 +11,7 @@ import robot.pids.RotateToAnglePID;
  * rotate the robot until the vision target is at the center of the camera's
  * FOV.
  */
+@SuppressWarnings("unused")
 public class RotateToAngleWithPIDCommand extends Command {
 
 	double angleSetpoint;
@@ -26,38 +27,6 @@ public class RotateToAngleWithPIDCommand extends Command {
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
-		
-		if (period == MatchPeriod.TELEOP) {
-			this.targetingMode = Robot.oi.getVisionTargetCenter() == RobotMap.NO_VISION_TARGET ? TargetingMode.JOYSTICK : TargetingMode.VISION;	
-		} else {
-			this.targetingMode = Robot.oi.getVisionTargetCenter() == RobotMap.NO_VISION_TARGET ? TargetingMode.AUTO : TargetingMode.VISION;
-		}
-		double pixelDifference;
-		
-		
-		switch (targetingMode) {
-		case AUTO:
-			return;
-		case JOYSTICK:
-			pixelDifference = Robot.oi.getJoystickTargetCenter() - 102.0;
-			break;
-		case VISION:
-			pixelDifference = Robot.oi.getVisionTargetCenter() - 102.0;
-			break;
-		default:
-			pixelDifference = 0.0;
-		}
-		
-		double angleDifference = pixelDifference * RobotMap.DEGREES_PER_PIXEL;
-
-		this.angleSetpoint = Robot.chassisSubsystem.getCurrentAngle() + angleDifference;
-
-		System.out.println("Target Locking - " + "Current Angle: " + Robot.chassisSubsystem.getCurrentAngle()
-				+ " Pixel Difference: " + pixelDifference + " Angle Difference: " + angleDifference);
-
-		RotateToAnglePID.setEnabled(false);
-		RotateToAnglePID.setSetpoint(angleSetpoint);
-		Robot.chassisSubsystem.startAutoTargeting();
 	}
 
 	// Called repeatedly when this Command is scheduled to run

@@ -74,10 +74,12 @@ public class ShooterSubsystem extends R_Subsystem {
 
 	public double getShooterSpeed() {
 		
-		// The shooter speed cannot be greater than 100 so if a reading is more than 
-		// 100 more than the previous reading then ignore the reading.  There are 
-		// occasional spikes in the shooter speed feedback that cause a very high
-		// reading (> 1000).
+	 /**The shooter speed cannot be greater than 100 so if a reading is more than 
+	  * 100 more than the previous reading then ignore the reading.  There are 
+	  * occasional spikes in the shooter speed feedback that cause a very high
+	  * reading (> 1000).
+	  **/
+		
 		double shooterSpeed = shooterSpeedEncoder.getRate();
 		if (Math.abs(shooterSpeed) > 120) {
 			return prevShooterSpeed;
@@ -87,8 +89,7 @@ public class ShooterSubsystem extends R_Subsystem {
 	}
 
 	public void init() {
-		// Initialize the shooter speed controller to count
-		// rpms. One count = 1 rpm.
+		// Initialize the shooter speed controller to count rpms. One count = 1 rpm.
 		shooterSpeedEncoder.setDistancePerPulse(1.0);
 	}
 

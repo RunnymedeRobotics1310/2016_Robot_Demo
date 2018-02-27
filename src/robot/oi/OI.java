@@ -16,32 +16,35 @@ public class OI {
 	public OI() {
 	}
 	
-	/** Drive things to fix: 
-	 * -Outer_Intake_Boulder: Intake goes too low/out of range. Doesn't stop after triggering sensor 
-	 * -Port over the rest of shooter functionality & bind to convenient buttons
-	 **/
+	
 	public enum ButtonMap  {
-		
+
 		//REMOTE 1
+	/** Working controls as of FLL Ontario Innovation Celebration:
+	 * Left & Right stick: Drive
+	 * Back: Resets the gyro (unplugged)
+	 * Start: Calibrates the gyro (unplugged)
+	 * Left Bumper: Fully intake the ball
+	 * Right Bumper: Low goal (outtake) the boulder
+	 * Y: Cancels the current command & unjams a stuck ball
+	 * A: Spins up the shooter & raises the hood
+	 * B: Launches the boulder
+	 * Left Trigger: Inner intake, usually done automatically
+	 * Right Trigger: Shifts high/low gear
+	 **/
 		RESET_GYRO(Button.BACK),
 		CALIBRATE_GYRO(Button.START),
 		SHOOT_BOULDER(Button.B),
-		
-		// Intake Commands
 		OUTER_INTAKE_BOULDER(Button.LEFT_BUMPER),
 		EXTAKE_BOULDER(Button.RIGHT_BUMPER),
 		WIND_UP_SHOOTER(Button.A),
-		// cancels and unjams
-		CANCEL_COMMAND(Button.BACK),
+		CANCEL_COMMAND(Button.Y),
 		
-		//REMOTE 2
-		
-
+		//REMOTE 2 - Unused
 		WIND_UP_BANK_SHOT(Button.BUTTON3),
 		AUTO_SHOT_ALIGN(Button.BUTTON4),
 		MANUAL_SHOT_ALIGN(Button.BUTTON5),
 		ARM_PID_OVERRIDE(Button.BUTTON6),
-		
 		ROTATE_ARM_DRIVE_POS(Button.BUTTON11);
 		
 		
@@ -58,7 +61,7 @@ public class OI {
 	
 	public enum TriggerMap {
 		
-		//Driver Controls
+
 		INNER_INTAKE_BOULDER(Trigger.LEFT), SHIFT_GEARS(Trigger.RIGHT);
 		
 		private Trigger trigger;
